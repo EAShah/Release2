@@ -48,10 +48,14 @@ namespace Release2.Models
 
     public class LoginViewModel
     {
+        //[Required]
+        //[Display(Name = "Email")]
+        //[EmailAddress]
+        //public string Email { get; set; }
+
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -64,6 +68,10 @@ namespace Release2.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -108,5 +116,9 @@ namespace Release2.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
     }
 }
