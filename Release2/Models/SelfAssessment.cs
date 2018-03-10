@@ -24,7 +24,7 @@ namespace Project._1.Models
 
         // Declaring attributes of the SelfAssessment table as properties.
         [Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AssessmentId { get; set; }
 
         [StringLength(250)]

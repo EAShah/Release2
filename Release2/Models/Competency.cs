@@ -23,7 +23,7 @@ namespace Project._1.Models
         }
 
         // Declaring attributes of the Competency table as properties.
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CompetencyId { get; set; }
 
         [StringLength(30)]

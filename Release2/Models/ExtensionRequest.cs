@@ -24,7 +24,7 @@ namespace Project._1.Models
 
         // Declaring attributes of the ExtensionRequest table as properties.
         [Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ExtRequestId { get; set; }
 
         public int? ExtNumber { get; set; }

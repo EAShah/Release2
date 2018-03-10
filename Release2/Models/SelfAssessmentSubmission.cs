@@ -23,17 +23,17 @@ namespace Project._1.Models
         // Declaring attributes of the SelfAssessmentSubmission table as properties.
         [Key]
         [Column(Order = 0)]
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AssessmentId { get; set; }
 
         [Key]
         [Column(Order = 1)]
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PCID { get; set; }
 
         [Key]
         [Column(Order = 2)]
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ReviewId { get; set; }
 
         public virtual ProbationaryColleague ProbationaryColleague { get; set; }

@@ -18,7 +18,7 @@ namespace Project._1.Models
     public partial class Assignment
     {
         // Declaring attributes of the Assignment table as properties.
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AssignmentId { get; set; }
 
         [Column(TypeName = "date")]

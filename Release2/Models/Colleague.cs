@@ -33,7 +33,7 @@ namespace Project._1.Models
         }
 
         // Declaring attributes of the Colleague table as properties.
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         //public int ColleagueID { get; set; }
 
         //[StringLength(20)]

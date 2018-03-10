@@ -22,12 +22,12 @@ namespace Project._1.Models
 
         [Key]
         [Column(Order = 0)]
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CompetencyId { get; set; }
 
         [Key]
         [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ReviewId { get; set; }
 
         public virtual Competency Competency { get; set; }
