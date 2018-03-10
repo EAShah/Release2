@@ -19,7 +19,7 @@ namespace Project._1.Models
     {
         // Declaring attributes of the Assignment table as properties.
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int AssignmentID { get; set; }
+        public int AssignmentId { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? AssignmentDate { get; set; }

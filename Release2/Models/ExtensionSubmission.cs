@@ -24,7 +24,7 @@ namespace Project._1.Models
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ColleagueID { get; set; }
+        public int ColleagueId { get; set; }
 
         [Key]
         [Column(Order = 1)]
@@ -34,7 +34,7 @@ namespace Project._1.Models
         [Key]
         [Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ExtRequestID { get; set; }
+        public int ExtRequestId { get; set; }
 
         public virtual Colleague LMSubmits { get; set; }
 

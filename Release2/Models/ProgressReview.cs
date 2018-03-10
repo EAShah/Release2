@@ -27,7 +27,7 @@ namespace Project._1.Models
         // Declaring attributes of the ProgressReview table as properties.
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ReviewID { get; set; }
+        public int ReviewId { get; set; }
 
         public int? TotalGrade { get; set; }
 

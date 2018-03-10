@@ -29,7 +29,7 @@ namespace Project._1.Models
         // Declaring attributes of the ProbationaryColleague table as properties.
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ColleagueID { get; set; }
+        public int ColleagueId { get; set; }
 
         public int? ProbationID { get; set; }
 

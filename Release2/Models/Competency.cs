@@ -25,7 +25,7 @@ namespace Project._1.Models
 
         // Declaring attributes of the Competency table as properties.
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int CompetencyID { get; set; }
+        public int CompetencyId { get; set; }
 
         [StringLength(30)]
         public string CompetencyName { get; set; }

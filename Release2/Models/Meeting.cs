@@ -25,7 +25,7 @@ namespace Project._1.Models
 
         // Declaring attributes of the Meeting table as properties.
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int MeetingID { get; set; }
+        public int MeetingId { get; set; }
 
         public DateTime? ScheduledDateTime { get; set; }
 

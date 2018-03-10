@@ -24,7 +24,7 @@ namespace Project._1.Models
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int AssessmentID { get; set; }
+        public int AssessmentId { get; set; }
 
         [Key]
         [Column(Order = 1)]
@@ -34,7 +34,7 @@ namespace Project._1.Models
         [Key]
         [Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ReviewID { get; set; }
+        public int ReviewId { get; set; }
 
         public virtual ProbationaryColleague ProbationaryColleague { get; set; }
 
