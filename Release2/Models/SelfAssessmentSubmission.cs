@@ -23,12 +23,12 @@ namespace Project._1.Models
         // Declaring attributes of the SelfAssessmentSubmission table as properties.
         [Key]
         [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int AssessmentId { get; set; }
 
         [Key]
         [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int PCID { get; set; }
 
         [Key]

@@ -23,17 +23,18 @@ namespace Project._1.Models
 
         [Key]
         [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        // Check if it is none or computed, cant be identity because it gives error while running: cant have multiple identity columns
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ColleagueId { get; set; }
 
         [Key]
         [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int PCID { get; set; }
 
         [Key]
         [Column(Order = 2)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ExtRequestId { get; set; }
 
         public virtual Colleague LMSubmits { get; set; }
