@@ -22,7 +22,7 @@ namespace Project._1.Models
 
         [Key]
         [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CompetencyId { get; set; }
 
         [Key]

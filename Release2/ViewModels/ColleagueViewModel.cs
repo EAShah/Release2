@@ -36,10 +36,6 @@ namespace Release2.ViewModels
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        //[Required]
-        //[StringLength(256)]
-        //public string UserName { get; set; }
-
         [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
@@ -49,12 +45,14 @@ namespace Release2.ViewModels
         public string LastName { get; set; }
 
         [Required]
-        public ColleagueType? ColleagueType { get; set; }
+        [Display(Name ="Colleague Type")]
+        public ColleagueType ColleagueType { get; set; }
 
         [Required]
-        public EmploymentType? EmploymentType { get; set; }
+        [Display(Name ="Employee Type")]
+        public EmploymentType EmploymentType { get; set; }
 
-        public int? DepartmentId { get; set; }
+        public int DepartmentId { get; set; }
         public string Department { get; set; }
 
 

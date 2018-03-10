@@ -18,7 +18,6 @@ namespace Project._1.Models
     [Table("Colleague")]
     public partial class Colleague: ApplicationUser
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Colleague()
         {
             CreatedAssignments = new HashSet<Assignment>();
@@ -34,7 +33,7 @@ namespace Project._1.Models
         }
 
         // Declaring attributes of the Colleague table as properties.
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         //public int ColleagueID { get; set; }
 
         //[StringLength(20)]
@@ -54,7 +53,7 @@ namespace Project._1.Models
         public DateTime? DOB { get; set; }
 
         [Required]
-        public EmploymentType? EmploymentType { get; set; }
+        public EmploymentType EmploymentType { get; set; }
 
         [StringLength(50)]
         public string Position { get; set; }
@@ -78,43 +77,33 @@ namespace Project._1.Models
         public string HomeNumber { get; set; }
 
         [Required]
-        public ColleagueType? ColleagueType { get; set; }
+        public ColleagueType ColleagueType { get; set; }
 
-        public int? DepartmentId { get; set; }
+        public int DepartmentId { get; set; }
         public virtual Department Department { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Assignment> CreatedAssignments { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Assignment> ReceivedAssignment { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Assignment> InspectionAssignment { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExtensionSubmission> ExtensionSubmissions { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExtensionRequest> ExtensionRequests { get; set; }
 
         public virtual ProbationaryColleague ProbationaryColleague { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProgressReview> ApprovedProgressReviews { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProgressReview> EvaluatedProgressReviews { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProgressReview> CreatedProgressReviews { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SelfAssessment> ApprovedSelfAssessments { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SelfAssessment> ReviewedSelfAssessments { get; set; }
-        public string UserName { get; internal set; }
+        //public string UserName { get; internal set; }
     }
 
     public enum Gender

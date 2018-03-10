@@ -17,7 +17,6 @@ namespace Project._1.Models
     [Table("SelfAssessment")]
     public partial class SelfAssessment
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SelfAssessment()
         {
             SelfAssessmentSubmissions = new HashSet<SelfAssessmentSubmission>();
@@ -25,7 +24,7 @@ namespace Project._1.Models
 
         // Declaring attributes of the SelfAssessment table as properties.
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int AssessmentId { get; set; }
 
         [StringLength(250)]
@@ -54,7 +53,6 @@ namespace Project._1.Models
 
         public virtual Colleague HRReviews { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SelfAssessmentSubmission> SelfAssessmentSubmissions { get; set; }
     }
 }

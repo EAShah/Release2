@@ -17,7 +17,6 @@ namespace Project._1.Models
     [Table("ExtensionRequest")]
     public partial class ExtensionRequest
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ExtensionRequest()
         {
             ExtensionSubmissions = new HashSet<ExtensionSubmission>();
@@ -25,7 +24,7 @@ namespace Project._1.Models
 
         // Declaring attributes of the ExtensionRequest table as properties.
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ExtRequestId { get; set; }
 
         public int? ExtNumber { get; set; }
@@ -42,7 +41,6 @@ namespace Project._1.Models
 
         public virtual Colleague HRAudits { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExtensionSubmission> ExtensionSubmissions { get; set; }
     }
 }

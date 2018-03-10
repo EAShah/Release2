@@ -17,7 +17,6 @@ namespace Project._1.Models
     [Table("ProgressReview")]
     public partial class ProgressReview
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProgressReview()
         {
             PerformanceCriterions = new HashSet<PerformanceCriterion>();
@@ -26,7 +25,7 @@ namespace Project._1.Models
 
         // Declaring attributes of the ProgressReview table as properties.
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ReviewId { get; set; }
 
         public int? TotalGrade { get; set; }
@@ -67,12 +66,10 @@ namespace Project._1.Models
 
         //public virtual Meeting Meeting { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PerformanceCriterion> PerformanceCriterions { get; set; }
 
         public virtual ProbationaryColleague ProbationaryColleague { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SelfAssessmentSubmission> SelfAssessmentSubmissions { get; set; }
     }
 }

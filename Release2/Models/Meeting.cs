@@ -17,14 +17,13 @@ namespace Project._1.Models
     [Table("Meeting")]
     public partial class Meeting
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Meeting()
         {
             ProgressReviews = new ProgressReview();
         }
 
         // Declaring attributes of the Meeting table as properties.
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MeetingId { get; set; }
 
         public DateTime? ScheduledDateTime { get; set; }
@@ -37,7 +36,6 @@ namespace Project._1.Models
         [StringLength(100)]
         public string Venue { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ProgressReview ProgressReviews { get; set; }
     }
 }

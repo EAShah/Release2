@@ -17,20 +17,18 @@ namespace Project._1.Models
     [Table("Competency")]
     public partial class Competency
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Competency()
         {
             PerformanceCriterions = new HashSet<PerformanceCriterion>();
         }
 
         // Declaring attributes of the Competency table as properties.
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CompetencyId { get; set; }
 
         [StringLength(30)]
         public string CompetencyName { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PerformanceCriterion> PerformanceCriterions { get; set; }
     }
 }

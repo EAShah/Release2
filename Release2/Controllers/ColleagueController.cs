@@ -67,12 +67,13 @@ namespace Release2.Controllers
                 model.Add(new ColleagueViewModel
                 {
                     Id = user.Id,
+                    UserName = user.UserName,
                     Email = user.Email,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     ColleagueType = user.ColleagueType,
-                    Department = user.Department.DepartmentName,
                     EmploymentType = user.EmploymentType,
+                    Department = user.Department.DepartmentName,
                 });
             }
             return View(model);
@@ -112,6 +113,8 @@ namespace Release2.Controllers
         // GET: Colleague/Create
         public ActionResult Create()
         {
+            //NOTE: Add department list
+            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "DepartmentName");
             return View();
         }
 
@@ -141,9 +144,12 @@ namespace Release2.Controllers
                 }
                 else
                 {
+                    ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "DepartmentName");
                     return View();
                 }
             }
+
+            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "DepartmentName");
             return View();
         }
 
@@ -155,6 +161,7 @@ namespace Release2.Controllers
 
         // POST: Colleague/Edit/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try

@@ -17,7 +17,6 @@ namespace Project._1.Models
     [Table("Department")]
     public partial class Department
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Department()
         {
             Colleagues = new HashSet<Colleague>();
@@ -30,7 +29,6 @@ namespace Project._1.Models
         [StringLength(30)]
         public string DepartmentName { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Colleague> Colleagues { get; set; }
     }
 }

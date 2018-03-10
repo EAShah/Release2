@@ -166,8 +166,6 @@ namespace Release2.Models
                 .WithRequired(e => e.SelfAssessment)
                 .WillCascadeOnDelete(false);
         }
-
-        public System.Data.Entity.DbSet<Release2.ViewModels.ColleagueViewModel> ColleagueViewModels { get; set; }
     }
     public class CustomUserRole : IdentityUserRole<int> { }
     public class CustomUserClaim : IdentityUserClaim<int> { }

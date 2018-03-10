@@ -17,7 +17,6 @@ namespace Project._1.Models
     [Table("ProbationaryColleague")]
     public partial class ProbationaryColleague
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProbationaryColleague()
         {
             Assignments = new HashSet<Assignment>();
@@ -28,7 +27,7 @@ namespace Project._1.Models
 
         // Declaring attributes of the ProbationaryColleague table as properties.
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ColleagueId { get; set; }
 
         public int? ProbationID { get; set; }
@@ -48,18 +47,14 @@ namespace Project._1.Models
         [Column(TypeName = "date")]
         public DateTime? LeaveDate { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Assignment> Assignments { get; set; }
 
         public virtual Colleague Colleague { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExtensionSubmission> ExtensionSubmissions { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProgressReview> ProgressReviews { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SelfAssessmentSubmission> SelfAssessmentSubmissions { get; set; }
     }
 }
