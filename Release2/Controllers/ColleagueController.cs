@@ -74,6 +74,7 @@ namespace Release2.Controllers
                     ColleagueType = user.ColleagueType,
                     EmploymentType = user.EmploymentType,
                     Department = user.Department.DepartmentName,
+                    ColleagueRegion = user.ColleagueRegion
                 });
             }
             return View(model);
@@ -99,6 +100,7 @@ namespace Release2.Controllers
                     ColleagueType = colleague.ColleagueType,
                     Department = colleague.Department.DepartmentName,
                     EmploymentType = colleague.EmploymentType,
+                    ColleagueRegion = colleague.ColleagueRegion
                 };
 
                 return View(model);
@@ -134,6 +136,7 @@ namespace Release2.Controllers
                     ColleagueType = model.ColleagueType,
                     DepartmentId = model.DepartmentId,
                     EmploymentType = model.EmploymentType,
+                    ColleagueRegion = model.ColleagueRegion
                 };
 
                 var result = UserManager.Create(colleague, model.Password);
@@ -156,46 +159,118 @@ namespace Release2.Controllers
         // GET: Colleague/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var colleague = (Colleague)UserManager.FindById(id);
+            if (colleague == null)
+            {
+                return View("Error");
+            }
+
+            ColleagueViewModel model = new ColleagueViewModel
+            {
+                Id = colleague.Id,
+                Email = colleague.Email,
+                FirstName = colleague.FirstName,
+                LastName = colleague.LastName,
+                ColleagueType = colleague.ColleagueType,
+                DepartmentId = colleague.DepartmentId,
+                EmploymentType = colleague.EmploymentType,
+                ColleagueRegion = colleague.ColleagueRegion
+            };
+
+            // Prepare the dropdown list
+            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", colleague.DepartmentId);
+            return View(model);
         }
 
         // POST: Colleague/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, ColleagueViewModel model)
         {
-            try
-            {
-                // TODO: Add update logic here
+            
+                ModelState.Remove("Password");
+                ModelState.Remove("Confirm Password");
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+                if (ModelState.IsValid)
+                {
+                    var colleague = (Colleague)UserManager.FindById(id);
+                    if (colleague == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    // Edit colleague information
+                    colleague.UserName = model.UserName;
+                    colleague.Email = model.Email;
+                    colleague.FirstName = model.FirstName;
+                    colleague.LastName = model.LastName;
+                    colleague.ColleagueType = model.ColleagueType;
+                    colleague.DepartmentId = model.DepartmentId;
+                    colleague.EmploymentType = model.EmploymentType;
+                    colleague.ColleagueRegion = model.ColleagueRegion;
+
+                    var userResult = UserManager.Update(colleague);
+
+                    if (userResult.Succeeded)
+                    { 
+                        return RedirectToAction("Index");
+                    }
+                }
+
+            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "DepartmentName");
+            return View();
         }
 
         // GET: Colleague/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var colleague = (Colleague)UserManager.FindById(id);
+            if (colleague == null)
+            {
+                return HttpNotFound();
+            }
+
+            ColleagueViewModel model = new ColleagueViewModel
+            {
+                Id = colleague.Id,
+                Email = colleague.Email,
+                FirstName = colleague.FirstName,
+                LastName = colleague.LastName,
+                ColleagueType = colleague.ColleagueType,
+                Department = colleague.Department.DepartmentName,
+                EmploymentType = colleague.EmploymentType,
+                ColleagueRegion = colleague.ColleagueRegion
+            };
+
+            return View(model);
         }
 
         // POST: Colleague/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            //try
+            //{
+                ModelState.Remove("Password");
+                ModelState.Remove("ConfirmPassword");
 
+                if (ModelState.IsValid)
+                {
+                    var user = UserManager.FindById(id);
+                    if (user == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    var result = UserManager.Delete(user);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+                
                 return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

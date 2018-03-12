@@ -52,6 +52,10 @@ namespace Release2.ViewModels
         [Display(Name ="Employee Type")]
         public EmploymentType EmploymentType { get; set; }
 
+        [Required]
+        [Display(Name = "Region")]
+        public ColleagueRegion ColleagueRegion { get; set; }
+
         public int DepartmentId { get; set; }
         public string Department { get; set; }
 

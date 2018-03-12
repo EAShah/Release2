@@ -220,6 +220,9 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ColleagueViewModel.cs" />
     <Compile Include="ViewModels\DepartmentViewModel.cs" />
+    <Compile Include="ViewModels\ExtensionRequestViewModel.cs" />
+    <Compile Include="ViewModels\ProgressReviewViewModel.cs" />
+    <Compile Include="ViewModels\SelfAssessmentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -275,13 +278,15 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Colleague\Index.cshtml" />
-    <Content Include="Views\Colleague\Create.cshtml" />
-    <Content Include="Views\Colleague\Details.cshtml" />
     <Content Include="Views\Department\Index.cshtml" />
     <Content Include="Views\Department\Create.cshtml" />
     <Content Include="Views\Department\Edit.cshtml" />
     <Content Include="Views\Department\Delete.cshtml" />
+    <Content Include="Views\Colleague\Index.cshtml" />
+    <Content Include="Views\Colleague\Create.cshtml" />
+    <Content Include="Views\Colleague\Edit.cshtml" />
+    <Content Include="Views\Colleague\Delete.cshtml" />
+    <Content Include="Views\Colleague\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -313,7 +318,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50204</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

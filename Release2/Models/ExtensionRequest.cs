@@ -27,7 +27,7 @@ namespace Project._1.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ExtRequestId { get; set; }
 
-        public int? ExtNumber { get; set; }
+        public ExtNumber ExtNumber { get; set; }
 
         [StringLength(100)]
         public string ExtReason { get; set; }
@@ -42,5 +42,26 @@ namespace Project._1.Models
         public virtual Colleague HRAudits { get; set; }
 
         public virtual ICollection<ExtensionSubmission> ExtensionSubmissions { get; set; }
+
+        public enum ExtNumber
+        {
+            [Display(Name = "1")]
+            One,
+
+            [Display(Name = "2")]
+            Two,
+
+            [Display(Name = "3")]
+            Three,
+
+            [Display(Name = "4")]
+            Four,
+
+            [Display(Name = "5")]
+            Five,
+
+            [Display(Name = "6")]
+            Six
+        }
     }
 }

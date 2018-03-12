@@ -79,6 +79,9 @@ namespace Project._1.Models
         [Required]
         public ColleagueType ColleagueType { get; set; }
 
+        [Required]
+        public ColleagueRegion ColleagueRegion { get; set; }
+
         public int DepartmentId { get; set; }
         public virtual Department Department { get; set; }
 
@@ -143,5 +146,18 @@ namespace Project._1.Models
 
         [Display(Name = "Probationary Colleague")]
         ProbationaryColleague
+    }
+
+    public enum ColleagueRegion
+    {
+        Jeddah,
+
+        Makkah,
+
+        Madinah,
+
+        Riyadh,
+
+        Dammam
     }
 }
