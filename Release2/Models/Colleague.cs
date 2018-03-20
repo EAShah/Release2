@@ -47,13 +47,19 @@ namespace Project._1.Models
         [StringLength(50)]
         public string LastName { get; set; }
 
-        public Gender? Gender { get; set; }
-
         [Column(TypeName = "date")]
         public DateTime? DOB { get; set; }
 
         [Required]
         public EmploymentType EmploymentType { get; set; }
+
+        [Required]
+        public ColleagueType ColleagueType { get; set; }
+
+        [Required]
+        public ColleagueRegion ColleagueRegion { get; set; }
+
+        public Gender Gender { get; set; }
 
         [StringLength(50)]
         public string Position { get; set; }
@@ -76,14 +82,10 @@ namespace Project._1.Models
         [StringLength(20)]
         public string HomeNumber { get; set; }
 
-        [Required]
-        public ColleagueType ColleagueType { get; set; }
-
-        [Required]
-        public ColleagueRegion ColleagueRegion { get; set; }
-
         public int DepartmentId { get; set; }
         public virtual Department Department { get; set; }
+
+        //public virtual ProbationaryColleague ProbationaryColleague { get; set; }
 
         public virtual ICollection<Assignment> CreatedAssignments { get; set; }
 
@@ -95,8 +97,6 @@ namespace Project._1.Models
 
         public virtual ICollection<ExtensionRequest> ExtensionRequests { get; set; }
 
-        public virtual ProbationaryColleague ProbationaryColleague { get; set; }
-
         public virtual ICollection<ProgressReview> ApprovedProgressReviews { get; set; }
 
         public virtual ICollection<ProgressReview> EvaluatedProgressReviews { get; set; }
@@ -106,18 +106,12 @@ namespace Project._1.Models
         public virtual ICollection<SelfAssessment> ApprovedSelfAssessments { get; set; }
 
         public virtual ICollection<SelfAssessment> ReviewedSelfAssessments { get; set; }
-        //public string UserName { get; internal set; }
     }
 
     public enum Gender
     {
-       // Female,
-       // when its just one word no need for display. But display is for displaying the property so keep/ or remove as please.
-
-        [Display(Name = "Female")]
         Female,
 
-        [Display(Name ="Male")]
         Male
     }
 

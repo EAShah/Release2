@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Project._1.Models;
 using Release2.Models;
+using Release2.ViewModels;
 
 namespace Release2.App_Start
     {
@@ -16,8 +18,8 @@ namespace Release2.App_Start
             {
                 AutoMapper.Mapper.Initialize(cfg =>
                 {
-                    //cfg.CreateMap<Employee, EmployeeViewModel>().ReverseMap();
-                    //cfg.CreateMap<Faculty, FacultyViewModel>().ReverseMap();
+                    cfg.CreateMap<Colleague, ColleagueViewModel>().ReverseMap();
+                    cfg.CreateMap<ProbationaryColleague, ProbationaryColleagueViewModel>().ReverseMap();
                 });
             }
         }

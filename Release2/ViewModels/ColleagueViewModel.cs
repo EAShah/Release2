@@ -19,7 +19,6 @@ namespace Release2.ViewModels
         [Display(Name = "User Name")]
         public string UserName { get; set; }
 
-
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -59,11 +58,8 @@ namespace Release2.ViewModels
         public int DepartmentId { get; set; }
         public string Department { get; set; }
 
+        // To display a list of roles
+        public string Roles { get; set; }
 
-        // call the enum --
-        // enter in the view model --
-        // enter in the controller --
-        // add view in the controllers
-        // run anf find errors
     }
 }

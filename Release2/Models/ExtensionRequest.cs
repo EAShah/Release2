@@ -27,12 +27,12 @@ namespace Project._1.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ExtRequestId { get; set; }
 
-        public ExtNumber ExtNumber { get; set; }
+        public ExtNumbers ExtNumber { get; set; }
 
         [StringLength(100)]
         public string ExtReason { get; set; }
 
-        public int? ExtRequestStatus { get; set; }
+        public RequestStatus ExtRequestStatus { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? ExtRequestAuditDate { get; set; }
@@ -43,7 +43,17 @@ namespace Project._1.Models
 
         public virtual ICollection<ExtensionSubmission> ExtensionSubmissions { get; set; }
 
-        public enum ExtNumber
+
+        public enum RequestStatus
+        {
+            Pending,
+
+            Approved,
+
+            Rejected
+        }
+
+        public enum ExtNumbers
         {
             [Display(Name = "1")]
             One,

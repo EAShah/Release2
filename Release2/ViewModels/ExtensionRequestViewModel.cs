@@ -10,14 +10,21 @@ namespace Release2.ViewModels
 
         [Required]
         [Display(Name = "Extension to month:")]
-        public ExtNumber ExtNumber { get; set; }
+        public ExtNumbers ExtNumber { get; set; }
 
         [Required]
         [Display(Name = "Reason for Extension")]
         public string ExtReason { get; set; }
 
+        [Display(Name = "Request Status")]
         public int? ExtRequestStatus { get; set; }
 
         public DateTime? ExtRequestAuditDate { get; set; }
+
+        // Include collection using lists not virtual
+        
+        //public  ProbationaryColleagueViewModel  { get; set; }
+
+        //public virtual ColleagueViewModel GetColleagueViewModel { get; set; }
     }
 }

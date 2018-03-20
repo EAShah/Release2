@@ -28,14 +28,42 @@ namespace Project._1.Models
 
         public DateTime? ScheduledDateTime { get; set; }
 
-        [StringLength(10)]
-        public string Rescheduled { get; set; }
+        public Boolean Rescheduled { get; set; }
 
-        public int? Duration { get; set; }
+        public DurationTimes Duration { get; set; }
 
         [StringLength(100)]
         public string Venue { get; set; }
 
         public virtual ProgressReview ProgressReviews { get; set; }
+
+
+        public enum DurationTimes
+        {
+            [Display(Name = "10 Minutes")]
+            Ten,
+
+            [Display(Name = "20 Minutes")]
+            Twenty,
+
+            [Display(Name = "30 Minutes")]
+            Thirty,
+
+            [Display(Name = "40 Minutes")]
+            Forty,
+
+            [Display(Name = "50 Minutes")]
+            Fifty,
+
+            [Display(Name = "1 Hour")]
+            Sixty,
+
+            [Display(Name = "1.5 Hours")]
+            Ninety,
+
+            [Display(Name = "2 Hours")]
+            OneTwenty
+
+        }
     }
 }

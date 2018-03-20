@@ -33,7 +33,7 @@ namespace Project._1.Models
 
         [Key]
         [Column(Order = 2)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ReviewId { get; set; }
 
         public virtual ProbationaryColleague ProbationaryColleague { get; set; }

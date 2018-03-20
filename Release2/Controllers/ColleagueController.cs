@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Release2.Models;
 using Microsoft.AspNet.Identity.Owin;
+using AutoMapper;
 
 namespace Release2.Controllers
 {    
@@ -54,7 +55,7 @@ namespace Release2.Controllers
             }
         }
 
-        public object UserManeger { get; private set; }
+        //public object UserManeger { get; private set; }
 
 
         // GET: Colleague
@@ -64,18 +65,21 @@ namespace Release2.Controllers
             var model = new List<ColleagueViewModel>();
             foreach (var user in users)
             {
-                model.Add(new ColleagueViewModel
+                if (!(user is ProbationaryColleague))
                 {
-                    Id = user.Id,
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    ColleagueType = user.ColleagueType,
-                    EmploymentType = user.EmploymentType,
-                    Department = user.Department.DepartmentName,
-                    ColleagueRegion = user.ColleagueRegion
-                });
+                    model.Add(new ColleagueViewModel
+                    {
+                        Id = user.Id,
+                        UserName = user.UserName,
+                        Email = user.Email,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        ColleagueType = user.ColleagueType,
+                        EmploymentType = user.EmploymentType,
+                        Department = user.Department.DepartmentName,
+                        ColleagueRegion = user.ColleagueRegion
+                    });
+                }
             }
             return View(model);
         }
@@ -91,20 +95,14 @@ namespace Release2.Controllers
             {
                 var colleague = (Colleague)user;
 
-                ColleagueViewModel model = new ColleagueViewModel()
-                {
-                    UserName = colleague.UserName,
-                    Email = colleague.Email,
-                    FirstName = colleague.FirstName,
-                    LastName = colleague.LastName,
-                    ColleagueType = colleague.ColleagueType,
-                    Department = colleague.Department.DepartmentName,
-                    EmploymentType = colleague.EmploymentType,
-                    ColleagueRegion = colleague.ColleagueRegion
-                };
+                // Use Automapper instead of copying properties one by one
+                ColleagueViewModel model = Mapper.Map<ColleagueViewModel>(colleague);
+
+                model.Roles = string.Join(" ", UserManager.GetRoles(id).ToArray());
 
                 return View(model);
             }
+
             else
             {
                 // Customize the error view: /Views/Shared/Error.cshtml
@@ -116,6 +114,7 @@ namespace Release2.Controllers
         public ActionResult Create()
         {
             //NOTE: Add department list
+            ViewBag.Roles = new SelectList(db.Roles.ToList(), "Name", "Name");
             ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "DepartmentName");
             return View();
         }
@@ -123,7 +122,7 @@ namespace Release2.Controllers
         // POST: Colleague/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ColleagueViewModel model)
+        public ActionResult Create(ColleagueViewModel model, params string[] roles)
         {
             if (ModelState.IsValid)
             {
@@ -136,24 +135,48 @@ namespace Release2.Controllers
                     ColleagueType = model.ColleagueType,
                     DepartmentId = model.DepartmentId,
                     EmploymentType = model.EmploymentType,
-                    ColleagueRegion = model.ColleagueRegion
+                    ColleagueRegion = model.ColleagueRegion,
                 };
 
                 var result = UserManager.Create(colleague, model.Password);
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index");
+                    // Add user to selected roles
+                    var roleResult = UserManager.AddToRoles(colleague.Id, roles);
+
+                    if (roleResult.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        // Display error messages in the view @Html.ValidationSummary()
+                        ModelState.AddModelError(string.Empty, roleResult.Errors.First());
+
+                        // Create a check list object
+                        ViewBag.Roles = new SelectList(db.Roles.ToList(), "Name", "Name");
+
+                        // Return a view if you want to see error message saved in ModelState
+                        // Redirect() and RedirectToAction() clear the messages
+                        return View();
+                    }
                 }
                 else
                 {
                     ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "DepartmentName");
+                    ModelState.AddModelError(string.Empty, result.Errors.First());
+                    ViewBag.Roles = new SelectList(db.Roles.ToList(), "Name", "Name");
                     return View();
                 }
             }
 
-            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "DepartmentName");
-            return View();
+            else
+            {
+                ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "DepartmentName");
+                ViewBag.Roles = new SelectList(db.Roles.ToList(), "Name", "Name");
+                return View();
+            }
         }
 
         // GET: Colleague/Edit/5
@@ -165,27 +188,28 @@ namespace Release2.Controllers
                 return View("Error");
             }
 
-            ColleagueViewModel model = new ColleagueViewModel
+            // Use automapper instead of copying properties one by one
+            ColleagueViewModel model = Mapper.Map<ColleagueViewModel>(colleague);
+
+            var userRoles = UserManager.GetRoles(id);
+            var rolesSelectList = db.Roles.ToList().Select(r => new SelectListItem()
             {
-                Id = colleague.Id,
-                Email = colleague.Email,
-                FirstName = colleague.FirstName,
-                LastName = colleague.LastName,
-                ColleagueType = colleague.ColleagueType,
-                DepartmentId = colleague.DepartmentId,
-                EmploymentType = colleague.EmploymentType,
-                ColleagueRegion = colleague.ColleagueRegion
-            };
+                Selected = userRoles.Contains(r.Name),
+                Text = r.Name,
+                Value = r.Name
+            });
+
+            ViewBag.RolesSelectList = rolesSelectList;
 
             // Prepare the dropdown list
-            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", colleague.DepartmentId);
+            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "DepartmentName", colleague.DepartmentId);
             return View(model);
         }
 
         // POST: Colleague/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, ColleagueViewModel model)
+        public ActionResult Edit(int id, ColleagueViewModel model, params string[] roles)
         {
             
                 ModelState.Remove("Password");
@@ -211,10 +235,28 @@ namespace Release2.Controllers
 
                     var userResult = UserManager.Update(colleague);
 
-                    if (userResult.Succeeded)
-                    { 
-                        return RedirectToAction("Index");
+                if (userResult.Succeeded)
+                {
+                    var userRoles = UserManager.GetRoles(colleague.Id);
+                    roles = roles ?? new string[] { };
+                    var roleResult = UserManager.AddToRoles(colleague.Id, roles.Except(userRoles).ToArray<string>());
+
+                    if (!roleResult.Succeeded)
+                    {
+                        ModelState.AddModelError(string.Empty, roleResult.Errors.First());
+                        return View();
                     }
+
+                    roleResult = UserManager.RemoveFromRoles(colleague.Id, userRoles.Except(roles).ToArray<string>());
+
+                    if (!roleResult.Succeeded)
+                    {
+                        ModelState.AddModelError(string.Empty, roleResult.Errors.First());
+                        return View();
+                    }
+
+                    return RedirectToAction("Index");
+                }
                 }
 
             ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "DepartmentName");
@@ -239,7 +281,8 @@ namespace Release2.Controllers
                 ColleagueType = colleague.ColleagueType,
                 Department = colleague.Department.DepartmentName,
                 EmploymentType = colleague.EmploymentType,
-                ColleagueRegion = colleague.ColleagueRegion
+                ColleagueRegion = colleague.ColleagueRegion,
+                Roles = string.Join(" ", UserManager.GetRoles(id).ToArray())
             };
 
             return View(model);

@@ -1,4 +1,4 @@
-﻿@model Release2.ViewModels.ColleagueViewModel
+﻿@model Release2.ViewModels.ProbationaryColleagueViewModel
 
 @{
     ViewBag.Title = "Delete";
@@ -8,9 +8,25 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>ColleagueViewModel</h4>
+    <h4>ProbationaryColleagueViewModel</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.UserName)
         </dt>
@@ -44,59 +60,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ColleagueType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ColleagueType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EmploymentType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EmploymentType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ColleagueRegion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ColleagueRegion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DepartmentId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DepartmentId)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Department)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Department)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JoinDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JoinDate)
         </dd>
 
         <dt>

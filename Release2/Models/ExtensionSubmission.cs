@@ -1,7 +1,7 @@
 /* 
 	Description: This file declares the class 'ExtensionSubmission' and its properties 
                  for the Probation Management System database.
-	Author: Elaf Shah/ EAS
+	Author: EAS
 	Due date: 27/02/2018
 */
 

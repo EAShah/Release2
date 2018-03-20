@@ -62,7 +62,7 @@ namespace Release2.Models
                 .HasForeignKey(e => e.LMAssignID)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Colleague>() //correct
+            modelBuilder.Entity<Colleague>() 
                 .HasMany(e => e.InspectionAssignment)
                 .WithOptional(e => e.LMInspects)
                 .HasForeignKey(e => e.LMInspectID);
@@ -77,14 +77,14 @@ namespace Release2.Models
                 .WithOptional(e => e.HRAudits)
                 .HasForeignKey(e => e.HRAuditID);
 
-            modelBuilder.Entity<Colleague>()
-                .HasOptional(e => e.ProbationaryColleague)
-                .WithRequired(e => e.Colleague);
+            //modelBuilder.Entity<Colleague>()
+            //    .HasOptional(e => e.ProbationaryColleague)
+            //    .WithRequired(e => e.Colleague);
 
             modelBuilder.Entity<Colleague>()
                 .HasMany(e => e.ApprovedProgressReviews)
                 .WithOptional(e => e.DHApproval)
-                .HasForeignKey(e => e.DHApprovesID);
+                .HasForeignKey(e => e.PRDHApprovesID);
 
             modelBuilder.Entity<Colleague>()
                 .HasMany(e => e.EvaluatedProgressReviews)
@@ -97,15 +97,15 @@ namespace Release2.Models
                 .HasForeignKey(e => e.LMID)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Colleague>()
-                .HasMany(e => e.ApprovedSelfAssessments)
-                .WithOptional(e => e.DHApprovals)
-                .HasForeignKey(e => e.DHApprovesID);
+            //modelBuilder.Entity<Colleague>()
+            //    .HasMany(e => e.ApprovedSelfAssessments)
+            //    .WithOptional(e => e.DHApprovals)
+            //    .HasForeignKey(e => e.DHApprovesID);
 
-            modelBuilder.Entity<Colleague>()
-                .HasMany(e => e.ReviewedSelfAssessments)
-                .WithOptional(e => e.HRReviews)
-                .HasForeignKey(e => e.HRReviewsID);
+            //modelBuilder.Entity<Colleague>()
+            //    .HasMany(e => e.ReviewedSelfAssessments)
+            //    .WithOptional(e => e.HRReviews)
+            //    .HasForeignKey(e => e.HRReviewsID);
 
             modelBuilder.Entity<Competency>()
                 .HasMany(e => e.PerformanceCriterions)
@@ -168,6 +168,8 @@ namespace Release2.Models
         }
 
         public System.Data.Entity.DbSet<Release2.ViewModels.ColleagueViewModel> ColleagueViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<Release2.ViewModels.ProbationaryColleagueViewModel> ProbationaryColleagueViewModels { get; set; }
     }
     public class CustomUserRole : IdentityUserRole<int> { }
     public class CustomUserClaim : IdentityUserClaim<int> { }

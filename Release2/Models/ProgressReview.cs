@@ -15,7 +15,7 @@ namespace Project._1.Models
 
     // Creation of the ProgressReview table as a class.
     [Table("ProgressReview")]
-    public partial class ProgressReview
+    public partial class ProgressReview : SelfAssessment
     {
         public ProgressReview()
         {
@@ -24,8 +24,8 @@ namespace Project._1.Models
         }
 
         // Declaring attributes of the ProgressReview table as properties.
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ReviewId { get; set; }
 
         public int? TotalGrade { get; set; }
@@ -33,12 +33,14 @@ namespace Project._1.Models
         [StringLength(500)]
         public string EvalDescription { get; set; }
 
+        public CompletionStatus PRCompletionStatus { get; set; }
+
+        public ApprovalStatus PRDHApprovalStatus { get; set; }
+
+        public EvaluationDecision PRHRAEvalDecision { get; set; }
+
         [Column(TypeName = "date")]
         public DateTime? PRSubmissionDate { get; set; }
-
-        public int? ProbationSuccessStatus { get; set; }
-
-        public int? PRCompletionStatus { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? PRDHApproveDate { get; set; }
@@ -46,11 +48,9 @@ namespace Project._1.Models
         [Column(TypeName = "date")]
         public DateTime? PRHRAEvalDate { get; set; }
 
-        public int? PRHRAEvalDecision { get; set; }
-
         public int? HREvaluatesID { get; set; }
 
-        public int? DHApprovesID { get; set; }
+        public int? PRDHApprovesID { get; set; }
 
         public int LMID { get; set; }
 
@@ -71,5 +71,31 @@ namespace Project._1.Models
         public virtual ProbationaryColleague ProbationaryColleague { get; set; }
 
         public virtual ICollection<SelfAssessmentSubmission> SelfAssessmentSubmissions { get; set; }
+
+
+
+        public enum CompletionStatus
+        {
+            Incomplete,
+
+            Complete
+        }
+
+        public enum EvaluationDecision
+        {
+            Pending,
+
+            Approved,
+
+            Disapproved
+        }
+
+        public enum ApprovalStatus
+        {
+            Pending,
+
+            Approved
+        }
+
     }
 }

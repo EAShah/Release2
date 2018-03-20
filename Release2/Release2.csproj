@@ -50,6 +50,12 @@
     <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -121,12 +127,6 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -186,17 +186,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\Automapper.cs" />
+    <Compile Include="App_Start\AutomapperConfiguration.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AssignmentController.cs" />
     <Compile Include="Controllers\ColleagueController.cs" />
+    <Compile Include="Controllers\CompetencyController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\ExtensionRequestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProbationaryColleagueController.cs" />
+    <Compile Include="Controllers\ProgressReviewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -218,11 +223,14 @@
     <Compile Include="Models\SelfAssessmentSubmission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AssignmentViewModel.cs" />
     <Compile Include="ViewModels\ColleagueViewModel.cs" />
+    <Compile Include="ViewModels\CompetencyViewModel.cs" />
     <Compile Include="ViewModels\DepartmentViewModel.cs" />
+    <Compile Include="ViewModels\ExtensionColleaguesViewModel.cs" />
     <Compile Include="ViewModels\ExtensionRequestViewModel.cs" />
+    <Compile Include="ViewModels\ProbationaryColleagueViewModel.cs" />
     <Compile Include="ViewModels\ProgressReviewViewModel.cs" />
-    <Compile Include="ViewModels\SelfAssessmentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -287,9 +295,26 @@
     <Content Include="Views\Colleague\Edit.cshtml" />
     <Content Include="Views\Colleague\Delete.cshtml" />
     <Content Include="Views\Colleague\Details.cshtml" />
+    <Content Include="Views\ProbationaryColleague\Index.cshtml" />
+    <Content Include="Views\ProbationaryColleague\Details.cshtml" />
+    <Content Include="Views\ProbationaryColleague\Create.cshtml" />
+    <Content Include="Views\ProbationaryColleague\Edit.cshtml" />
+    <Content Include="Views\ProbationaryColleague\Delete.cshtml" />
+    <Content Include="Views\Competency\Index.cshtml" />
+    <Content Include="Views\Competency\Details.cshtml" />
+    <Content Include="Views\Competency\Create.cshtml" />
+    <Content Include="Views\Competency\Edit.cshtml" />
+    <Content Include="Views\Competency\Delete.cshtml" />
+    <Content Include="Views\ProgressReview\Index.cshtml" />
+    <Content Include="Views\ProgressReview\Details.cshtml" />
+    <Content Include="Views\ProgressReview\Create.cshtml" />
+    <Content Include="Views\ProgressReview\Edit.cshtml" />
+    <Content Include="Views\ProgressReview\Delete.cshtml" />
+    <Content Include="Views\ExtensionRequest\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Assignment\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

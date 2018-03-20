@@ -12,10 +12,11 @@ namespace Project._1.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using Release2.Models;
 
     // Creation of the ProbationaryColleague table as a class.
     [Table("ProbationaryColleague")]
-    public partial class ProbationaryColleague
+    public partial class ProbationaryColleague : Colleague
     {
         public ProbationaryColleague()
         {
@@ -26,20 +27,18 @@ namespace Project._1.Models
         }
 
         // Declaring attributes of the ProbationaryColleague table as properties.
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ColleagueId { get; set; }
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //public int ColleagueId { get; set; }
 
-        public int? ProbationID { get; set; }
+        public int? ProbationId { get; set; }
 
-        public int Level { get; set; }
+        public Levels Level { get; set; }
 
-        [StringLength(50)]
-        public string CityOfProbation { get; set; }
+        public Cities CityOfProbation { get; set; }
 
         [Required]
-        [StringLength(10)]
-        public string ProbationType { get; set; }
+        public ProbationTypes ProbationType { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? JoinDate { get; set; }
@@ -47,14 +46,69 @@ namespace Project._1.Models
         [Column(TypeName = "date")]
         public DateTime? LeaveDate { get; set; }
 
+        public ProbationSuccess ProbationSuccessStatus { get; set; }
+
         public virtual ICollection<Assignment> Assignments { get; set; }
 
-        public virtual Colleague Colleague { get; set; }
+        //public virtual Colleague Colleague { get; set; }
 
         public virtual ICollection<ExtensionSubmission> ExtensionSubmissions { get; set; }
 
         public virtual ICollection<ProgressReview> ProgressReviews { get; set; }
 
         public virtual ICollection<SelfAssessmentSubmission> SelfAssessmentSubmissions { get; set; }
+
+
+        public enum Levels
+        {
+            [Display(Name = "1st Month")]
+            First,
+
+            [Display(Name = "2nd Month")]
+            Second,
+
+            [Display(Name = "3rd Month")]
+            Third,
+
+            [Display(Name = "4th Month")]
+            Fourth,
+
+            [Display(Name = "5th Month")]
+            Five,
+
+            [Display(Name = "6th Month")]
+            Six
+        }
+
+        public enum ProbationTypes
+        {
+            Extended,
+
+            Mandatory
+        }
+
+        public enum Cities
+        {
+            Jeddah,
+
+            Dammam,
+
+            Riyadh,
+
+            Makkah,
+
+            Madinah
+        }
+
+
+        public enum ProbationSuccess
+        {
+            Undefined,
+
+            Successful,
+
+            Unsuccessful
+        }
+
     }
 }

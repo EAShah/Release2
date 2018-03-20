@@ -24,8 +24,7 @@ namespace Project._1.Models
         [Column(TypeName = "date")]
         public DateTime? AssignmentDate { get; set; }
 
-        [StringLength(20)]
-        public string AssignmentStatus { get; set; }
+        public AssignStatus AssignmentStatus { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? AssignmentInspectionDate { get; set; }
@@ -45,7 +44,17 @@ namespace Project._1.Models
         public virtual Colleague LMInspects { get; set; }
 
         public virtual ProbationaryColleague ProbationaryColleague { get; set; }
+
+
+        public enum AssignStatus
+        {
+            Pending,
+
+            Approved,
+
+            Rejected
+        }
     }
 
-    // ADD ENUMS TO ALL CLASSES
+    
 }

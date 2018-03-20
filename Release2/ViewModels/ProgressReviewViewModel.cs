@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using static Project._1.Models.ProbationaryColleague;
+using static Project._1.Models.ProgressReview;
+using static Project._1.Models.SelfAssessment;
 
 namespace Release2.ViewModels
 {
@@ -14,13 +17,7 @@ namespace Release2.ViewModels
     {
         public int Id { get; set; }
 
-        [Required]
-        [Display(Name = "Region")]
-        public ColleagueRegion ColleagueRegion { get; set; }
-
-        public string Department { get; set; }
-
-        // HOW TO ADD ONLY LM IDs & PC IDs
+        // Fields of the Progress Review
 
         [Required]
         [Display(Name = "Report")]
@@ -34,5 +31,39 @@ namespace Release2.ViewModels
         public int CompetencyId { get; set; }
         public string CompetencyName { get; set; }
 
-    }
+        public int DepartmentId { get; set; }
+        public string Department { get; set; }
+
+
+        [Required]
+        [Display(Name = "Progress Review Evaluation")]
+        public string PREvalDescription { get; set; }
+
+        [Required]
+        [Display(Name = "Self Evaluation")]
+        public string SelfEvaluation { get; set; }
+
+        //Status Properties
+
+        [Display(Name = "Probation")]
+        public ProbationSuccess ProbationSuccessStatus { get; set; }
+
+        [Display(Name = "Status")]
+        public CompletionStatus PRCompletionStatus { get; set; }
+
+        [Display(Name = "Evaluation")]
+        public EvaluationDecision PRHRAEvalDecision { get; set; }
+
+        
+        // Date Properties
+
+        [Display(Name = "Report Submitted")]
+        public DateTime? PRSubmissionDate { get; set; }
+
+        [Display(Name = "Report Approved")]
+        public DateTime? PRDHApproveDate { get; set; }
+
+        [Display(Name = "Report Evaluated")]
+        public DateTime? PRHRAEvalDate { get; set; }
+             }
 }
