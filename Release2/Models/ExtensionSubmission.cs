@@ -2,7 +2,6 @@
 	Description: This file declares the class 'ExtensionSubmission' and its properties 
                  for the Probation Management System database.
 	Author: EAS
-	Due date: 27/02/2018
 */
 
 namespace Project._1.Models
@@ -19,7 +18,7 @@ namespace Project._1.Models
     {
         // Declaring attributes of the ExtensionSubmission table as properties.
         [Column(TypeName = "date")]
-        public DateTime? ExtRequestSubmissionDate { get; set; }
+        public DateTime ExtRequestSubmissionDate { get; set; }
 
         [Key]
         [Column(Order = 0)]

@@ -1,4 +1,10 @@
-﻿using Project._1.Models;
+﻿/* 
+	Description: This file declares the Progress Review ViewModel and its properties 
+                 for the Progress Review Controller  and views.
+	Author:  EAS
+*/
+
+using Project._1.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,9 +16,6 @@ using static Project._1.Models.SelfAssessment;
 
 namespace Release2.ViewModels
 {
-    /// <summary>
-    /// Progress Review view model from Progress Review model and used by progress review controller
-    /// </summary>
     public class ProgressReviewViewModel
     {
         public int Id { get; set; }

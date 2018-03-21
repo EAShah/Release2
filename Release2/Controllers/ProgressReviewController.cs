@@ -42,7 +42,7 @@ namespace Release2.Controllers
         }
 
         // GET: ProgressReview/Details/5
-        [Authorize(Roles = "HR Associate, Department Head, Line Manager, Probationary Colleague")]
+        //[Authorize(Roles = "HR Associate, Department Head, Line Manager, Probationary Colleague")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -73,7 +73,7 @@ namespace Release2.Controllers
         }
 
         // GET: ProgressReview/Create
-        [Authorize(Roles ="Line Manager")]
+        //[Authorize(Roles ="Line Manager")]
         public ActionResult Create()
         {
             ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "DepartmentName");
@@ -84,7 +84,7 @@ namespace Release2.Controllers
 
         // POST: ProgressReview/Create
         [HttpPost]
-        [Authorize(Roles = "Line Manager")]
+        //[Authorize(Roles = "Line Manager")]
         public ActionResult Create(ProgressReviewViewModel model)
         {
             if (ModelState.IsValid)
@@ -119,7 +119,7 @@ namespace Release2.Controllers
 
 
         // GET: ProgressReview/SelfAssessment/5
-        [Authorize(Roles = "Probationary Colleague")]
+        //[Authorize(Roles = "Probationary Colleague")]
         public ActionResult SelfAssessment(int? id)
         {
             if (id == null)
@@ -149,7 +149,7 @@ namespace Release2.Controllers
 
         // POST: ProgressReview/SelfAssessment/5
         [HttpPost]
-        [Authorize(Roles = "Probationary Colleague")]
+        //[Authorize(Roles = "Probationary Colleague")]
         public ActionResult SelfAssessment(int id, FormCollection collection, ProgressReviewViewModel model)
         {
             if (ModelState.IsValid)

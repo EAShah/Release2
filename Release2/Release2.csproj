@@ -227,7 +227,6 @@
     <Compile Include="ViewModels\ColleagueViewModel.cs" />
     <Compile Include="ViewModels\CompetencyViewModel.cs" />
     <Compile Include="ViewModels\DepartmentViewModel.cs" />
-    <Compile Include="ViewModels\ExtensionColleaguesViewModel.cs" />
     <Compile Include="ViewModels\ExtensionRequestViewModel.cs" />
     <Compile Include="ViewModels\ProbationaryColleagueViewModel.cs" />
     <Compile Include="ViewModels\ProgressReviewViewModel.cs" />
@@ -311,6 +310,7 @@
     <Content Include="Views\ProgressReview\Edit.cshtml" />
     <Content Include="Views\ProgressReview\Delete.cshtml" />
     <Content Include="Views\ExtensionRequest\Index.cshtml" />
+    <Content Include="Views\ExtensionRequest\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

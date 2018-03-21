@@ -1,8 +1,7 @@
 /* 
 	Description: This file declares the class 'ProbationaryColleague' and its properties 
                  for the Probation Management System database.
-	Author: Elaf Shah/ EAS
-	Due date: 27/02/2018
+	Author: EAS
 */
 
 namespace Project._1.Models
@@ -50,7 +49,7 @@ namespace Project._1.Models
 
         public virtual ICollection<Assignment> Assignments { get; set; }
 
-        //public virtual Colleague Colleague { get; set; }
+        public virtual Colleague Colleague { get; set; }
 
         public virtual ICollection<ExtensionSubmission> ExtensionSubmissions { get; set; }
 

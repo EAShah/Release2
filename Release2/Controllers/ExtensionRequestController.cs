@@ -25,6 +25,7 @@ namespace Release2.Controllers
                 {
                     Id = item.ExtRequestId,
                     ExtNumber = item.ExtNumber,
+                    //ExtRequestStatus = item.ExtRequestStatus
                 });
             }
             return View(model);
@@ -39,6 +40,8 @@ namespace Release2.Controllers
         // GET: ExtensionRequest/Create
         public ActionResult Create()
         {
+            var list = db.ProbationaryColleagues.Select(p => new { p.Id, FullName = p.FirstName + " " + p.LastName });
+            ViewBag.ColleagueId = new SelectList(list, "Id", "FullName");
             return View();
         }
 
@@ -48,12 +51,13 @@ namespace Release2.Controllers
         {
                 if (ModelState.IsValid)
                 {
+                    //var probationaryColleague = db.ProbationaryColleagues.Select(p => p.FirstName);
                     var request = new ExtensionRequest
                     {
                         ExtRequestId = model.Id,
                         ExtNumber = model.ExtNumber,
                         ExtReason = model.ExtReason,
-                        
+                        //ExtensionSubmissions = db.ProbationaryColleagues.Select(p =>p.FirstName)
                     };
 
                     db.ExtensionRequests.Add(request);

@@ -1,4 +1,10 @@
-﻿using System;
+﻿/* 
+	Description: This file declares the Colleague ViewModel and its properties 
+                 for the Colleague Controller and views.
+	Author:  EAS
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -42,6 +48,12 @@ namespace Release2.ViewModels
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+
+        [Display(Name = "Full Name")]
+        public string FullName
+        {
+            get { return FirstName + ", " + LastName; }
+        }
 
         [Required]
         [Display(Name ="Colleague Type")]

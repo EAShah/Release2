@@ -1,8 +1,7 @@
 /* 
 	Description: This file declares the class 'Colleague' and its properties 
                  for the Probation Management System database.
-	Author: Elaf Shah/ EAS
-	Due date: 27/02/2018
+	Author:  EAS
 */
 
 namespace Project._1.Models
@@ -46,6 +45,12 @@ namespace Project._1.Models
         [Required]
         [StringLength(50)]
         public string LastName { get; set; }
+
+        [Display(Name = "Full Name")]
+        public string FullName
+        {
+            get { return FirstName + ", " + LastName; }
+        }
 
         [Column(TypeName = "date")]
         public DateTime? DOB { get; set; }

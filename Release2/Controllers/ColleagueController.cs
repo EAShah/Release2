@@ -72,8 +72,7 @@ namespace Release2.Controllers
                         Id = user.Id,
                         UserName = user.UserName,
                         Email = user.Email,
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
+                        
                         ColleagueType = user.ColleagueType,
                         EmploymentType = user.EmploymentType,
                         Department = user.Department.DepartmentName,

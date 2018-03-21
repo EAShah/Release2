@@ -1,4 +1,10 @@
-﻿using Project._1.Models;
+﻿/* 
+	Description: This file declares the ProbationaryColleague ViewModel and its properties 
+                 for the ProbationaryColleague Controller  and views.
+	Author:  EAS
+*/
+
+using Project._1.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
