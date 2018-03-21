@@ -1,0 +1,55 @@
+﻿@model Release2.ViewModels.AssignmentViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AssignmentViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProbationaryColleague)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProbationaryColleague)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HRAssigns)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HRAssigns)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Department)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AssignmentDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssignmentDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LMAssigned)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMAssigned)
+        </dd>
+        
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "LMIndex")
+</p>

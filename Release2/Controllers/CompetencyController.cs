@@ -14,6 +14,9 @@ namespace Release2.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        /// <summary>
+        /// This action lists competencies
+        /// </summary>
         // GET: Competency
         public ActionResult Index()
         {
@@ -30,16 +33,39 @@ namespace Release2.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// This action lists competency details
+        /// </summary>
         // GET: Competency/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
+        /// <summary>
+        /// This action creates competencies
+        /// </summary>
         // GET: Competency/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            return View();
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Competency competency
+                = db.Competencies.Find(id);
+            if (competency == null)
+            {
+                return HttpNotFound();
+            }
+            var model = new CompetencyViewModel
+            {
+                Id = competency.CompetencyId,
+                CompetencyName = competency.CompetencyName,
+            };
+
+            return View(model);
         }
 
         // POST: Competency/Create
@@ -64,6 +90,9 @@ namespace Release2.Controllers
             }
         }
 
+        /// <summary>
+        /// This action edits competencies
+        /// </summary>
         // GET: Competency/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -112,6 +141,9 @@ namespace Release2.Controllers
             }
         }
 
+        /// <summary>
+        /// This action deletes competencies
+        /// </summary>
         // GET: Competency/Delete/5
         public ActionResult Delete(int? id)
         {

@@ -14,6 +14,9 @@ namespace Release2.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        /// <summary>
+        /// This action lists departments
+        /// </summary>
         // GET: Department
         public ActionResult Index()
         {
@@ -30,12 +33,18 @@ namespace Release2.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// This action lists department details
+        /// </summary>
         // GET: Department/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
+        /// <summary>
+        /// This action creates departments
+        /// </summary>
         // GET: Department/Create
         public ActionResult Create()
         {
@@ -64,6 +73,9 @@ namespace Release2.Controllers
             }
         }
 
+        /// <summary>
+        /// This action edits departments
+        /// </summary>
         // GET: Department/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -86,6 +98,7 @@ namespace Release2.Controllers
 
             return View(model);
         }
+
 
         // POST: Department/Edit/5
         [HttpPost]
@@ -112,6 +125,9 @@ namespace Release2.Controllers
             }
         }
 
+        /// <summary>
+        /// This action deletes departments
+        /// </summary>
         // GET: Department/Delete/5
         public ActionResult Delete(int? id)
         {

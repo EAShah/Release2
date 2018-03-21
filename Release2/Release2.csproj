@@ -311,10 +311,15 @@
     <Content Include="Views\ProgressReview\Delete.cshtml" />
     <Content Include="Views\ExtensionRequest\Index.cshtml" />
     <Content Include="Views\ExtensionRequest\Create.cshtml" />
+    <Content Include="Views\Assignment\HRIndex.cshtml" />
+    <Content Include="Views\Assignment\LMIndex.cshtml" />
+    <Content Include="Views\Assignment\Details.cshtml" />
+    <Content Include="Views\Assignment\Create.cshtml" />
+    <Content Include="Views\Assignment\Inspect.cshtml" />
+    <Content Include="Views\Assignment\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Assignment\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

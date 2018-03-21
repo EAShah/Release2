@@ -15,6 +15,9 @@ namespace Release2.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        /// <summary>
+        /// This action lists assignments for Line managers to HR Associates
+        /// </summary>
         // GET: Assignment
         //[Authorize(Roles ="HR Associate")]
         public ActionResult HRIndex()
@@ -35,6 +38,9 @@ namespace Release2.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// This action lists assignments for Line managers to Line managers
+        /// </summary>
         // GET: Assignment
         //[Authorize(Roles = "Line Manager")]
         public ActionResult LMIndex()
@@ -61,16 +67,23 @@ namespace Release2.Controllers
             }
             return View(model);
         }
+
+        /// <summary>
+        /// This action lists assignment details for Line managers
+        /// </summary>
         //[Authorize(Roles ="HR Associate, Line Manager")]
         // GET: Assignment/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
-
+        /// <summary>
+        /// This action creates assignments for Line managers
+        /// </summary>
         // GET: Assignment/Create
         public ActionResult Create()
         {
+            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "DepartmentName");
             ViewBag.PCID = new SelectList(db.ProbationaryColleagues, "ColleagueId", "FullName");
             ViewBag.LMAssignedID = new SelectList(db.Colleagues, "ColleagueId", "FullName");
             return View();
@@ -98,12 +111,16 @@ namespace Release2.Controllers
             }
             else
             {
+                ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "DepartmentName");
                 ViewBag.PCID = new SelectList(db.ProbationaryColleagues, "ColleagueId", "FullName");
                 ViewBag.LMAssignedID = new SelectList(db.Colleagues, "ColleagueId", "FullName");
                 return View(model);
             }
         }
 
+        /// <summary>
+        /// This action inspects assignments for Line managers
+        /// </summary>
         // GET: Assignment/Inspect/5
         public ActionResult Inspect(int id)
         {

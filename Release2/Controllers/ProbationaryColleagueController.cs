@@ -53,6 +53,9 @@ namespace Release2.Controllers
 
         //public object UserManeger { get; private set; }
 
+        /// <summary>
+        /// This action lists probationary colleague users
+        /// </summary>
         // GET: ProbationaryColleague
         public ActionResult Index()
         {
@@ -78,6 +81,9 @@ namespace Release2.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// This action lists probationary colleague details
+        /// </summary>
         // GET: ProbationaryColleague/Details/5
         public ActionResult Details(int id)
         {
@@ -114,6 +120,9 @@ namespace Release2.Controllers
             }
         }
 
+        /// <summary>
+        /// This action creates probationary colleague users
+        /// </summary>
         // GET: ProbationaryColleague/Create
         public ActionResult Create()
         {
@@ -179,6 +188,9 @@ namespace Release2.Controllers
 
         }
 
+        /// <summary>
+        /// This action edits probationary colleague users
+        /// </summary>
         // GET: ProbationaryColleague/Edit/5
         public ActionResult Edit(int id)
         {
@@ -252,6 +264,9 @@ namespace Release2.Controllers
             return View();
         }
 
+        /// <summary>
+        /// This action deletes probationary colleague users
+        /// </summary>
         // GET: ProbationaryColleague/Delete/5
         public ActionResult Delete(int id)
         {

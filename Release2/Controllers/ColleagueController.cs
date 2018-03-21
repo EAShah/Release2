@@ -57,7 +57,9 @@ namespace Release2.Controllers
 
         //public object UserManeger { get; private set; }
 
-
+        /// <summary>
+        /// This action lists colleague users
+        /// </summary>
         // GET: Colleague
         public ActionResult Index()
         {
@@ -83,6 +85,9 @@ namespace Release2.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// This action lists colleague details
+        /// </summary>
         // GET: Colleague/Details/5
         public ActionResult Details(int id)
         {
@@ -109,6 +114,9 @@ namespace Release2.Controllers
             }
         }
 
+        /// <summary>
+        /// This action creates colleague users
+        /// </summary>
         // GET: Colleague/Create
         public ActionResult Create()
         {
@@ -178,6 +186,9 @@ namespace Release2.Controllers
             }
         }
 
+        /// <summary>
+        /// This action edits colleague users
+        /// </summary>
         // GET: Colleague/Edit/5
         public ActionResult Edit(int id)
         {
@@ -262,6 +273,9 @@ namespace Release2.Controllers
             return View();
         }
 
+        /// <summary>
+        /// This action deletes colleague users
+        /// </summary>
         // GET: Colleague/Delete/5
         public ActionResult Delete(int id)
         {
