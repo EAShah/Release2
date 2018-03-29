@@ -126,9 +126,6 @@ namespace Release2.Controllers
         // GET: ProbationaryColleague/Create
         public ActionResult Create()
         {
-            // Fill in the ViewBag for the dropdown list
-            // Id is the value of the HTML select
-            // Name is the Text of the HTML selct
             ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "DepartmentName");
             return View();
         }
@@ -160,7 +157,7 @@ namespace Release2.Controllers
                 if (result.Succeeded)
                 {
                     //TODO Add user to ProbationaryColleague role (check if ProbationaryColleague role exists)
-                    var roleResult = UserManager.AddToRoles(probationaryColleague.Id, "Probationary Colleague");
+                    var roleResult = UserManager.AddToRoles(probationaryColleague.Id, "ProbationaryColleague");
 
                     if (roleResult.Succeeded)
                     {

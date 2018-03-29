@@ -89,27 +89,37 @@ namespace Release2.Controllers
         /// This action lists colleague details
         /// </summary>
         // GET: Colleague/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            // find the user in the database
-            var user = UserManager.FindById(id);
-
-            // Check if the user exists
-            if (user != null)
+            if (id != null)
             {
-                var colleague = (Colleague)user;
+                // Convert id to int instead of int?
+                int userId = id ?? default(int);
 
-                // Use Automapper instead of copying properties one by one
-                ColleagueViewModel model = Mapper.Map<ColleagueViewModel>(colleague);
+                // find the user in the database
+                var user = UserManager.FindById(userId);
 
-                model.Roles = string.Join(" ", UserManager.GetRoles(id).ToArray());
+                // Check if the user exists
+                if (user != null)
+                {
+                    var colleague = (Colleague)user;
 
-                return View(model);
+                    // Use Automapper instead of copying properties one by one
+                    ColleagueViewModel model = Mapper.Map<ColleagueViewModel>(colleague);
+
+                    model.Roles = string.Join(" ", UserManager.GetRoles(userId).ToArray());
+
+                    return View(model);
+                }
+
+                else
+                {
+                    // Customize the error view: /Views/Shared/Error.cshtml
+                    return View("Error");
+                }
             }
-
             else
             {
-                // Customize the error view: /Views/Shared/Error.cshtml
                 return View("Error");
             }
         }
@@ -190,30 +200,39 @@ namespace Release2.Controllers
         /// This action edits colleague users
         /// </summary>
         // GET: Colleague/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            var colleague = (Colleague)UserManager.FindById(id);
-            if (colleague == null)
+            if (id != null)
+            {
+                var userId = id ?? default(int);
+
+                var colleague = (Colleague)UserManager.FindById(userId);
+                if (colleague == null)
+                {
+                    return View("Error");
+                }
+
+                // Use automapper instead of copying properties one by one
+                ColleagueViewModel model = Mapper.Map<ColleagueViewModel>(colleague);
+
+                var userRoles = UserManager.GetRoles(userId);
+                var rolesSelectList = db.Roles.ToList().Select(r => new SelectListItem()
+                {
+                    Selected = userRoles.Contains(r.Name),
+                    Text = r.Name,
+                    Value = r.Name
+                });
+
+                ViewBag.RolesSelectList = rolesSelectList;
+
+                // Prepare the dropdown list
+                ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "DepartmentName", colleague.DepartmentId);
+                return View(model);
+            }
+            else
             {
                 return View("Error");
             }
-
-            // Use automapper instead of copying properties one by one
-            ColleagueViewModel model = Mapper.Map<ColleagueViewModel>(colleague);
-
-            var userRoles = UserManager.GetRoles(id);
-            var rolesSelectList = db.Roles.ToList().Select(r => new SelectListItem()
-            {
-                Selected = userRoles.Contains(r.Name),
-                Text = r.Name,
-                Value = r.Name
-            });
-
-            ViewBag.RolesSelectList = rolesSelectList;
-
-            // Prepare the dropdown list
-            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "DepartmentName", colleague.DepartmentId);
-            return View(model);
         }
 
         // POST: Colleague/Edit/5

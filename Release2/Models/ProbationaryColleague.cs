@@ -20,9 +20,9 @@ namespace Project._1.Models
         public ProbationaryColleague()
         {
             Assignments = new HashSet<Assignment>();
-            ExtensionSubmissions = new HashSet<ExtensionSubmission>();
+            ExtensionRequests = new HashSet<ExtensionRequest>();
             ProgressReviews = new HashSet<ProgressReview>();
-            SelfAssessmentSubmissions = new HashSet<SelfAssessmentSubmission>();
+            SelfAssessments = new HashSet<SelfAssessment>();
         }
 
         // Declaring attributes of the ProbationaryColleague table as properties.
@@ -49,13 +49,13 @@ namespace Project._1.Models
 
         public virtual ICollection<Assignment> Assignments { get; set; }
 
-        public virtual Colleague Colleague { get; set; }
+        //public virtual Colleague Colleague { get; set; }
 
-        public virtual ICollection<ExtensionSubmission> ExtensionSubmissions { get; set; }
+        public new ICollection<ExtensionRequest> ExtensionRequests { get; set; }
 
         public virtual ICollection<ProgressReview> ProgressReviews { get; set; }
 
-        public virtual ICollection<SelfAssessmentSubmission> SelfAssessmentSubmissions { get; set; }
+        public virtual ICollection<SelfAssessment> SelfAssessments { get; set; }
 
 
         public enum Levels
@@ -98,8 +98,7 @@ namespace Project._1.Models
 
             Madinah
         }
-
-
+        
         public enum ProbationSuccess
         {
             Undefined,
