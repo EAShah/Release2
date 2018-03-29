@@ -37,13 +37,12 @@ namespace Release2.Models
         public virtual DbSet<Competency> Competencies { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<ExtensionRequest> ExtensionRequests { get; set; }
-        public virtual DbSet<ExtensionSubmission> ExtensionSubmissions { get; set; }
         public virtual DbSet<Meeting> Meetings { get; set; }
         public virtual DbSet<PerformanceCriterion> PerformanceCriterions { get; set; }
         public virtual DbSet<ProbationaryColleague> ProbationaryColleagues { get; set; }
         public virtual DbSet<ProgressReview> ProgressReviews { get; set; }
         public virtual DbSet<SelfAssessment> SelfAssessments { get; set; }
-        public virtual DbSet<SelfAssessmentSubmission> SelfAssessmentSubmissions { get; set; }
+        //public virtual DbSet<SelfAssessmentSubmission> SelfAssessmentSubmissions { get; set; }
 
         // Method declaring navigational properties of the database model.
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -68,7 +67,7 @@ namespace Release2.Models
                 .HasForeignKey(e => e.LMInspectID);
 
             modelBuilder.Entity<Colleague>()
-                .HasMany(e => e.ExtensionSubmissions)
+                .HasMany(e => e.ExtensionRequests)
                 .WithRequired(e => e.LMSubmits)
                 .WillCascadeOnDelete(false);
 
@@ -117,10 +116,10 @@ namespace Release2.Models
                 .WithRequired(e => e.Department)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<ExtensionRequest>()
-                .HasMany(e => e.ExtensionSubmissions)
-                .WithRequired(e => e.ExtensionRequest)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<ExtensionRequest>()
+            //    .HasMany(e => e.ExtensionSubmissions)
+            //    .WithRequired(e => e.ExtensionRequest)
+            //    .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Meeting>()
                 .HasRequired(e => e.ProgressReviews)
@@ -134,7 +133,7 @@ namespace Release2.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ProbationaryColleague>()
-                .HasMany(e => e.ExtensionSubmissions)
+                .HasMany(e => e.ExtensionRequests)
                 .WithRequired(e => e.ProbationaryColleague)
                 .HasForeignKey(e => e.PCID)
                 .WillCascadeOnDelete(false);
@@ -146,9 +145,9 @@ namespace Release2.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ProbationaryColleague>()
-                .HasMany(e => e.SelfAssessmentSubmissions)
+                .HasMany(e => e.SelfAssessments)
                 .WithRequired(e => e.ProbationaryColleague)
-                .HasForeignKey(e => e.PCID)
+                .HasForeignKey(e => e.CreationPCID)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ProgressReview>()
@@ -157,14 +156,14 @@ namespace Release2.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ProgressReview>()
-                .HasMany(e => e.SelfAssessmentSubmissions)
-                .WithRequired(e => e.ProgressReview)
+                .HasRequired(e => e.SelfAssessments)
+                .WithRequiredDependent()
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<SelfAssessment>()
-                .HasMany(e => e.SelfAssessmentSubmissions)
-                .WithRequired(e => e.SelfAssessment)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<SelfAssessment>()
+            //    .HasMany(e => e.SelfAssessmentSubmissions)
+            //    .WithRequired(e => e.SelfAssessment)
+            //    .WillCascadeOnDelete(false);
         }
 
         public System.Data.Entity.DbSet<Release2.ViewModels.ColleagueViewModel> ColleagueViewModels { get; set; }

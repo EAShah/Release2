@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static Project._1.Models.ExtensionRequest;
-using static Project._1.Models.ExtensionSubmission;
 
 
 namespace Release2.ViewModels
@@ -58,6 +57,6 @@ namespace Release2.ViewModels
 
         public List<Colleague> Colleagues { get; set; }
 
-        public List<ExtensionSubmission> ExtensionSubmissions { get; set; }
+        //public List<ExtensionSubmission> ExtensionSubmissions { get; set; }
     }
 }

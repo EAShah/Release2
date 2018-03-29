@@ -19,7 +19,7 @@ namespace Project._1.Models
         public ProgressReview()
         {
             PerformanceCriterions = new HashSet<PerformanceCriterion>();
-            SelfAssessmentSubmissions = new HashSet<SelfAssessmentSubmission>();
+            SelfAssessments = new HashSet<SelfAssessment>();
         }
 
         // Declaring attributes of the ProgressReview table as properties.
@@ -67,9 +67,9 @@ namespace Project._1.Models
 
         public virtual ICollection<PerformanceCriterion> PerformanceCriterions { get; set; }
 
-        public virtual ProbationaryColleague ProbationaryColleague { get; set; }
+        public override ProbationaryColleague ProbationaryColleague { get; set; }
 
-        public virtual ICollection<SelfAssessmentSubmission> SelfAssessmentSubmissions { get; set; }
+        public virtual ICollection<SelfAssessment> SelfAssessments { get; set; }
 
 
 

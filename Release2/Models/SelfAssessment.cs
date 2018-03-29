@@ -17,10 +17,10 @@ namespace Project._1.Models
     [Table("SelfAssessment")]
     public partial class SelfAssessment
     {
-        public SelfAssessment()
-        {
-            SelfAssessmentSubmissions = new HashSet<SelfAssessmentSubmission>();
-        }
+        //public SelfAssessment()
+        //{
+        //    SelfAssessmentSubmissions = new HashSet<SelfAssessmentSubmission>();
+        //}
 
         // Declaring attributes of the SelfAssessment table as properties.
         [Key]
@@ -32,6 +32,17 @@ namespace Project._1.Models
 
         [StringLength(250)]
         public string SelfEvaluation { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? SASubmissionDate { get; set; }
+
+        public virtual ProbationaryColleague ProbationaryColleague { get; set; }
+
+        public int? CreationPCID { get; set; }
+
+        public virtual ProgressReview ProgressReview { get; set; }
+
+        public int? ProgressReviewID { get; set; }
 
         //These properties have been commented because they are not required.
 
@@ -47,7 +58,7 @@ namespace Project._1.Models
         //public virtual Colleague DHApprovals { get; set; }
         //public virtual Colleague HRReviews { get; set; }
 
-        public virtual ICollection<SelfAssessmentSubmission> SelfAssessmentSubmissions { get; set; }
+        //public virtual ICollection<SelfAssessmentSubmission> SelfAssessmentSubmissions { get; set; }
 
 
         public enum ApprovalStatus

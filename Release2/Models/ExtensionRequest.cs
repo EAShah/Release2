@@ -16,10 +16,10 @@ namespace Project._1.Models
     [Table("ExtensionRequest")]
     public partial class ExtensionRequest
     {
-        public ExtensionRequest()
-        {
-            ExtensionSubmissions = new HashSet<ExtensionSubmission>();
-        }
+        //public ExtensionRequest()
+        //{
+        //    ExtensionSubmissions = new HashSet<ExtensionSubmission>();
+        //}
 
         // Declaring attributes of the ExtensionRequest table as properties.
         [Key]
@@ -34,15 +34,24 @@ namespace Project._1.Models
         public RequestStatus ExtRequestStatus { get; set; }
 
         [Column(TypeName = "date")]
+        public DateTime ExtRequestSubmissionDate { get; set; }
+
+        [Column(TypeName = "date")]
         public DateTime? ExtRequestAuditDate { get; set; }
 
         public int? HRAuditID { get; set; }
 
         public virtual Colleague HRAudits { get; set; }
 
-        public virtual ICollection<ExtensionSubmission> ExtensionSubmissions { get; set; }
+        public int? LMSubmitID { get; set; }
 
+        public virtual Colleague LMSubmits { get; set; }
 
+        public virtual ProbationaryColleague ProbationaryColleague { get; set; }
+
+        public int? PCID { get; set; }
+
+        
         public enum RequestStatus
         {
             Pending,
