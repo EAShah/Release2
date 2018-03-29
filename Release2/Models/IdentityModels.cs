@@ -134,8 +134,8 @@ namespace Release2.Models
 
             modelBuilder.Entity<ProbationaryColleague>()
                 .HasMany(e => e.ExtensionRequests)
-                .WithRequired(e => e.ProbationaryColleague)
-                .HasForeignKey(e => e.PCID)
+                .WithRequired(e => e.ExtendedPC)
+                .HasForeignKey(e => e.ExtendedPCID)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ProbationaryColleague>()
@@ -146,7 +146,7 @@ namespace Release2.Models
 
             modelBuilder.Entity<ProbationaryColleague>()
                 .HasMany(e => e.SelfAssessments)
-                .WithRequired(e => e.ProbationaryColleague)
+                .WithRequired(e => e.CreationPC)
                 .HasForeignKey(e => e.CreationPCID)
                 .WillCascadeOnDelete(false);
 
@@ -156,7 +156,7 @@ namespace Release2.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ProgressReview>()
-                .HasRequired(e => e.SelfAssessments)
+                .HasRequired(e => e.SelfAssessment)
                 .WithRequiredDependent()
                 .WillCascadeOnDelete(false);
 

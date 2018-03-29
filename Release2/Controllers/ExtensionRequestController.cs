@@ -1,4 +1,5 @@
-﻿using Project._1.Models;
+﻿using Microsoft.AspNet.Identity;
+using Project._1.Models;
 using Release2.Models;
 using Release2.ViewModels;
 using System;
@@ -6,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
-using System.Web.Mvc; 
+using System.Web.Mvc;
 
 namespace Release2.Controllers
 {
@@ -15,17 +16,20 @@ namespace Release2.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: ExtensionRequest
-        public ActionResult Index()
+        public ActionResult AllIndex()
         {
-            var request = db.ExtensionRequests.ToList();
+            var extension = db.ExtensionRequests.ToList();
             var model = new List<ExtensionRequestViewModel>();
-            foreach (var item in request)
+            foreach (var item in extension)
             {
                 model.Add(new ExtensionRequestViewModel
                 {
                     Id = item.ExtRequestId,
                     ExtNumber = item.ExtNumber,
-                    //ExtRequestStatus = item.ExtRequestStatus,
+                    ExtRequestStatus = item.ExtRequestStatus,  // ADD PENDING, APPROVED REJECTED AND ALL(done) EXT VIEWS
+                    LMSubmits = item.LMSubmits.FullName,
+                    ExtendedPC = item.ExtendedPC.FullName,
+                    ExtRequestSubmissionDate = item.ExtRequestSubmissionDate
                 });
             }
             return View(model);
@@ -41,7 +45,7 @@ namespace Release2.Controllers
         public ActionResult Create()
         {
             var list = db.ProbationaryColleagues.Select(p => new { p.Id, FullName = p.FirstName + " " + p.LastName });
-            ViewBag.ColleagueId = new SelectList(list, "Id", "FullName");
+            ViewBag.ExtendedPCID = new SelectList(db.ProbationaryColleagues, "ColleagueId", "FullName");
             return View();
         }
 
@@ -57,7 +61,10 @@ namespace Release2.Controllers
                     ExtRequestId = model.Id,
                     ExtNumber = model.ExtNumber,
                     ExtReason = model.ExtReason,
-                    //ExtensionSubmissions = db.ProbationaryColleagues.Select(p =>p.FirstName)
+                    ExtendedPCID = model.ExtendedPCID,
+                    LMSubmitID = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id,
+                    ExtRequestSubmissionDate= DateTime.Now,
+                    ExtRequestStatus = ExtensionRequest.RequestStatus.Pending
                 };
 
                 db.ExtensionRequests.Add(request);
@@ -67,52 +74,67 @@ namespace Release2.Controllers
             }
             else
             {
+                ViewBag.ExtendedPCID = new SelectList(db.ProbationaryColleagues, "ColleagueId", "FullName");
                 return View(model);
             }
-
         }
 
-        // GET: ExtensionRequest/Edit/5
-        public ActionResult Edit(int id)
+        // GET: ExtensionRequest/Audit/5
+        public ActionResult Audit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            ExtensionRequest extension = db.ExtensionRequests.Find(id);
+            if (extension == null)
+            {
+                return HttpNotFound();
+            }
+
+            ExtensionRequestViewModel model = new ExtensionRequestViewModel
+            {
+                Id = extension.ExtRequestId,
+                ExtendedPC = extension.ExtendedPC.FullName,
+                LMSubmits = extension.LMSubmits.FullName,
+                ExtRequestSubmissionDate = extension.ExtRequestSubmissionDate,
+                ExtRequestStatus = extension.ExtRequestStatus,
+                HRAudits = extension.HRAudits.FullName,
+                ExtRequestAuditDate = DateTime.Now
+            };
+
+            return View(model);
         }
 
-        // POST: ExtensionRequest/Edit/5
+        // POST: ExtensionRequest/Audit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Audit(int id, ExtensionRequestViewModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                var extension = db.ExtensionRequests.Find(id);
+                if (extension != null)
+                {
+                    extension.HRAuditID = model.HRAuditID;
+                    extension.ExtRequestSubmissionDate = model.ExtRequestSubmissionDate;
+                    extension.ExtReason = model.ExtReason;
+                    extension.ExtNumber = model.ExtNumber;
+                    extension.ExtRequestStatus = model.ExtRequestStatus;
+                    extension.ExtendedPCID = model.ExtendedPCID;
+                    extension.LMSubmitID = model.LMSubmitID;
+                    db.SaveChanges();
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
             }
-            catch
+            else
             {
-                return View();
-            }
-        }
-
-        // GET: ExtensionRequest/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ExtensionRequest/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
+                return View(model);
             }
         }
     }

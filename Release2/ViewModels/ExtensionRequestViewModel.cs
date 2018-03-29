@@ -12,6 +12,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using static Project._1.Models.ExtensionRequest;
 
 
+
 namespace Release2.ViewModels
 {
     public class ExtensionRequestViewModel
@@ -27,7 +28,7 @@ namespace Release2.ViewModels
         public string ExtReason { get; set; }
 
         [Display(Name = "Request Status")]
-        public int? ExtRequestStatus { get; set; }
+        public RequestStatus ExtRequestStatus { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? ExtRequestSubmissionDate { get; set; }
@@ -46,17 +47,26 @@ namespace Release2.ViewModels
         {
             get { return FirstName + ", " + LastName; }
         }
+        public int? HRAuditID { get; set; }
+        
+        public int? ExtendedPCID { get; set; }
+
+        public int? LMSubmitID { get; set; }
+
+        public string HRAudits { get; set; }
+
+        public string LMSubmits { get; set; }
+
+        public string ExtendedPC { get; set; }
+
 
         // Include collection using lists not virtual
 
         //public int ColleagueId { get; set; }
         //public string Colleague { get; set; }
         //public string ProbationaryColleague { get; set; }
-
-        public List<ProbationaryColleague> ProbationaryColleagues  { get; set; }
-
-        public List<Colleague> Colleagues { get; set; }
-
+        //public List<ProbationaryColleague> ProbationaryColleagues  { get; set; }
+        //public List<Colleague> Colleagues { get; set; }
         //public List<ExtensionSubmission> ExtensionSubmissions { get; set; }
     }
 }

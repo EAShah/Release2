@@ -36,13 +36,11 @@ namespace Project._1.Models
         [Column(TypeName = "date")]
         public DateTime? SASubmissionDate { get; set; }
 
-        public virtual ProbationaryColleague ProbationaryColleague { get; set; }
+        public virtual ProbationaryColleague CreationPC { get; set; }
 
         public int? CreationPCID { get; set; }
 
-        public virtual ProgressReview ProgressReview { get; set; }
 
-        public int? ProgressReviewID { get; set; }
 
         //These properties have been commented because they are not required.
 

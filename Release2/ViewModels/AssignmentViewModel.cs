@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using static Project._1.Models.Assignment;
@@ -27,10 +28,12 @@ namespace Release2.ViewModels
         [Display(Name = "Probation Type")]
         public ProbationTypes ProbationType { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime? AssignmentDate { get; set; }
 
         public AssignStatus AssignmentStatus { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime? AssignmentInspectionDate { get; set; }
 
         public int HRAssignID { get; set; }

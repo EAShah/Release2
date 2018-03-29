@@ -34,7 +34,7 @@ namespace Project._1.Models
         public RequestStatus ExtRequestStatus { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime ExtRequestSubmissionDate { get; set; }
+        public DateTime? ExtRequestSubmissionDate { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? ExtRequestAuditDate { get; set; }
@@ -47,9 +47,9 @@ namespace Project._1.Models
 
         public virtual Colleague LMSubmits { get; set; }
 
-        public virtual ProbationaryColleague ProbationaryColleague { get; set; }
+        public virtual ProbationaryColleague ExtendedPC { get; set; }
 
-        public int? PCID { get; set; }
+        public int? ExtendedPCID { get; set; }
 
         
         public enum RequestStatus

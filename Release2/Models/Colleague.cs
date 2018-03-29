@@ -27,8 +27,8 @@ namespace Project._1.Models
             ApprovedProgressReviews = new HashSet<ProgressReview>();
             EvaluatedProgressReviews = new HashSet<ProgressReview>();
             CreatedProgressReviews = new HashSet<ProgressReview>();
-            ApprovedSelfAssessments = new HashSet<SelfAssessment>();
-            ReviewedSelfAssessments = new HashSet<SelfAssessment>();
+            //ApprovedSelfAssessments = new HashSet<SelfAssessment>();
+            //ReviewedSelfAssessments = new HashSet<SelfAssessment>();
         }
 
         // Declaring attributes of the Colleague table as properties.
@@ -108,9 +108,9 @@ namespace Project._1.Models
 
         public virtual ICollection<ProgressReview> CreatedProgressReviews { get; set; }
 
-        public virtual ICollection<SelfAssessment> ApprovedSelfAssessments { get; set; }
+        //public virtual ICollection<SelfAssessment> ApprovedSelfAssessments { get; set; }
 
-        public virtual ICollection<SelfAssessment> ReviewedSelfAssessments { get; set; }
+        //public virtual ICollection<SelfAssessment> ReviewedSelfAssessments { get; set; }
     }
 
     public enum Gender
