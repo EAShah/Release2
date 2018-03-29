@@ -49,7 +49,7 @@ namespace Release2.Controllers
             var model = new List<AssignmentViewModel>();
             foreach (var item in assignment)
             {
-                if (item.LMAssignID == User.Identity.GetUserId<int>())
+                if (item.ProbationaryColleague.Colleague.Id == User.Identity.GetUserId<int>())
                 {
                     model.Add(new AssignmentViewModel
                     {
@@ -122,7 +122,7 @@ namespace Release2.Controllers
         /// This action inspects assignments for Line managers
         /// </summary>
         // GET: Assignment/Inspect/5
-        public ActionResult Inspect(int? id)
+        public ActionResult Inspect(int id)
         {
             if(id == null)
             {

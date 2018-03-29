@@ -37,26 +37,9 @@ namespace Release2.Controllers
         /// This action lists competency details
         /// </summary>
         // GET: Competency/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            Competency course = db.Competencies.Find(id);
-            if (course == null)
-            {
-                return HttpNotFound();
-            }
-
-            var model = new CompetencyViewModel
-            {
-                Id = course.CompetencyId,
-                CompetencyName = course.CompetencyName,
-            };
-
-            return View(model);
+            return View();
         }
 
         /// <summary>

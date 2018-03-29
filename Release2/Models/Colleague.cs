@@ -22,7 +22,7 @@ namespace Project._1.Models
             CreatedAssignments = new HashSet<Assignment>();
             ReceivedAssignment = new HashSet<Assignment>();
             InspectionAssignment = new HashSet<Assignment>();
-            //ExtensionSubmissions = new HashSet<ExtensionSubmission>();
+            ExtensionSubmissions = new HashSet<ExtensionSubmission>();
             ExtensionRequests = new HashSet<ExtensionRequest>();
             ApprovedProgressReviews = new HashSet<ProgressReview>();
             EvaluatedProgressReviews = new HashSet<ProgressReview>();
@@ -98,7 +98,7 @@ namespace Project._1.Models
 
         public virtual ICollection<Assignment> InspectionAssignment { get; set; }
 
-        //public virtual ICollection<ExtensionSubmission> ExtensionSubmissions { get; set; }
+        public virtual ICollection<ExtensionSubmission> ExtensionSubmissions { get; set; }
 
         public virtual ICollection<ExtensionRequest> ExtensionRequests { get; set; }
 
