@@ -15,58 +15,45 @@ using static Project._1.Models.ExtensionRequest;
 
 namespace Release2.ViewModels
 {
+    /// <summary>
+    ///Extension Request View Model from Extension Request model and used by Extension Request controller
+    /// </summary>
     public class ExtensionRequestViewModel
     {
         public int Id { get; set; }
 
-        [Required]
-        [Display(Name = "Extension to month:")]
+        [Display(Name = "Extended To")]
         public ExtNumbers ExtNumber { get; set; }
 
-        [Required]
-        [Display(Name = "Reason for Extension")]
+        [Display(Name = "Reason")]
+        [StringLength(500, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 20)]
         public string ExtReason { get; set; }
 
-        [Display(Name = "Request Status")]
+        [Display(Name = "Extension Request Status")]
         public RequestStatus ExtRequestStatus { get; set; }
 
+        [Display(Name = "Submission Date")]
         [Column(TypeName = "date")]
         public DateTime? ExtRequestSubmissionDate { get; set; }
 
+        [Display(Name = "Audit date")]
         [Column(TypeName = "date")]
         public DateTime? ExtRequestAuditDate { get; set; }
 
-        [StringLength(50)]
-        public string FirstName { get; set; }
+        public int? HRAuditId { get; set; }
 
-        [StringLength(50)]
-        public string LastName { get; set; }
+        public int LMSubmitId { get; set; }
 
-        [Display(Name = "Full Name")]
-        public string FullName
-        {
-            get { return FirstName + ", " + LastName; }
-        }
-        public int? HRAuditID { get; set; }
-        
-        public int? ExtendedPCID { get; set; }
+        public int ExtendedPCId { get; set; }
 
-        public int? LMSubmitID { get; set; }
-
+        [Display(Name = "Audited By")]
         public string HRAudits { get; set; }
 
+        [Display(Name = "Submitted By")]
         public string LMSubmits { get; set; }
 
+        [Display(Name = "Probationary Colleague")]
         public string ExtendedPC { get; set; }
 
-
-        // Include collection using lists not virtual
-
-        //public int ColleagueId { get; set; }
-        //public string Colleague { get; set; }
-        //public string ProbationaryColleague { get; set; }
-        //public List<ProbationaryColleague> ProbationaryColleagues  { get; set; }
-        //public List<Colleague> Colleagues { get; set; }
-        //public List<ExtensionSubmission> ExtensionSubmissions { get; set; }
     }
 }

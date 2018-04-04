@@ -38,7 +38,7 @@ namespace Project._1.Models
 
         public virtual ProbationaryColleague CreationPC { get; set; }
 
-        public int? CreationPCID { get; set; }
+        public int? CreationPCId { get; set; }
 
 
 
@@ -51,19 +51,13 @@ namespace Project._1.Models
         //public DateTime? SAHRAReviewDate { get; set; }
         //[Column(TypeName = "date")]
         //public DateTime? SADHApproveDate { get; set; }
-        //public int? HRReviewsID { get; set; }
-        //public int? DHApprovesID { get; set; }
+        //public int? HRReviewsId { get; set; }
+        //public int? DHApprovesId { get; set; }
         //public virtual Colleague DHApprovals { get; set; }
         //public virtual Colleague HRReviews { get; set; }
 
         //public virtual ICollection<SelfAssessmentSubmission> SelfAssessmentSubmissions { get; set; }
 
 
-        public enum ApprovalStatus
-        {
-            Pending,
-
-            Approved
-        }
     }
 }

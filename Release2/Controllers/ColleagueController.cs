@@ -60,6 +60,7 @@ namespace Release2.Controllers
         /// <summary>
         /// This action lists colleague users
         /// </summary>
+        /// <returns>Colleague, Index view</returns>
         // GET: Colleague
         public ActionResult Index()
         {
@@ -88,6 +89,8 @@ namespace Release2.Controllers
         /// <summary>
         /// This action lists colleague details
         /// </summary>
+        /// /// <param name="int", ></param>
+        /// <returns>Colleague, Delete view</returns>
         // GET: Colleague/Details/5
         public ActionResult Details(int? id)
         {
@@ -104,8 +107,20 @@ namespace Release2.Controllers
                 {
                     var colleague = (Colleague)user;
 
-                    // Use Automapper instead of copying properties one by one
-                    ColleagueViewModel model = Mapper.Map<ColleagueViewModel>(colleague);
+                    ColleagueViewModel model = new ColleagueViewModel()
+                    {
+                        Id = colleague.Id,
+                        Department = colleague.Department.DepartmentName,
+                        ColleagueRegion = colleague.ColleagueRegion,
+                        UserName = colleague.UserName,
+                        Email = colleague.Email,
+                        FirstName = colleague.FirstName,
+                        LastName = colleague.LastName,
+                        ColleagueType = colleague.ColleagueType,
+                        DepartmentId = colleague.DepartmentId,
+                        EmploymentType = colleague.EmploymentType,
+
+                    };
 
                     model.Roles = string.Join(" ", UserManager.GetRoles(userId).ToArray());
 
@@ -127,6 +142,10 @@ namespace Release2.Controllers
         /// <summary>
         /// This action creates colleague users
         /// </summary>
+        /// <param name="model", ></param>
+        /// <param name="roles[]", ></param>
+        /// <returns>Colleague, Create view</returns>
+
         // GET: Colleague/Create
         public ActionResult Create()
         {
@@ -199,6 +218,10 @@ namespace Release2.Controllers
         /// <summary>
         /// This action edits colleague users
         /// </summary>
+        /// <param name="id", ></param>
+        /// <param name="model", ></param>
+        /// <param name="roles[]", ></param>
+        /// <returns>Colleague, Edit view</returns>
         // GET: Colleague/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -213,7 +236,20 @@ namespace Release2.Controllers
                 }
 
                 // Use automapper instead of copying properties one by one
-                ColleagueViewModel model = Mapper.Map<ColleagueViewModel>(colleague);
+                ColleagueViewModel model = new ColleagueViewModel()
+                {
+                    Id = colleague.Id,
+                    Department = colleague.Department.DepartmentName,
+                    ColleagueRegion = colleague.ColleagueRegion,
+                    UserName = colleague.UserName,
+                    Email = colleague.Email,
+                    FirstName = colleague.FirstName,
+                    LastName = colleague.LastName,
+                    ColleagueType = colleague.ColleagueType,
+                    DepartmentId = colleague.DepartmentId,
+                    EmploymentType = colleague.EmploymentType,
+
+                };
 
                 var userRoles = UserManager.GetRoles(userId);
                 var rolesSelectList = db.Roles.ToList().Select(r => new SelectListItem()
@@ -295,6 +331,8 @@ namespace Release2.Controllers
         /// <summary>
         /// This action deletes colleague users
         /// </summary>
+        /// <param name="id", ></param>
+        /// <returns>Colleague, Delete view</returns>
         // GET: Colleague/Delete/5
         public ActionResult Delete(int id)
         {

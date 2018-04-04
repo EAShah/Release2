@@ -56,6 +56,7 @@ namespace Release2.Controllers
         /// <summary>
         /// This action lists probationary colleague users
         /// </summary>
+        /// <returns>ProbationaryColleague, Index view</returns>
         // GET: ProbationaryColleague
         public ActionResult Index()
         {
@@ -84,6 +85,9 @@ namespace Release2.Controllers
         /// <summary>
         /// This action lists probationary colleague details
         /// </summary>
+        /// <param name="id", ></param>
+        ///  <param name="model", ></param>
+        /// <returns>ProbationaryColleague, Details view</returns>
         // GET: ProbationaryColleague/Details/5
         public ActionResult Details(int id)
         {
@@ -102,12 +106,14 @@ namespace Release2.Controllers
                     Email = probationaryColleague.Email,
                     FirstName = probationaryColleague.FirstName,
                     LastName = probationaryColleague.LastName,
+                    UserName = probationaryColleague.UserName,
                     Level = probationaryColleague.Level,
                     Department = probationaryColleague.Department.DepartmentName,
                     ColleagueRegion = probationaryColleague.ColleagueRegion,
                     CityOfProbation = probationaryColleague.CityOfProbation,
                     ProbationType = probationaryColleague.ProbationType,
                     JoinDate = probationaryColleague.JoinDate,
+                    ProbationSuccessStatus = probationaryColleague.ProbationSuccessStatus,
                     Roles = string.Join(" ", UserManager.GetRoles(id).ToArray())
                 };
 
@@ -123,6 +129,8 @@ namespace Release2.Controllers
         /// <summary>
         /// This action creates probationary colleague users
         /// </summary>
+        ///  <param name="model", ></param>
+        /// <returns>ProbationaryColleague, Create view</returns>
         // GET: ProbationaryColleague/Create
         public ActionResult Create()
         {
@@ -149,6 +157,7 @@ namespace Release2.Controllers
                     ProbationType = model.ProbationType,
                     JoinDate = model.JoinDate,
                     Level = model.Level,
+                    ProbationSuccessStatus = model.ProbationSuccessStatus,
                     DepartmentId = model.DepartmentId,
                 };
 
@@ -188,6 +197,9 @@ namespace Release2.Controllers
         /// <summary>
         /// This action edits probationary colleague users
         /// </summary>
+        /// <param name="id", ></param>
+        /// <param name="model", ></param>
+        /// <returns>ProbationaryColleague, Edit view</returns>
         // GET: ProbationaryColleague/Edit/5
         public ActionResult Edit(int id)
         {
@@ -212,6 +224,7 @@ namespace Release2.Controllers
                 JoinDate = probationaryColleague.JoinDate,
                 Level = probationaryColleague.Level,
                 DepartmentId = probationaryColleague.DepartmentId,
+                ProbationSuccessStatus = probationaryColleague.ProbationSuccessStatus,
                 Roles = string.Join(" ", UserManager.GetRoles(id).ToArray())
             };
 
@@ -247,6 +260,7 @@ namespace Release2.Controllers
                 probationaryColleague.ProbationType = model.ProbationType;
                 probationaryColleague.JoinDate = model.JoinDate;
                 probationaryColleague.Level = model.Level;
+                probationaryColleague.ProbationSuccessStatus = model.ProbationSuccessStatus;
                 probationaryColleague.DepartmentId = model.DepartmentId;
 
                 var userResult = UserManager.Update(probationaryColleague);
@@ -264,6 +278,8 @@ namespace Release2.Controllers
         /// <summary>
         /// This action deletes probationary colleague users
         /// </summary>
+        /// <param name="id", ></param>
+        /// <returns>ProbationaryColleague, Delete view</returns>
         // GET: ProbationaryColleague/Delete/5
         public ActionResult Delete(int id)
         {
@@ -285,6 +301,7 @@ namespace Release2.Controllers
                 CityOfProbation = probationaryColleague.CityOfProbation,
                 ProbationType = probationaryColleague.ProbationType,
                 JoinDate = probationaryColleague.JoinDate,
+                ProbationSuccessStatus= probationaryColleague.ProbationSuccessStatus,
                 Roles = string.Join(" ", UserManager.GetRoles(id).ToArray()),
             };
 

@@ -28,7 +28,7 @@ namespace Project._1.Models
 
         public ExtNumbers ExtNumber { get; set; }
 
-        [StringLength(100)]
+        [StringLength(500)]
         public string ExtReason { get; set; }
 
         public RequestStatus ExtRequestStatus { get; set; }
@@ -39,19 +39,20 @@ namespace Project._1.Models
         [Column(TypeName = "date")]
         public DateTime? ExtRequestAuditDate { get; set; }
 
-        public int? HRAuditID { get; set; }
+        public int? HRAuditId { get; set; }
 
         public virtual Colleague HRAudits { get; set; }
 
-        public int? LMSubmitID { get; set; }
-
         public virtual Colleague LMSubmits { get; set; }
+
+        public int LMSubmitId { get; set; }
 
         public virtual ProbationaryColleague ExtendedPC { get; set; }
 
-        public int? ExtendedPCID { get; set; }
+        public int ExtendedPCId { get; set; }
 
-        
+       
+
         public enum RequestStatus
         {
             Pending,
@@ -63,22 +64,22 @@ namespace Project._1.Models
 
         public enum ExtNumbers
         {
-            [Display(Name = "1")]
+            [Display(Name = "Level 1")]
             One,
 
-            [Display(Name = "2")]
+            [Display(Name = "Level 2")]
             Two,
 
-            [Display(Name = "3")]
+            [Display(Name = "Level 3")]
             Three,
 
-            [Display(Name = "4")]
+            [Display(Name = "Level 4")]
             Four,
 
-            [Display(Name = "5")]
+            [Display(Name = "Level 5")]
             Five,
 
-            [Display(Name = "6")]
+            [Display(Name = "Level 6")]
             Six
         }
     }

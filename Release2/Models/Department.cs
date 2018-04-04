@@ -19,6 +19,7 @@ namespace Project._1.Models
         public Department()
         {
             Colleagues = new HashSet<Colleague>();
+            Assignments = new HashSet<Assignment>();
         }
 
         // Declaring attributes of the Department table as properties.
@@ -29,5 +30,8 @@ namespace Project._1.Models
         public string DepartmentName { get; set; }
 
         public virtual ICollection<Colleague> Colleagues { get; set; }
+
+        public virtual ICollection<Assignment> Assignments { get; set; }
+
     }
 }

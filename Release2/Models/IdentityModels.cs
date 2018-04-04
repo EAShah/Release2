@@ -37,7 +37,6 @@ namespace Release2.Models
         public virtual DbSet<Competency> Competencies { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<ExtensionRequest> ExtensionRequests { get; set; }
-        public virtual DbSet<Meeting> Meetings { get; set; }
         public virtual DbSet<PerformanceCriterion> PerformanceCriterions { get; set; }
         public virtual DbSet<ProbationaryColleague> ProbationaryColleagues { get; set; }
         public virtual DbSet<ProgressReview> ProgressReviews { get; set; }
@@ -52,29 +51,31 @@ namespace Release2.Models
             modelBuilder.Entity<Colleague>()
                 .HasMany(e => e.CreatedAssignments)
                 .WithRequired(e => e.HRAssigns)
-                .HasForeignKey(e => e.HRAssignID)
+                .HasForeignKey(e => e.HRAssignId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Colleague>()
                 .HasMany(e => e.ReceivedAssignment)
                 .WithRequired(e => e.LMAssigned)
-                .HasForeignKey(e => e.LMAssignID)
+                .HasForeignKey(e => e.LMAssignId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Colleague>() 
                 .HasMany(e => e.InspectionAssignment)
                 .WithOptional(e => e.LMInspects)
-                .HasForeignKey(e => e.LMInspectID);
+                .HasForeignKey(e => e.LMInspectId);
 
             modelBuilder.Entity<Colleague>()
-                .HasMany(e => e.ExtensionRequests)
+                .HasMany(e => e.SubmittedExtensionRequests)
                 .WithRequired(e => e.LMSubmits)
+                .HasForeignKey(e => e.LMSubmitId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Colleague>()
                 .HasMany(e => e.ExtensionRequests)
                 .WithOptional(e => e.HRAudits)
-                .HasForeignKey(e => e.HRAuditID);
+                .HasForeignKey(e => e.HRAuditId)
+                .WillCascadeOnDelete(false);
 
             //modelBuilder.Entity<Colleague>()
             //    .HasOptional(e => e.ProbationaryColleague)
@@ -83,17 +84,17 @@ namespace Release2.Models
             modelBuilder.Entity<Colleague>()
                 .HasMany(e => e.ApprovedProgressReviews)
                 .WithOptional(e => e.DHApproval)
-                .HasForeignKey(e => e.PRDHApprovesID);
+                .HasForeignKey(e => e.PRDHApprovesId);
 
             modelBuilder.Entity<Colleague>()
                 .HasMany(e => e.EvaluatedProgressReviews)
                 .WithOptional(e => e.HREvaluation)
-                .HasForeignKey(e => e.HREvaluatesID);
+                .HasForeignKey(e => e.HREvaluatesId);
 
             modelBuilder.Entity<Colleague>()
                 .HasMany(e => e.CreatedProgressReviews)
                 .WithRequired(e => e.LMCreates)
-                .HasForeignKey(e => e.LMID)
+                .HasForeignKey(e => e.LMId)
                 .WillCascadeOnDelete(false);
 
             //modelBuilder.Entity<Colleague>()
@@ -116,38 +117,38 @@ namespace Release2.Models
                 .WithRequired(e => e.Department)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Department>()
+             .HasMany(e => e.Assignments)
+             .WithRequired(e => e.Department)
+             .WillCascadeOnDelete(false);
+
             //modelBuilder.Entity<ExtensionRequest>()
             //    .HasMany(e => e.ExtensionSubmissions)
             //    .WithRequired(e => e.ExtensionRequest)
             //    .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Meeting>()
-                .HasRequired(e => e.ProgressReviews)
-                .WithRequiredPrincipal()
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<ProbationaryColleague>()
                 .HasMany(e => e.Assignments)
                 .WithRequired(e => e.ProbationaryColleague)
-                .HasForeignKey(e => e.PCID)
+                .HasForeignKey(e => e.PCId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ProbationaryColleague>()
                 .HasMany(e => e.ExtensionRequests)
                 .WithRequired(e => e.ExtendedPC)
-                .HasForeignKey(e => e.ExtendedPCID)
+                .HasForeignKey(e => e.ExtendedPCId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ProbationaryColleague>()
                 .HasMany(e => e.ProgressReviews)
                 .WithRequired(e => e.ProbationaryColleague)
-                .HasForeignKey(e => e.PCID)
+                .HasForeignKey(e => e.PCId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ProbationaryColleague>()
                 .HasMany(e => e.SelfAssessments)
                 .WithRequired(e => e.CreationPC)
-                .HasForeignKey(e => e.CreationPCID)
+                .HasForeignKey(e => e.CreationPCId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ProgressReview>()
@@ -165,10 +166,6 @@ namespace Release2.Models
             //    .WithRequired(e => e.SelfAssessment)
             //    .WillCascadeOnDelete(false);
         }
-
-        public System.Data.Entity.DbSet<Release2.ViewModels.ColleagueViewModel> ColleagueViewModels { get; set; }
-
-        public System.Data.Entity.DbSet<Release2.ViewModels.ProbationaryColleagueViewModel> ProbationaryColleagueViewModels { get; set; }
     }
     public class CustomUserRole : IdentityUserRole<int> { }
     public class CustomUserClaim : IdentityUserClaim<int> { }

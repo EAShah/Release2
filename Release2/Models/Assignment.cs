@@ -28,13 +28,17 @@ namespace Project._1.Models
         [Column(TypeName = "date")]
         public DateTime? AssignmentInspectionDate { get; set; }
 
-        public int HRAssignID { get; set; }
+        public int HRAssignId { get; set; }
 
-        public int LMAssignID { get; set; }
+        public int LMAssignId { get; set; }
 
-        public int? LMInspectID { get; set; }
+        public int? LMInspectId { get; set; }
 
-        public int PCID { get; set; }
+        public int PCId { get; set; }
+
+        public int DepartmentId { get; set; }
+
+        public virtual Department Department { get; set; }
 
         public virtual Colleague HRAssigns { get; set; }
 
@@ -54,6 +58,4 @@ namespace Project._1.Models
             Rejected
         }
     }
-
-    
 }

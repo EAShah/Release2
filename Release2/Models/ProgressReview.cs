@@ -47,15 +47,15 @@ namespace Project._1.Models
         [Column(TypeName = "date")]
         public DateTime? PRHRAEvalDate { get; set; }
 
-        public int? HREvaluatesID { get; set; }
+        public int? HREvaluatesId { get; set; }
 
-        public int? PRDHApprovesID { get; set; }
+        public int? PRDHApprovesId { get; set; }
 
-        public int LMID { get; set; }
+        public int LMId { get; set; }
 
-        public int PCID { get; set; }
+        public int PCId { get; set; }
 
-        public int MeetingID { get; set; }
+        public int MeetingId { get; set; }
 
         public virtual Colleague DHApproval { get; set; }
 
@@ -67,7 +67,7 @@ namespace Project._1.Models
 
         public virtual SelfAssessment SelfAssessment { get; set; }
 
-        public int? SelfAssessmentID { get; set; }
+        public int? SelfAssessmentId { get; set; }
 
         public virtual ICollection<PerformanceCriterion> PerformanceCriterions { get; set; }
 

@@ -209,15 +209,12 @@
     <Compile Include="Models\Competency.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\ExtensionRequest.cs" />
-    <Compile Include="Models\ExtensionSubmission.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Meeting.cs" />
     <Compile Include="Models\PerformanceCriterion.cs" />
     <Compile Include="Models\ProbationaryColleague.cs" />
     <Compile Include="Models\ProgressReview.cs" />
     <Compile Include="Models\SelfAssessment.cs" />
-    <Compile Include="Models\SelfAssessmentSubmission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AssignmentViewModel.cs" />
@@ -321,17 +318,11 @@
     <Content Include="Views\ProbationaryColleague\Create.cshtml" />
     <Content Include="Views\ProbationaryColleague\Edit.cshtml" />
     <Content Include="Views\ProbationaryColleague\Delete.cshtml" />
-    <Content Include="Views\Competency\Index.cshtml" />
-    <Content Include="Views\Competency\Details.cshtml" />
-    <Content Include="Views\Competency\Create.cshtml" />
-    <Content Include="Views\Competency\Edit.cshtml" />
-    <Content Include="Views\Competency\Delete.cshtml" />
     <Content Include="Views\Assignment\HRIndex.cshtml" />
     <Content Include="Views\Assignment\LMIndex.cshtml" />
     <Content Include="Views\Assignment\Details.cshtml" />
     <Content Include="Views\Assignment\Create.cshtml" />
     <Content Include="Views\Assignment\Inspect.cshtml" />
-    <Content Include="Views\Assignment\Edit.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -341,9 +332,22 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\ExtensionRequest\AllIndex.cshtml" />
+    <Content Include="Views\ExtensionRequest\Details.cshtml" />
+    <Content Include="Views\ExtensionRequest\Create.cshtml" />
+    <Content Include="Views\ExtensionRequest\Audit.cshtml" />
+    <Content Include="Views\Assignment\Delete.cshtml" />
+    <Content Include="Views\ExtensionRequest\Delete.cshtml" />
+    <Content Include="Views\ExtensionRequest\PendingIndex.cshtml" />
+    <Content Include="Views\ExtensionRequest\RejectedIndex.cshtml" />
+    <Content Include="Views\ExtensionRequest\ApprovedIndex.cshtml" />
+    <Content Include="Views\Competency\Index.cshtml" />
+    <Content Include="Views\Competency\Create.cshtml" />
+    <Content Include="Views\Competency\Edit.cshtml" />
+    <Content Include="Views\Competency\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scriptss\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

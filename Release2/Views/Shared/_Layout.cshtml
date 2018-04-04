@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles", required: false)
 
 </head>
 <body>
@@ -16,27 +17,27 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Probation Management System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Colleague", "Index", "Colleague")</li>
-                    <li>@Html.ActionLink("Probationary Colleague", "Index", "ProbationaryColleague")</li>
-                    <li>@Html.ActionLink("Department", "Index", "Department")</li>
-                    <li>@Html.ActionLink("Competency", "Index", "Competency")</li>
-                    <li>@Html.ActionLink("Assignment", "HRIndex", "Assignment")</li>
-                   @* <li>@Html.ActionLink("Extension Request", "Index", "ExtensionRequest")</li>*@
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
+    </button>
+    @Html.ActionLink("PMS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Colleague", "Index", "Colleague")</li>
+            <li>@Html.ActionLink("Probation", "Index", "ProbationaryColleague")</li>
+            <li>@Html.ActionLink("Department", "Index", "Department")</li>
+            <li>@Html.ActionLink("Competency", "Index", "Competency")</li>
+            <li>@Html.ActionLink("Assignment", "HRIndex", "Assignment")</li>
+            <li>@Html.ActionLink("Extensions", "AllIndex", "ExtensionRequest")</li>
+        </ul>
+        @Html.Partial("_LoginPartial")
+    </div>
+    </div>
     </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Probation Management System</p>
         </footer>
     </div>
 

@@ -15,6 +15,9 @@ using static Project._1.Models.ProbationaryColleague;
 
 namespace Release2.ViewModels
 {
+    /// <summary>
+    /// Probationary Colleague view model from Probationary Colleague model and used by Probationary Colleague controller
+    /// </summary>
     public class ProbationaryColleagueViewModel
     {
         public int Id { get; set; }
@@ -67,11 +70,14 @@ namespace Release2.ViewModels
         public ProbationTypes ProbationType { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Joined")]
         public DateTime? JoinDate { get; set; }
 
+        [Display(Name = "Probation Status")]
+        public ProbationSuccess ProbationSuccessStatus { get; set; }
 
-      
 
         // To display a list of roles
         public string Roles { get; set; }

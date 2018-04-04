@@ -12,6 +12,9 @@ using System.Web;
 
 namespace Release2.ViewModels
 {
+    /// <summary>
+    /// Department view model from Department model and used by Department controller
+    /// </summary>
     public class DepartmentViewModel
     {
         public int Id { get; set; }

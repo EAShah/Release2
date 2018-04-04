@@ -10,84 +10,73 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
+    @*<table id="employeesTable" class="display" width="100%" cellspacing="0">*@
+    @*<thead>*@
     <tr>
+
         <th>
-            @Html.DisplayNameFor(model => model.UserName)
+            @Html.DisplayNameFor(model => model.FullName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ConfirmPassword)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.ColleagueType)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EmploymentType)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.ColleagueRegion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DepartmentId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Department)
         </th>
         <th></th>
     </tr>
+    @*</thead>*@
+    @*<tbody>*@
+    @foreach (var item in Model)
+    {
+        <tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ConfirmPassword)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ColleagueType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmploymentType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ColleagueRegion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartmentId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Department)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ColleagueType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ColleagueRegion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+    @*</tbody>*@
+</table>
+@*@section scripts
+{
+    <script type="text/javascript" src="@Url.Content("/Scripts/DataTables/jquery.dataTables.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("/Scripts/DataTables/dataTables.scroller.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("/Scripts/DataTables/dataTables.bootstrap.min.js")"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#colleaguesTable').DataTable();
+        });
+    </script>
 }
 
-</table>
+@section styles
+{
+    <link href="@Url.Content("/Content/DataTables/css/jquery.dataTables.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/DataTables/css/dataTables.scroller.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/DataTables/css/dataTables.bootstrap.min.css")" rel="stylesheet" />
+}*@

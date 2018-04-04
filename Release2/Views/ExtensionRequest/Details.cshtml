@@ -1,0 +1,82 @@
+﻿@model Release2.ViewModels.ExtensionRequestViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ExtensionRequestViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ExtendedPC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExtendedPC)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ExtNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExtNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExtReason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExtReason)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExtRequestStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExtRequestStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LMSubmits)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMSubmits)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExtRequestSubmissionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExtRequestSubmissionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HRAudits)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HRAudits)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExtRequestAuditDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExtRequestAuditDate)
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Audit", "Audit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "AllIndex")
+</p>

@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<Release2.ViewModels.ExtensionRequestViewModel>
 
 @{
-    ViewBag.Title = "AllIndex";
+    ViewBag.Title = "Rejected Requests";
 }
 
-<h2>AllIndex</h2>
+<h2>RejectedIndex</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -18,16 +18,11 @@
             @Html.DisplayNameFor(model => model.LMSubmits)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.ExtRequestSubmissionDate)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ExtRequestStatus)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExtRequestSubmissionDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExtRequestSubmissionDate)
-        </th>
-
-
         <th></th>
     </tr>
 
@@ -41,15 +36,11 @@
                 @Html.DisplayFor(modelItem => item.LMSubmits)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.ExtRequestSubmissionDate)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ExtRequestStatus)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExtRequestSubmissionDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExtRequestSubmissionDate)
-            </td>
-
 
             <td>
                 @Html.ActionLink("Audit", "Audit", new { id = item.Id }) |
@@ -61,23 +52,10 @@
 
 </table>
 
-@*<div class="container">
-        <button type="button" value="PendingIndex" class="btn btn-primary">Pending Requests</button>
-    </div>
+<p>
+    @Html.ActionLink("All Requests", "AllIndex")
+</p>
 
-    <div class="container">
-        <button type="button" value="ApprovedIndex" class="btn btn-success">Approved Requests</button>
-    </div>
-
-    <div class="container">
-        <button type="button" value="ApprovedIndex" class="btn btn-success">Approved Requests</button>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="button" value="RejectedIndex" class="btn btn-warning" />
-        </div>
-    </div>*@
 <p>
     @Html.ActionLink("Pending Requests", "PendingIndex")
 </p>
@@ -85,7 +63,3 @@
 <p>
     @Html.ActionLink("Approved Requests", "ApprovedIndex")
 </p>
-
-<p>
-    @Html.ActionLink("Rejected Requests", "RejectedIndex")
-</p> 

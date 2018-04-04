@@ -39,9 +39,13 @@ namespace Project._1.Models
         [Required]
         public ProbationTypes ProbationType { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Column(TypeName = "date")]
         public DateTime? JoinDate { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Column(TypeName = "date")]
         public DateTime? LeaveDate { get; set; }
 

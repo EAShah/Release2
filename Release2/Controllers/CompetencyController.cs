@@ -1,8 +1,11 @@
-﻿using Project._1.Models;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
+using Project._1.Models;
 using Release2.Models;
 using Release2.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -10,13 +13,15 @@ using System.Web.Mvc;
 
 namespace Release2.Controllers
 {
-    public class CompetencyController: Controller
+    public class CompetencyController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         /// <summary>
         /// This action lists competencies
         /// </summary>
+        /// <returns>Competency, Index view</returns>
+        // GET: Competency
         // GET: Competency
         public ActionResult Index()
         {
@@ -36,53 +41,24 @@ namespace Release2.Controllers
         /// <summary>
         /// This action lists competency details
         /// </summary>
+        /// <param name="id", ></param
+        /// <param name="model", ></param>
+        /// <returns>Competency, Details view</returns>
         // GET: Competency/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            Competency course = db.Competencies.Find(id);
-            if (course == null)
-            {
-                return HttpNotFound();
-            }
-
-            var model = new CompetencyViewModel
-            {
-                Id = course.CompetencyId,
-                CompetencyName = course.CompetencyName,
-            };
-
-            return View(model);
+            return View();
         }
 
         /// <summary>
         /// This action creates competencies
         /// </summary>
+        ///  <param name="model", ></param>
+        /// <returns>Competency, Create view</returns>
         // GET: Competency/Create
-        public ActionResult Create(int? id)
+        public ActionResult Create()
         {
-
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Competency competency
-                = db.Competencies.Find(id);
-            if (competency == null)
-            {
-                return HttpNotFound();
-            }
-            var model = new CompetencyViewModel
-            {
-                Id = competency.CompetencyId,
-                CompetencyName = competency.CompetencyName,
-            };
-
-            return View(model);
+            return View();
         }
 
         // POST: Competency/Create
@@ -108,8 +84,11 @@ namespace Release2.Controllers
         }
 
         /// <summary>
-        /// This action edits competencies
+        /// This action edits Competencies
         /// </summary>
+        /// <param name="id", ></param>
+        ///  <param name="model", ></param>
+        /// <returns>Competency, Edit view</returns>
         // GET: Competency/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -142,6 +121,7 @@ namespace Release2.Controllers
                 var competency = db.Competencies.Find(id);
                 if (competency != null)
                 {
+                    competency.CompetencyId = model.Id;
                     competency.CompetencyName = model.CompetencyName;
                     db.SaveChanges();
 
@@ -159,8 +139,10 @@ namespace Release2.Controllers
         }
 
         /// <summary>
-        /// This action deletes competencies
+        /// This action deletes Competencies
         /// </summary>
+        /// <param name="id", ></param>
+        /// <returns>Department, Delete view</returns>
         // GET: Competency/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -168,15 +150,17 @@ namespace Release2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Competency competency = db.Competencies.Find(id);
             if (competency == null)
             {
                 return HttpNotFound();
             }
+
             CompetencyViewModel model = new CompetencyViewModel
             {
                 Id = competency.CompetencyId,
-                CompetencyName = competency.CompetencyName,
+                CompetencyName = competency.CompetencyName
             };
 
             return View(model);

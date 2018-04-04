@@ -25,17 +25,18 @@
         </div>
     </div>
 
-    <div class="form-group">
+      <div class="form-group">
         @Html.LabelFor(model => model.ProbationaryColleague, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("PCID", null, htmlAttributes: new { @class = "form-control" })
+            @Html.DropDownList("PCId", null, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.ProbationaryColleague, "", new { @class = "text-danger" })
         </div>
     </div>
+
     <div class="form-group">
         @Html.LabelFor(model => model.LMAssigned, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("LMAssignedID", null, htmlAttributes: new { @class = "form-control" })
+            @Html.DropDownList("LMAssignId", null, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.LMAssigned, "", new { @class = "text-danger" })
         </div>
     </div>

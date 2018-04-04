@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Release2.ViewModels.AssignmentViewModel>
 
 @{
-    ViewBag.Title = "LMIndex";
+    ViewBag.Title = "Assignments";
 }
 
 <h2>LMIndex</h2>
@@ -20,7 +20,9 @@
         <th>
             @Html.DisplayNameFor(model => model.AssignmentDate)
         </th>
-        
+        <th>
+            @Html.DisplayNameFor(model => model.AssignmentStatus)
+        </th>
         <th></th>
     </tr>
 
@@ -35,7 +37,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.AssignmentDate)
         </td>
-        
+        <td>
+            @Html.DisplayFor(modelItem => item.AssignmentStatus)
+        </td>
         <td>
             @Html.ActionLink("Inpect", "Inspect", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) 

@@ -22,7 +22,7 @@ namespace Project._1.Models
             CreatedAssignments = new HashSet<Assignment>();
             ReceivedAssignment = new HashSet<Assignment>();
             InspectionAssignment = new HashSet<Assignment>();
-            //ExtensionSubmissions = new HashSet<ExtensionSubmission>();
+            SubmittedExtensionRequests = new HashSet<ExtensionRequest>();
             ExtensionRequests = new HashSet<ExtensionRequest>();
             ApprovedProgressReviews = new HashSet<ProgressReview>();
             EvaluatedProgressReviews = new HashSet<ProgressReview>();
@@ -33,7 +33,7 @@ namespace Project._1.Models
 
         // Declaring attributes of the Colleague table as properties.
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        //public int ColleagueID { get; set; }
+        //public int ColleagueId { get; set; }
 
         //[StringLength(20)]
         //public string Password { get; set; }
@@ -52,6 +52,8 @@ namespace Project._1.Models
             get { return FirstName + ", " + LastName; }
         }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Column(TypeName = "date")]
         public DateTime? DOB { get; set; }
 
@@ -98,7 +100,7 @@ namespace Project._1.Models
 
         public virtual ICollection<Assignment> InspectionAssignment { get; set; }
 
-        //public virtual ICollection<ExtensionSubmission> ExtensionSubmissions { get; set; }
+        public virtual ICollection<ExtensionRequest> SubmittedExtensionRequests { get; set; }
 
         public virtual ICollection<ExtensionRequest> ExtensionRequests { get; set; }
 
