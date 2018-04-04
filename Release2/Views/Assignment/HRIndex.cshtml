@@ -42,9 +42,9 @@
             @Html.DisplayFor(modelItem => item.AssignmentStatus)
         </td>
         <td>
-            @Html.ActionLink("Inspect", "Inspect", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            @Html.ActionLink("Inspect", "Inspect", new { id = item.Id }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
         </td>
     </tr>
 }
