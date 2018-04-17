@@ -1,0 +1,106 @@
+﻿@model Release2.ViewModels.ProbationaryColleagueViewModel
+
+@{
+    ViewBag.Title = "Extensions";
+}
+
+<h2>Extensions</h2>
+
+<div>
+    <h4>Extensions Requested for Probationary Colleague</h4>
+    <hr />
+    @Html.HiddenFor(m => m.Id)
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Department)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JoinDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JoinDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Roles)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Roles)
+        </dd>
+
+    </dl>
+</div>
+@Ajax.ActionLink("Extension Requests", "ListExtensionRequestsPartial", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "ExtensionList", HttpMethod = "GET", InsertionMode = InsertionMode.Replace })
+...
+<div id="ExtensionList"></div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+@*@section Scripts {
+    <script type="text/javascript">
+
+        // Show extension list of a probationary colleague
+        function listExtensions() {
+            $.ajax({
+                url: "/ProbationaryColleague/ListExtensionRequestsPartial",
+                type: "get",
+                data: { id: $("#Id").val() }, // Id problem? Or code problem?
+                dataType: "html",
+                success: function (result, status, jqxhr) {
+                    $("#ExtensionList").html(result);
+                },
+                error: function (jqxhr, status, exception) {
+                    console.log(status);
+                }
+            });
+        }
+    </script>*@

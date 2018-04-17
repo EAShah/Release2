@@ -27,7 +27,7 @@ namespace Project._1.Models
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ReviewId { get; set; }
 
-        public int? TotalGrade { get; set; }
+        public int? TotalScore { get; set; }
 
         [StringLength(500)]
         public string EvalDescription { get; set; }
@@ -55,15 +55,11 @@ namespace Project._1.Models
 
         public int PCId { get; set; }
 
-        public int MeetingId { get; set; }
-
         public virtual Colleague DHApproval { get; set; }
 
         public virtual Colleague HREvaluation { get; set; }
 
         public virtual Colleague LMCreates { get; set; }
-
-        //public virtual Meeting Meeting { get; set; }
 
         public virtual SelfAssessment SelfAssessment { get; set; }
 

@@ -23,7 +23,7 @@ namespace Project._1.Models
             ReceivedAssignment = new HashSet<Assignment>();
             InspectionAssignment = new HashSet<Assignment>();
             SubmittedExtensionRequests = new HashSet<ExtensionRequest>();
-            ExtensionRequests = new HashSet<ExtensionRequest>();
+            AuditedExtensionRequests = new HashSet<ExtensionRequest>();
             ApprovedProgressReviews = new HashSet<ProgressReview>();
             EvaluatedProgressReviews = new HashSet<ProgressReview>();
             CreatedProgressReviews = new HashSet<ProgressReview>();
@@ -47,9 +47,10 @@ namespace Project._1.Models
         public string LastName { get; set; }
 
         [Display(Name = "Full Name")]
+        [NotMapped]
         public string FullName
         {
-            get { return FirstName + ", " + LastName; }
+            get { return FirstName + " " + LastName; }
         }
 
         [DataType(DataType.Date)]
@@ -102,7 +103,7 @@ namespace Project._1.Models
 
         public virtual ICollection<ExtensionRequest> SubmittedExtensionRequests { get; set; }
 
-        public virtual ICollection<ExtensionRequest> ExtensionRequests { get; set; }
+        public virtual ICollection<ExtensionRequest> AuditedExtensionRequests { get; set; }
 
         public virtual ICollection<ProgressReview> ApprovedProgressReviews { get; set; }
 

@@ -281,5 +281,12 @@ namespace Release2.Controllers
             db.SaveChanges();
             return RedirectToAction("HRIndex");
         }
+
+        public ActionResult GetCountFacultiesPartial(int id)
+        {
+            // Modify the condition inside the Count() to suite your needs
+            int count = db.ProgressReviews.Count(p => p.PRDHApprovalStatus == ProgressReview.ApprovalStatus.Pending);
+            return PartialView(count);
+        }
     }
 }

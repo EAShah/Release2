@@ -27,6 +27,7 @@ namespace Release2.ViewModels
 
         [Display(Name = "Reason")]
         [StringLength(500, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 20)]
+        [DataType(DataType.MultilineText)]
         public string ExtReason { get; set; }
 
         [Display(Name = "Extension Request Status")]

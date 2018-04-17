@@ -4,6 +4,7 @@ using Release2.Models;
 using Release2.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -59,7 +60,7 @@ namespace Release2.Controllers
                     ExtRequestStatus = item.ExtRequestStatus, 
                     LMSubmits = item.LMSubmits.FullName,
                     ExtendedPC = item.ExtendedPC.FullName,
-                    ExtRequestSubmissionDate = item.ExtRequestSubmissionDate
+                    ExtRequestSubmissionDate = item.ExtRequestSubmissionDate,
                 });
             }
             return View(model);
@@ -203,6 +204,8 @@ namespace Release2.Controllers
         // GET: ExtensionRequest/Audit/5
         public ActionResult Audit(int? id)
         {
+            // Find Extension request and edit details
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -248,6 +251,8 @@ namespace Release2.Controllers
                     extension.ExtRequestStatus = model.ExtRequestStatus;
                     extension.ExtendedPCId = model.ExtendedPCId;
                     extension.LMSubmitId = model.LMSubmitId;
+
+                    db.Entry(extension).State = EntityState.Modified;
                     db.SaveChanges();
 
                     return RedirectToAction("AllIndex");
@@ -304,10 +309,11 @@ namespace Release2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            // Remove extension request from database
             ExtensionRequest extension = db.ExtensionRequests.Find(id);
             db.ExtensionRequests.Remove(extension);
             db.SaveChanges();
-            return RedirectToAction("Create");
+            return RedirectToAction("AllIndex");
         }
     }
 }

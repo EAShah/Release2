@@ -1,28 +1,32 @@
-﻿@model IEnumerable<Release2.ViewModels.AssignmentViewModel>
+﻿@model IEnumerable<Release2.ViewModels.ProgressReviewViewModel>
 
 @{
-    ViewBag.Title = "Asignments";
+    ViewBag.Title = "Index";
 }
 
-<h2>HRIndex</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table" id="assignmentsTable">
+<table class="table" id="reviewsTable">
     <thead>
         <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.DHApproval)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HREvaluation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LMCreates)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.AssessmentStatus)
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.ProbationaryColleague)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LMAssigned)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AssignmentDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AssignmentStatus)
             </th>
 
             <th></th>
@@ -32,22 +36,27 @@
         @foreach (var item in Model)
         {
             <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DHApproval)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HREvaluation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LMCreates)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.AssessmentStatus)
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.ProbationaryColleague)
                 </td>
+
                 <td>
-                    @Html.DisplayFor(modelItem => item.LMAssigned)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AssignmentDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AssignmentStatus)
-                </td>
-                <td>
-                    @Html.ActionLink("Inspect", "Inspect", new { id = item.Id }, new { @class = "btn btn-info" }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary" }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                 </td>
             </tr>
         }
@@ -61,9 +70,9 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#assignmentsTable').DataTable();
+            $('#reviewsTable').DataTable();
         });
-        $('#assignmentsTable').dataTable({
+        $('#reviewsTable').dataTable({
             "columnDefs": [
                 { "orderable": false, "targets": -1 }
             ]

@@ -26,8 +26,10 @@
             <li>@Html.ActionLink("Probation", "Index", "ProbationaryColleague")</li>
             <li>@Html.ActionLink("Department", "Index", "Department")</li>
             <li>@Html.ActionLink("Competency", "Index", "Competency")</li>
-            <li>@Html.ActionLink("Assignment", "HRIndex", "Assignment")</li>
+            <li>@Html.ActionLink("Assignment", "HRIndex", "Assignment"@*, "GetAssignmentNotifPartial"*@)</li>
             <li>@Html.ActionLink("Extensions", "AllIndex", "ExtensionRequest")</li>
+            <li>@Html.ActionLink("Reviews", "Index", "ProgressReview")</li>
+
         </ul>
         @Html.Partial("_LoginPartial")
     </div>

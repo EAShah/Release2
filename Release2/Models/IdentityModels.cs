@@ -72,7 +72,7 @@ namespace Release2.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Colleague>()
-                .HasMany(e => e.ExtensionRequests)
+                .HasMany(e => e.AuditedExtensionRequests)
                 .WithOptional(e => e.HRAudits)
                 .HasForeignKey(e => e.HRAuditId)
                 .WillCascadeOnDelete(false);
@@ -122,11 +122,6 @@ namespace Release2.Models
              .WithRequired(e => e.Department)
              .WillCascadeOnDelete(false);
 
-            //modelBuilder.Entity<ExtensionRequest>()
-            //    .HasMany(e => e.ExtensionSubmissions)
-            //    .WithRequired(e => e.ExtensionRequest)
-            //    .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<ProbationaryColleague>()
                 .HasMany(e => e.Assignments)
                 .WithRequired(e => e.ProbationaryColleague)
@@ -147,7 +142,7 @@ namespace Release2.Models
 
             modelBuilder.Entity<ProbationaryColleague>()
                 .HasMany(e => e.SelfAssessments)
-                .WithRequired(e => e.CreationPC)
+                .WithOptional(e => e.CreationPC)
                 .HasForeignKey(e => e.CreationPCId)
                 .WillCascadeOnDelete(false);
 
@@ -157,14 +152,11 @@ namespace Release2.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ProgressReview>()
-                .HasRequired(e => e.SelfAssessment)
-                .WithRequiredDependent()
+                .HasOptional(e => e.SelfAssessment)
+                .WithOptionalDependent()
                 .WillCascadeOnDelete(false);
 
-            //modelBuilder.Entity<SelfAssessment>()
-            //    .HasMany(e => e.SelfAssessmentSubmissions)
-            //    .WithRequired(e => e.SelfAssessment)
-            //    .WillCascadeOnDelete(false);
+           
         }
     }
     public class CustomUserRole : IdentityUserRole<int> { }

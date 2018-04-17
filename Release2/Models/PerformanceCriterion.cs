@@ -17,7 +17,7 @@ namespace Project._1.Models
     public partial class PerformanceCriterion
     {
         // Declaring attributes of the PerformanceCriterion table as properties.
-        public int? Grade { get; set; }
+        public int? Score { get; set; }
 
         [Key]
         [Column(Order = 0)]

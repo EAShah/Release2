@@ -28,7 +28,7 @@ namespace Project._1.Models
 
         public ExtNumbers ExtNumber { get; set; }
 
-        [StringLength(500)]
+        [DataType(DataType.MultilineText)]
         public string ExtReason { get; set; }
 
         public RequestStatus ExtRequestStatus { get; set; }

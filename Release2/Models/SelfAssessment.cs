@@ -15,7 +15,7 @@ namespace Project._1.Models
 
     // Creation of the SelfAssessment table as a class.
     [Table("SelfAssessment")]
-    public partial class SelfAssessment
+    public partial class SelfAssessment 
     {
         //public SelfAssessment()
         //{
@@ -40,7 +40,7 @@ namespace Project._1.Models
 
         public int? CreationPCId { get; set; }
 
-
+        public Status AssessmentStatus { get; set; }
 
         //These properties have been commented because they are not required.
 
@@ -58,6 +58,11 @@ namespace Project._1.Models
 
         //public virtual ICollection<SelfAssessmentSubmission> SelfAssessmentSubmissions { get; set; }
 
+        public enum  Status
+        {
+            Pending,
 
+            Submitted
+        }
     }
 }

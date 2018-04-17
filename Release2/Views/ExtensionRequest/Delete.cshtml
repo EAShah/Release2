@@ -11,6 +11,8 @@
     <h4>ExtensionRequestViewModel</h4>
     <hr />
     <dl class="dl-horizontal">
+        @Html.HiddenFor(model => model.ExtendedPCId)
+        @Html.HiddenFor(model => model.LMSubmitId)
         <dt>
             @Html.DisplayNameFor(model => model.ExtReason)
         </dt>

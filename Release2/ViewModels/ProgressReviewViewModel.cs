@@ -22,37 +22,39 @@ namespace Release2.ViewModels
     /// </summary>
     public class ProgressReviewViewModel
     {
+        public ProgressReviewViewModel()
+        {
+            Competencies = new List<CompetencyViewModel>();
+            //Scores = new List<int>();
+        }
+        // no performance criterion to progress review source found; MAKE SURE PERFORMANCECRITERION IS BEING USED.
+
+
+        //BADGES
+        //EMAIL NOTIFS
+        //JQUERY&AJAX 
+
+
         public int Id { get; set; }
 
         // Fields of the Progress Review
 
-        [Required]
+        [DataType(DataType.MultilineText)]
         [Display(Name = "Report")]
         public string EvalDescription { get; set; }
 
         [Display(Name = "Scores")]
-        public int? TotalGrade { get; set; }
+        public int? TotalScore { get; set; }
 
-        public int? Grade { get; set; }
+        public int? Score { get; set; }
 
-        public int CompetencyId { get; set; }
-        public string CompetencyName { get; set; }
+        public Levels Level { get; set; }
 
         public int DepartmentId { get; set; }
         public string Department { get; set; }
 
 
-        [Required]
-        [Display(Name = "Progress Review Evaluation")]
-        public string PREvalDescription { get; set; }
-
-        [Required]
-        [Display(Name = "Self Evaluation")]
-        public string SelfEvaluation { get; set; }
-
-        [Column(TypeName = "date")]
-        public DateTime? SASubmissionDate { get; set; }
-
+       
         public int? HREvaluatesId { get; set; }
 
         public int? PRDHApprovesId { get; set; }
@@ -63,20 +65,22 @@ namespace Release2.ViewModels
 
         public int? SelfAssessmentId { get; set; }
 
-        public int? CreationPCId { get; set; }
+       
 
-
+        [Display(Name = "Approved by Department Head:")]
         public string DHApproval { get; set; }
 
+        [Display(Name = "Evaluated by HR Associate:")]
         public string HREvaluation { get; set; }
 
+        [Display(Name = "Created by Line Manager:")]
         public string LMCreates { get; set; }
 
         public string SelfAssessment { get; set; }
 
+        [Display(Name = "Probationary Colleague")]
         public string ProbationaryColleague { get; set; }
 
-        public string CreationPC { get; set; }
         
 
         //Status Properties
@@ -101,5 +105,16 @@ namespace Release2.ViewModels
 
         [Display(Name = "Report Evaluated")]
         public DateTime? PRHRAEvalDate { get; set; }
+
+        // add list of grades and competecnies
+
+        public virtual List<PerformanceCriterion> PerformanceReviews { get; set; }
+
+        public virtual List<CompetencyViewModel> Competencies { get; set; }
+
+        //public virtual List<int> Scores { get; set; }
+        //public virtual ICollection<PerformanceCriterion> PerformanceCriteria { get; set; }
+
+
     }
 }

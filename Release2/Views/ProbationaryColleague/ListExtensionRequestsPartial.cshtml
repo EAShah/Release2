@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Release2.ViewModels.ExtensionRequestViewModel>
+
+<h4>Extension Request List</h4>
+
+@if (Model.Count() == 0)
+{
+    <p>This course does not have any sections</p>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ExtReason)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExtNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExtRequestStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LMSubmits)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExtReason)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExtNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExtRequestStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LMSubmits)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+}

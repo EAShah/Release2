@@ -6,6 +6,7 @@ using Release2.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -333,6 +334,67 @@ namespace Release2.Controllers
             }
 
             return View();
+        }
+
+        public ActionResult Extensions(int id)
+        {
+            // Show course details
+            // Show all sections
+
+            var user = UserManager.FindById(id);
+
+            // Check if the user exists
+            if (user != null) // && ProbationaryColleague.Levels.First)
+            {
+                var probationaryColleague = (ProbationaryColleague)user;
+
+                ProbationaryColleagueViewModel model = new ProbationaryColleagueViewModel()
+                {
+                    Id = probationaryColleague.Id,
+                    Email = probationaryColleague.Email,
+                    FirstName = probationaryColleague.FirstName,
+                    LastName = probationaryColleague.LastName,
+                    UserName = probationaryColleague.UserName,
+                    Level = probationaryColleague.Level,
+                    Department = probationaryColleague.Department.DepartmentName,
+                    ColleagueRegion = probationaryColleague.ColleagueRegion,
+                    CityOfProbation = probationaryColleague.CityOfProbation,
+                    ProbationType = probationaryColleague.ProbationType,
+                    JoinDate = probationaryColleague.JoinDate,
+                    ProbationSuccessStatus = probationaryColleague.ProbationSuccessStatus,
+                    Roles = string.Join(" ", UserManager.GetRoles(id).ToArray())
+                };
+
+                return View(model);
+            }
+            else
+            {
+                // Customize the error view: /Views/Shared/Error.cshtml
+                return View("There are no extensions for this Probationary Colleague");
+            }
+
+        }
+       
+        // Select a course from a dropdown list to display course sections
+        public ActionResult ListExtensionRequestsPartial(int id)
+        {
+            var users = db.ExtensionRequests.Where(e => e.ExtendedPCId == id).ToList();
+            var model = new List<ExtensionRequestViewModel>();
+            foreach (var user in users)
+            {
+                model.Add(new ExtensionRequestViewModel
+                {
+                     ExtNumber = user.ExtNumber,
+                     ExtReason = user.ExtReason,
+                     ExtRequestStatus = user.ExtRequestStatus,
+                     LMSubmitId = user.LMSubmitId,
+                     LMSubmits = user.LMSubmits.FullName
+                });
+            }
+
+            return PartialView(model);
+            //ViewBag.ExtensionRequests = new SelectList(db.ExtensionRequests, "ExtRequestId", "ExtNumber");
+            //return View();
         }
     }
 }

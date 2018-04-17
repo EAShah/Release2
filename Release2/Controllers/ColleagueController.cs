@@ -64,6 +64,8 @@ namespace Release2.Controllers
         // GET: Colleague
         public ActionResult Index()
         {
+            var list = db.Colleagues.ToList().Select(e => new { e.Id, e.FullName });
+            ViewBag.Id = new SelectList(list, "Id", "FullName");
             var users = db.Colleagues.ToList();
             var model = new List<ColleagueViewModel>();
             foreach (var user in users)
@@ -75,7 +77,7 @@ namespace Release2.Controllers
                         Id = user.Id,
                         UserName = user.UserName,
                         Email = user.Email,
-                        
+                        FirstName= user.FullName,
                         ColleagueType = user.ColleagueType,
                         EmploymentType = user.EmploymentType,
                         Department = user.Department.DepartmentName,

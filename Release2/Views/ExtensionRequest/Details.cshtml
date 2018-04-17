@@ -10,6 +10,8 @@
     <h4>ExtensionRequestViewModel</h4>
     <hr />
     <dl class="dl-horizontal">
+        @Html.HiddenFor(model => model.ExtendedPCId)
+        @Html.HiddenFor(model => model.LMSubmitId)
         <dt>
             @Html.DisplayNameFor(model => model.ExtendedPC)
         </dt>
@@ -77,6 +79,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Audit", "Audit", new { id = Model.Id }, new { @class = "btn btn-info" }) |
+    @Html.ActionLink("Audit", "Audit", new { id = Model.Id }, new { @class = "btn btn-info" }) 
     @Html.ActionLink("Back to List", "AllIndex", new { @class = "btn btn-info" })
 </p>

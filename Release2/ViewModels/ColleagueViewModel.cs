@@ -11,6 +11,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using Release2.Models;
 using Project._1.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Release2.ViewModels
 {
@@ -50,9 +51,10 @@ namespace Release2.ViewModels
         public string LastName { get; set; }
 
         [Display(Name = "Full Name")]
+        [NotMapped]
         public string FullName
         {
-            get { return FirstName + ", " + LastName; }
+            get { return FirstName + " " + LastName; }
         }
 
         [Required]

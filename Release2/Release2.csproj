@@ -222,8 +222,10 @@
     <Compile Include="ViewModels\CompetencyViewModel.cs" />
     <Compile Include="ViewModels\DepartmentViewModel.cs" />
     <Compile Include="ViewModels\ExtensionRequestViewModel.cs" />
+    <Compile Include="ViewModels\PerformanceCriterionViewModel.cs" />
     <Compile Include="ViewModels\ProbationaryColleagueViewModel.cs" />
     <Compile Include="ViewModels\ProgressReviewViewModel.cs" />
+    <Compile Include="ViewModels\SelfAssessmentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -488,6 +490,8 @@
     <Content Include="Scripts\jquery-1.9.0.min.js" />
     <Content Include="Scripts\jquery-1.9.0.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -513,7 +517,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -580,6 +586,14 @@
     <Content Include="Views\Competency\Create.cshtml" />
     <Content Include="Views\Competency\Edit.cshtml" />
     <Content Include="Views\Competency\Delete.cshtml" />
+    <Content Include="Views\ProgressReview\Create.cshtml" />
+    <Content Include="Views\ProgressReview\Index.cshtml" />
+    <Content Include="Views\ProgressReview\Assess.cshtml" />
+    <Content Include="Views\ProgressReview\Approve.cshtml" />
+    <Content Include="Views\ProgressReview\Evaluate.cshtml" />
+    <Content Include="Views\ProbationaryColleague\Extensions.cshtml" />
+    <Content Include="Views\Assignment\GetAssignmentNotifPartial.cshtml" />
+    <Content Include="Views\ProbationaryColleague\ListExtensionRequestsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -30,6 +30,13 @@ namespace Release2.ViewModels
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [Display(Name = "Full Name")]
+        [NotMapped]
+        public string FullName
+        {
+            get { return FirstName + ", " + LastName; }
+        }
+
         [Required]
         [Display(Name = "User Name")]
         public string UserName { get; set; }
