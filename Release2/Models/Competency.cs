@@ -25,6 +25,7 @@ namespace Project._1.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CompetencyId { get; set; }
 
+        [Required]
         [StringLength(30)]
         public string CompetencyName { get; set; }
 

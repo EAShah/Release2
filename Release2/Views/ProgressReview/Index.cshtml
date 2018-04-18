@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+    @if (ViewContext.HttpContext.User.IsInRole("LineManager"))
     {
         @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })}
     </p>

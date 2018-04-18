@@ -28,6 +28,7 @@ namespace Project._1.Models
 
         public ExtNumbers ExtNumber { get; set; }
 
+        [Required]
         [DataType(DataType.MultilineText)]
         public string ExtReason { get; set; }
 

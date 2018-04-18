@@ -26,6 +26,7 @@ namespace Project._1.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DepartmentId { get; set; }
 
+        [Required]
         [StringLength(30)]
         public string DepartmentName { get; set; }
 
