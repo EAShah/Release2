@@ -92,8 +92,19 @@ namespace Release2.Migrations
             //         new Assignment { HRAssignId = 2, LMAssignId = 7, PCId = 9, AssignmentStatus = Assignment.AssignStatus.Pending, AssignmentDate = null, AssignmentInspectionDate = null},
             //};
 
-            //assignments.ForEach(c => context.Assignments.AddOrUpdate(p => p.AssignmentStatus, c));
+            //assignments.ForEach(c => context.Assignments.AddOrUpdate(p => p.AssignmentId.ToString(), c));
             //context.SaveChanges();
+
+
+
+            var extensions = new List<ExtensionRequest>
+            {
+                     new ExtensionRequest { ExtReason = "Colleague performance is unsatisfactory in this month.", ExtNumber = ExtensionRequest.ExtNumbers.Four, ExtRequestStatus= ExtensionRequest.RequestStatus.Pending, ExtendedPCId = 8, LMSubmitId = 6, ExtRequestAuditDate = null, ExtRequestSubmissionDate = null },
+                     new ExtensionRequest { ExtReason = "Colleague performance is unsatisfactory in this month.", ExtNumber = ExtensionRequest.ExtNumbers.Three, ExtRequestStatus= ExtensionRequest.RequestStatus.Approved, ExtendedPCId = 8, LMSubmitId = 6, ExtRequestAuditDate = null, ExtRequestSubmissionDate = null },
+            };
+
+            extensions.ForEach(c => context.ExtensionRequests.AddOrUpdate(p => p.ExtReason, c));
+            context.SaveChanges();
 
             var HRAssociates = new List<Colleague>
             {
