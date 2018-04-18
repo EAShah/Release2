@@ -111,6 +111,7 @@ namespace Project._1.Models
 
         public virtual ICollection<ProgressReview> CreatedProgressReviews { get; set; }
 
+
         //public virtual ICollection<SelfAssessment> ApprovedSelfAssessments { get; set; }
 
         //public virtual ICollection<SelfAssessment> ReviewedSelfAssessments { get; set; }

@@ -21,6 +21,7 @@ namespace Release2.Controllers
         /// </summary>
         /// <returns>ExtensionRequest, AllIndex view</returns>
         // GET: ExtensionRequest
+        [Authorize(Roles = "HRAssociate, LineManager")]
         public ActionResult AllIndex()
         {
             var extensions = db.ExtensionRequests.ToList();
@@ -41,12 +42,38 @@ namespace Release2.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// This action lists extension requests based on their status
+        /// </summary>
+        /// <returns>ExtensionRequest, GetExtensionByStatus view</returns>
+        // GET: GetExtensionByStatusPartial
+        [Authorize(Roles = "HRAssociate")]
+        public ActionResult GetExtensionByStatusPartial(int? id)
+        {
+            var extension = db.ExtensionRequests.ToList().Where(e => e.ExtRequestStatus == ExtensionRequest.RequestStatus.Approved || e.ExtRequestStatus == ExtensionRequest.RequestStatus.Rejected || e.ExtRequestStatus == ExtensionRequest.RequestStatus.Pending);
+            var model = new List<ExtensionRequestViewModel>();
+            foreach (var item in extension)
+            {
+                model.Add(new ExtensionRequestViewModel
+                {
+                    Id = item.ExtRequestId,
+                    ExtNumber = item.ExtNumber,
+                    ExtRequestStatus = item.ExtRequestStatus,
+                    LMSubmits = item.LMSubmits.FullName,
+                    ExtendedPC = item.ExtendedPC.FullName,
+                    ExtRequestSubmissionDate = item.ExtRequestSubmissionDate,
+                });
+            }
+            return PartialView(model);
+        }
+
 
         /// <summary>
         /// This action lists approved extension requests 
         /// </summary>
         /// <returns>ExtensionRequest, ApprovedIndex view</returns>
         // GET: ApprovedExtensionRequest
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult ApprovedIndex()
         {
             var extension = db.ExtensionRequests.ToList().Where(e => e.ExtRequestStatus == ExtensionRequest.RequestStatus.Approved);
@@ -57,7 +84,7 @@ namespace Release2.Controllers
                 {
                     Id = item.ExtRequestId,
                     ExtNumber = item.ExtNumber,
-                    ExtRequestStatus = item.ExtRequestStatus, 
+                    ExtRequestStatus = item.ExtRequestStatus,
                     LMSubmits = item.LMSubmits.FullName,
                     ExtendedPC = item.ExtendedPC.FullName,
                     ExtRequestSubmissionDate = item.ExtRequestSubmissionDate,
@@ -71,6 +98,7 @@ namespace Release2.Controllers
         /// </summary>
         /// <returns>ExtensionRequest, RejectedIndex view</returns>
         // GET: RejectedExtensionRequest
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult RejectedIndex()
         {
             var extension = db.ExtensionRequests.ToList().Where(e => e.ExtRequestStatus == ExtensionRequest.RequestStatus.Rejected);
@@ -97,6 +125,7 @@ namespace Release2.Controllers
         /// </summary>
         /// <returns>ExtensionRequest, RejectedIndex view</returns>
         // GET: PendingExtensionRequest
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult PendingIndex()
         {
             var extension = db.ExtensionRequests.ToList().Where(e => e.ExtRequestStatus == ExtensionRequest.RequestStatus.Pending);
@@ -107,7 +136,7 @@ namespace Release2.Controllers
                 {
                     Id = item.ExtRequestId,
                     ExtNumber = item.ExtNumber,
-                    ExtRequestStatus = item.ExtRequestStatus, 
+                    ExtRequestStatus = item.ExtRequestStatus,
                     LMSubmits = item.LMSubmits.FullName,
                     ExtendedPC = item.ExtendedPC.FullName,
                     ExtRequestSubmissionDate = item.ExtRequestSubmissionDate
@@ -122,6 +151,7 @@ namespace Release2.Controllers
         /// <param name="id", ></param>
         /// <returns>ExtensionRequest, Details view</returns>
         // GET: ExtensionRequest/Details/5
+        [Authorize(Roles = "HRAssociate, LineManager")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -158,6 +188,7 @@ namespace Release2.Controllers
         /// <param name="model", ></param>
         /// <returns>ExtensionRequest, Create view</returns>
         // GET: ExtensionRequest/Create
+        [Authorize(Roles = "LineManager")]
         public ActionResult Create()
         {
             var list = db.ProbationaryColleagues.Select(p => new { p.Id, FullName = p.FirstName + " " + p.LastName });
@@ -178,7 +209,7 @@ namespace Release2.Controllers
                     ExtNumber = model.ExtNumber,
                     ExtReason = model.ExtReason,
                     ExtendedPCId = model.ExtendedPCId,
-                    LMSubmitId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id,
+                    LMSubmitId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Colleagues.Where(l => l.ColleagueType == ColleagueType.LineManager).First().Id,
                     ExtRequestSubmissionDate= DateTime.Now,
                     ExtRequestStatus = ExtensionRequest.RequestStatus.Pending
                 };
@@ -202,6 +233,7 @@ namespace Release2.Controllers
         /// <param name="model", ></param>
         /// <returns>ExtensionRequest, Audit view</returns>
         // GET: ExtensionRequest/Audit/5
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult Audit(int? id)
         {
             // Find Extension request and edit details
@@ -244,7 +276,7 @@ namespace Release2.Controllers
                 var extension = db.ExtensionRequests.Find(id);
                 if (extension != null)
                 {
-                    extension.HRAuditId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id;
+                    extension.HRAuditId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Colleagues.Where(h => h.ColleagueType == ColleagueType.HRAssociate).First().Id;
                     extension.ExtRequestSubmissionDate = model.ExtRequestSubmissionDate;
                     extension.ExtReason = model.ExtReason;
                     extension.ExtNumber = model.ExtNumber;
@@ -274,6 +306,7 @@ namespace Release2.Controllers
         /// <param name="id", ></param>
         /// <returns>ExtensionRequest, Details view</returns>
         // GET: ExtensionRequest/Delete/5
+        [Authorize(Roles = "LineManager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

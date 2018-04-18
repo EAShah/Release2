@@ -40,7 +40,7 @@ namespace Release2.Models
         public virtual DbSet<PerformanceCriterion> PerformanceCriterions { get; set; }
         public virtual DbSet<ProbationaryColleague> ProbationaryColleagues { get; set; }
         public virtual DbSet<ProgressReview> ProgressReviews { get; set; }
-        public virtual DbSet<SelfAssessment> SelfAssessments { get; set; }
+        //public virtual DbSet<SelfAssessment> SelfAssessments { get; set; }
         //public virtual DbSet<SelfAssessmentSubmission> SelfAssessmentSubmissions { get; set; }
 
         // Method declaring navigational properties of the database model.
@@ -141,7 +141,7 @@ namespace Release2.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ProbationaryColleague>()
-                .HasMany(e => e.SelfAssessments)
+                .HasMany(e => e.AssessedProgressReviews)
                 .WithOptional(e => e.CreationPC)
                 .HasForeignKey(e => e.CreationPCId)
                 .WillCascadeOnDelete(false);
@@ -151,12 +151,11 @@ namespace Release2.Models
                 .WithRequired(e => e.ProgressReview)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<ProgressReview>()
-                .HasOptional(e => e.SelfAssessment)
-                .WithOptionalDependent()
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<ProgressReview>()
+            //    .HasOptional(e => e.SelfAssessment)
+            //    .WithOptionalDependent()
+            //    .WillCascadeOnDelete(false);
 
-           
         }
     }
     public class CustomUserRole : IdentityUserRole<int> { }

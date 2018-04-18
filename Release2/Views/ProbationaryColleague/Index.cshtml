@@ -7,60 +7,95 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProbationType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProbationSuccessStatus)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Department)
-        </th>
+    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+    {
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })}
+    </p>
+<table class="table" id="pColleaguesTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProbationType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProbationSuccessStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
 
-        <th></th>
-    </tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProbationType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProbationSuccessStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department)
+                </td>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProbationType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProbationSuccessStatus)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Department)
-        </td>
+                <td>
+                    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+    {
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-primary" })}
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-xs btn-info" })
+                    @Html.ActionLink("Extensions", "Extensions", new { id = item.Id }, new { @class = "btn btn-xs btn-warning" })
+                    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+                    {
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-xs btn-danger" })}
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</table>
 
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Extensions", "Extensions", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </td>
-    </tr>
+@section scripts
+{
+    <script type="text/javascript" src="@Url.Content("/Scripts/DataTables/jquery.dataTables.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("/Scripts/DataTables/dataTables.scroller.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("/Scripts/DataTables/dataTables.bootstrap.min.js")"></script>
+
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $('#pColleaguesTable').DataTable();
+            });
+        $('#pColleaguesTable').dataTable({
+                "columnDefs": [
+                    { "orderable": false, "targets": -1 }
+                ]
+            });
+    </script>
 }
 
-</table>
+@section styles
+{
+    <link href="@Url.Content("/Content/DataTables/css/jquery.dataTables.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/DataTables/css/dataTables.scroller.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/DataTables/css/dataTables.bootstrap.min.css")" rel="stylesheet" />
+}

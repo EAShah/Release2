@@ -11,46 +11,86 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>ProgressReviewViewModel</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
+<div class="form-horizontal">
+    <h4>ProgressReviewViewModel</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.PCId)
+    @Html.HiddenFor(model => model.LMId)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.EvalDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EvalDescription, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                @Html.ValidationMessageFor(model => model.EvalDescription, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PREvalDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PREvalDescription, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PREvalDescription, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SelfEvaluation, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SelfEvaluation, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SelfEvaluation, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.EvalDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EvalDescription, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.EvalDescription, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    @*<table class="table">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Competencies)
+            </th>
+            <th>
+                Score
+            </th>
+
+            <th></th>*@
+        @*</tr>@*remove count?*@
+        @*@for (int i = 0; i < Model.Competencies.Count(); i++)
+        {
+            <tr>
+                <td>
+                    @Html.HiddenFor(m => m.Competencies[i].Id)
+                    @Html.DisplayFor(m => m.Competencies[i].CompetencyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.Competencies[i].Score, new { htmlAttributes = new { @class = "form-control", placeholder = "Score" } })
+                </td>
+            </tr>
+        }
+
+    </table>*@
+
+    <div class="form-group">
+        @Html.LabelFor(model1 => model1.PREvalDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PREvalDescription, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PREvalDescription, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SelfEvaluation, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SelfEvaluation, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SelfEvaluation, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button class="btn btn-warning pull-left"> <span class="glyphicon glyphicon-open" type="submit"></span> Save Changes</button>
+        </div>
+    </div>
+</div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to all Progress Reviews", "Index", null, new { @class = "btn btn-primary" })
+    @if (ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
+    {
+        @Html.ActionLink("Assess", "Assess", new { id = Model.Id }, new { @class = "btn btn-sm btn-warning" })}
+    @*@if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+            {
+        @Html.ActionLink("Evaluate", "Evaluate", new { id = item.Id })}
+            @if (ViewContext.HttpContext.User.IsInRole("DepartmentHead"))
+            {
+        @Html.ActionLink("Approve", "Approve", new { id = item.Id })}
+            }*@
 </div>
 
 @section Scripts {

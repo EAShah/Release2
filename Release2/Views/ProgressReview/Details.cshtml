@@ -1,0 +1,80 @@
+﻿@model Release2.ViewModels.ProgressReviewViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ProgressReviewViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @*<dt>
+            @Html.DisplayNameFor(model => model.EvalDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EvalDescription)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PREvalDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PREvalDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SelfEvaluation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SelfEvaluation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LMCreates)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMCreates)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProbationaryColleague)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProbationaryColleague)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PRSubmissionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PRSubmissionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SASubmissionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SASubmissionDate)
+        </dd>
+
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+</p>

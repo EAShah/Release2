@@ -79,6 +79,8 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Audit", "Audit", new { id = Model.Id }, new { @class = "btn btn-info" }) 
-    @Html.ActionLink("Back to List", "AllIndex", new { @class = "btn btn-info" })
-</p>
+    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+    {
+        @Html.ActionLink("Audit", "Audit", new { id = Model.Id }, new { @class = "btn btn-info" })}
+        @Html.ActionLink("Back to all Extensions", "AllIndex", null, new { @class = "btn btn-primary" })
+    </p>

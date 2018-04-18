@@ -59,6 +59,8 @@ namespace Release2.Controllers
         /// </summary>
         /// <returns>ProbationaryColleague, Index view</returns>
         // GET: ProbationaryColleague
+        [Authorize(Roles = "HRAssociate, DepartmentHead")]
+
         public ActionResult Index()
         {
             var users = db.ProbationaryColleagues.ToList();
@@ -90,6 +92,8 @@ namespace Release2.Controllers
         ///  <param name="model", ></param>
         /// <returns>ProbationaryColleague, Details view</returns>
         // GET: ProbationaryColleague/Details/5
+        [Authorize(Roles = "HRAssociate, DepartmentHead")]
+
         public ActionResult Details(int id)
         {
 
@@ -133,6 +137,8 @@ namespace Release2.Controllers
         ///  <param name="model", ></param>
         /// <returns>ProbationaryColleague, Create view</returns>
         // GET: ProbationaryColleague/Create
+        [Authorize(Roles = "HRAssociate")]
+
         public ActionResult Create()
         {
             ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "DepartmentName");
@@ -202,6 +208,8 @@ namespace Release2.Controllers
         /// <param name="model", ></param>
         /// <returns>ProbationaryColleague, Edit view</returns>
         // GET: ProbationaryColleague/Edit/5
+        [Authorize(Roles = "HRAssociate")]
+
         public ActionResult Edit(int id)
         {
 
@@ -282,6 +290,8 @@ namespace Release2.Controllers
         /// <param name="id", ></param>
         /// <returns>ProbationaryColleague, Delete view</returns>
         // GET: ProbationaryColleague/Delete/5
+        [Authorize(Roles = "HRAssociate")]
+
         public ActionResult Delete(int id)
         {
             var probationaryColleague = (ProbationaryColleague)UserManager.FindById(id);

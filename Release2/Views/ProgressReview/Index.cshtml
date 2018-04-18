@@ -7,27 +7,30 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+    {
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })}
+    </p>
 <table class="table" id="reviewsTable">
     <thead>
         <tr>
 
             <th>
-                @Html.DisplayNameFor(model => model.DHApproval)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HREvaluation)
+                @Html.DisplayNameFor(model => model.ProbationaryColleague)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.LMCreates)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.AssessmentStatus)
+                @Html.DisplayNameFor(model => model.DHApproval)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HREvaluation)
             </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.ProbationaryColleague)
+                @Html.DisplayNameFor(model => model.AssessmentStatus)
             </th>
+
 
             <th></th>
         </tr>
@@ -35,30 +38,40 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+        <tr>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.DHApproval)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HREvaluation)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LMCreates)
-                </td>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.AssessmentStatus)
-                </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProbationaryColleague)
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProbationaryColleague)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LMCreates)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.DHApproval)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HREvaluation)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.AssessmentStatus)
+            </td>
 
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
-            </tr>
+
+            <td>
+                @if (ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
+                {
+            @Html.ActionLink("Assess", "Assess", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })}
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" })
+                @*@if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+                {
+            @Html.ActionLink("Evaluate", "Evaluate", new { id = item.Id })}
+                @if (ViewContext.HttpContext.User.IsInRole("DepartmentHead"))
+                {
+            @Html.ActionLink("Approve", "Approve", new { id = item.Id })}
+                }*@
+
+            </td>
+        </tr>
         }
     </tbody>
 </table>

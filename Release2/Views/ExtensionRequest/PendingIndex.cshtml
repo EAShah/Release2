@@ -6,9 +6,9 @@
 
 <h2>PendingIndex</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 <table class="table">
     <tr>
         <th>
@@ -43,9 +43,9 @@
             </td>
 
             <td>
-                @Html.ActionLink("Audit", "Audit", new { id = item.Id },new { @class = "btn btn-primary" }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Audit", "Audit", new { id = item.Id },new { @class = "btn btn-sm btn-primary" }) 
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-sm btn-info" }) 
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-sm btn-danger" })
             </td>
         </tr>
     }
@@ -53,13 +53,13 @@
 </table>
 
 <p>
-    @Html.ActionLink("All Requests", "AllIndex")
+    @Html.ActionLink("All Requests", "AllIndex", null, new { @class = "btn btn-primary" })
 </p>
 
 <p>
-    @Html.ActionLink("Approved Requests", "ApprovedIndex")
+    @Html.ActionLink("Approved Requests", "ApprovedIndex", null, new { @class = "btn btn-success" })
 </p>
 
 <p>
-    @Html.ActionLink("Rejected Requests", "RejectedIndex")
+    @Html.ActionLink("Rejected Requests", "RejectedIndex", null, new { @class = "btn btn-danger" })
 </p> 

@@ -19,6 +19,7 @@ namespace Release2.Controllers
         /// </summary>
         /// <returns>Department, Index view</returns>
         // GET: Department
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult Index()
         {
             var departments = db.Departments.ToList();
@@ -41,6 +42,7 @@ namespace Release2.Controllers
         /// <param name="model", ></param>
         /// <returns>Department, Details view</returns>
         // GET: Department/Details/5
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult Details(int id)
         {
             return View();
@@ -52,6 +54,7 @@ namespace Release2.Controllers
         ///  <param name="model", ></param>
         /// <returns>Department, Create view</returns>
         // GET: Department/Create
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult Create()
         {
             return View();
@@ -86,6 +89,7 @@ namespace Release2.Controllers
         ///  <param name="model", ></param>
         /// <returns>Department, Edit view</returns>
         // GET: Department/Edit/5
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult Edit(int? id)
         {
             if(id == null)
@@ -140,6 +144,7 @@ namespace Release2.Controllers
         /// <param name="id", ></param>
         /// <returns>Department, Delete view</returns>
         // GET: Department/Delete/5
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

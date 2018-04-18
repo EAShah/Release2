@@ -29,25 +29,12 @@ namespace Release2.Controllers
                     LMCreates = item.LMCreates.FullName,
                     PRCompletionStatus = item.PRCompletionStatus,
                     PRHRAEvalDecision = item.PRHRAEvalDecision,
-                    SelfAssessmentId = item.SelfAssessmentId
-
-                });
-            }
-
-            var assessment = db.SelfAssessments.ToList();
-
-            var model1 = new List<SelfAssessmentViewModel>();
-            foreach (var item in assessment)
-            {
-                model1.Add(new SelfAssessmentViewModel
-                {
-                    Id = item.AssessmentId,
                     PREvalDescription = item.PREvalDescription,
                     SelfEvaluation = item.SelfEvaluation,
                     AssessmentStatus = item.AssessmentStatus,
-                     
                 });
             }
+
             return View(model);
         }
 
@@ -70,16 +57,23 @@ namespace Release2.Controllers
                 Id = review.ReviewId,
                 EvalDescription = review.EvalDescription,
                 TotalScore = review.TotalScore,
+                PREvalDescription = review.PREvalDescription,
+                SelfEvaluation = review.SelfEvaluation,
                 PRCompletionStatus = review.PRCompletionStatus,
                 PRDHApprovalStatus = review.PRDHApprovalStatus,
                 PRHRAEvalDecision = review.PRHRAEvalDecision,
+                PRSubmissionDate = review.PRSubmissionDate,
+                SASubmissionDate = review.SASubmissionDate,
+                ProbationaryColleague = review.ProbationaryColleague.FullName,
+                LMCreates = review.LMCreates.FullName,
+
             };
 
             return View(model);
         }
 
         // GET: ProgressReview/Create
-        //[Authorize(Roles ="Line Manager")]
+        [Authorize(Roles = "LineManager")]
         public ActionResult Create()
         {
             ViewBag.PCId = new SelectList(db.ProbationaryColleagues, "Id", "Username");
@@ -105,8 +99,7 @@ namespace Release2.Controllers
 
         // POST: ProgressReview/Create
         [HttpPost]
-        //[Authorize(Roles = "Line Manager")]
-        public ActionResult Create(ProgressReviewViewModel model, SelfAssessmentViewModel model1)
+        public ActionResult Create(ProgressReviewViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -119,7 +112,9 @@ namespace Release2.Controllers
                     EvalDescription = model.EvalDescription,
                     TotalScore = db.PerformanceCriterions.Where(r => r.ReviewId == model.Id).Sum(g => g.Score),
                     PRCompletionStatus = ProgressReview.CompletionStatus.Incomplete,
-                    //AssessmentStatus = SelfAssessment.Status.Pending,
+                    AssessmentStatus = ProgressReview.Status.Pending,
+                    PRHRAEvalDecision = ProgressReview.EvaluationDecision.Pending,
+                    PRDHApprovalStatus = ProgressReview.ApprovalStatus.Pending,
                     PRSubmissionDate = DateTime.Today
                 };
 
@@ -142,10 +137,10 @@ namespace Release2.Controllers
 
                     //counter++;
                     db.PerformanceCriterions.Add(criteria);
-                    db.SaveChanges();
+                    //db.SaveChanges();
                 }
 
-                //db.SaveChanges();
+                db.SaveChanges();
                 //SendEmail()
             }
             else
@@ -184,7 +179,7 @@ namespace Release2.Controllers
         //}
 
         // GET: ProgressReview/Assess/5
-        //[Authorize(Roles = "Probationary Colleague")]
+        [Authorize(Roles = "ProbationaryColleague")]
         public ActionResult Assess(int? id)
         {
             if (id == null)
@@ -201,19 +196,107 @@ namespace Release2.Controllers
             ProgressReviewViewModel model = new ProgressReviewViewModel
             {
                 Id = review.ReviewId,
-                SelfAssessmentId = review.SelfAssessmentId,
                 PRCompletionStatus = ProgressReview.CompletionStatus.Complete,
                 LMId = review.LMId,
                 LMCreates = review.LMCreates.FullName,
                 PCId = review.PCId,
                 ProbationaryColleague = review.ProbationaryColleague.FullName,
-               PRDHApprovalStatus = ProgressReview.ApprovalStatus.Pending,
+                PRDHApprovalStatus = ProgressReview.ApprovalStatus.Pending,
                 PRHRAEvalDecision = ProgressReview.EvaluationDecision.Pending,
-                TotalScore = review.TotalScore
+                TotalScore = review.TotalScore,
             };
 
-               
+           
+            // use index template to show competency scores
 
+            var performance = db.PerformanceCriterions.ToList();
+            var model1 = new List<PerformanceCriterionViewModel>();
+            foreach (var item in db.PerformanceCriterions.ToList())
+            {
+                model1.Add(new PerformanceCriterionViewModel
+                {
+                    Id = item.ReviewId,
+                    CompetencyId = item.CompetencyId,
+                    CompetencyName = item.Competency.CompetencyName,
+                    Score = item.Score
+                });
+            }
+
+            return View(model);
+        }
+
+        // POST: ProgressReview/Assess/5
+        [HttpPost]
+        //[Authorize(Roles = "ProbationaryColleague")]
+        public ActionResult Assess(int id, FormCollection collection, ProgressReviewViewModel model )
+        {
+            if (ModelState.IsValid)
+            {
+                var review = db.ProgressReviews.Find(id);
+                if (review != null)
+                {
+                    review.EvalDescription = model.EvalDescription;
+                    review.TotalScore = model.TotalScore;
+                    review.LMId = model.LMId;
+                    review.PCId = model.PCId;
+                    review.PRCompletionStatus = model.PRCompletionStatus;
+                    review.PRDHApprovalStatus = model.PRDHApprovalStatus;
+                    review.PRHRAEvalDecision = model.PRHRAEvalDecision;
+                    review.PREvalDescription = model.PREvalDescription;
+                    review.SelfEvaluation = model.SelfEvaluation;
+                    review.AssessmentStatus = ProgressReview.Status.Submitted;
+                    review.SASubmissionDate = DateTime.Today; // add jquery datetime type
+                    review.CreationPCId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id;
+                   
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        // GET: ProgressReview/Approve/5
+        [Authorize(Roles = "DepartmentHead")]
+        public ActionResult Approve(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            ProgressReview review = db.ProgressReviews.Find(id);
+            if (review == null)
+            {
+                return HttpNotFound();
+            }
+
+            ProgressReviewViewModel model = new ProgressReviewViewModel
+            {
+                Id = review.ReviewId,
+                PRCompletionStatus = review.PRCompletionStatus,
+                LMId = review.LMId,
+                LMCreates = review.LMCreates.FullName,
+                PCId = review.PCId,
+                ProbationaryColleague = review.ProbationaryColleague.FullName,
+                PRDHApprovalStatus = review.PRDHApprovalStatus,
+                PRDHApprovesId= User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id,
+                DHApproval = review.DHApproval.FullName,
+                PRDHApproveDate = review.PRDHApproveDate.Value.Date,
+                PREvalDescription = review.PREvalDescription,
+                SelfEvaluation = review.SelfEvaluation,
+                AssessmentStatus = review.AssessmentStatus,
+                SASubmissionDate = review.SASubmissionDate,
+                CreationPCId = review.CreationPCId,
+                CreationPC = review.CreationPC.FullName,
+            };
 
             // use index template to show competency scores
 
@@ -233,33 +316,132 @@ namespace Release2.Controllers
             return View(model);
         }
 
-        // POST: ProgressReview/Assess/5
+        // POST: ProgressReview/Approve/5
         [HttpPost]
-        //[Authorize(Roles = "Probationary Colleague")]
-        public ActionResult Assess(int id, FormCollection collection, ProgressReviewViewModel model, SelfAssessmentViewModel model1)
+        public ActionResult Approve(int id, FormCollection collection, ProgressReviewViewModel model)
         {
             if (ModelState.IsValid)
             {
+
                 var review = db.ProgressReviews.Find(id);
                 if (review != null)
                 {
                     review.EvalDescription = model.EvalDescription;
                     review.TotalScore = model.TotalScore;
+                    review.PREvalDescription = model.PREvalDescription;
+                    review.SelfEvaluation = model.SelfEvaluation;
                     review.LMId = model.LMId;
                     review.PCId = model.PCId;
-                    review.SelfAssessmentId = model.SelfAssessmentId;
+                    review.CreationPCId = model.CreationPCId;
+                    review.AssessmentStatus = model.AssessmentStatus;
                     review.PRCompletionStatus = model.PRCompletionStatus;
+                    review.SASubmissionDate = model.SASubmissionDate;
                     review.PRDHApprovalStatus = model.PRDHApprovalStatus;
+                    review.PRDHApproveDate = model.PRDHApproveDate;
                     review.PRHRAEvalDecision = model.PRHRAEvalDecision;
+                    review.PRHRAEvalDate = model.PRHRAEvalDate;
+                    review.PRDHApprovesId = model.PRDHApprovesId;
 
-                    var assessment = new SelfAssessment
-                    {
-                        PREvalDescription = model1.PREvalDescription,
-                        SelfEvaluation = model1.SelfEvaluation,
-                        AssessmentStatus = SelfAssessment.Status.Submitted,
-                        SASubmissionDate = DateTime.Today, // add jquery datetime type
-                        CreationPCId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id,
-                    }; 
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        // GET: ProgressReview/Evaluate/5
+        [Authorize(Roles = "HRAssociate")]
+        public ActionResult Evaluate(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            ProgressReview review = db.ProgressReviews.Find(id);
+            //ProgressReview review = db.ProgressReviews.Find(id).PRDHApprovalStatus== ProgressReview.ApprovalStatus.Approved;
+            if (review == null)
+            {
+                return HttpNotFound();
+            }
+
+            ProgressReviewViewModel model = new ProgressReviewViewModel
+            {
+                Id = review.ReviewId,
+                PRCompletionStatus = review.PRCompletionStatus,
+                PREvalDescription = review.PREvalDescription,
+                SelfEvaluation = review.SelfEvaluation,
+                AssessmentStatus = review.AssessmentStatus,
+                LMId = review.LMId,
+                SASubmissionDate = review.SASubmissionDate,
+                LMCreates = review.LMCreates.FullName,
+                PCId = review.PCId,
+                ProbationaryColleague = review.ProbationaryColleague.FullName,
+                CreationPCId = review.CreationPCId,
+                CreationPC = review.CreationPC.FullName,
+                PRDHApprovalStatus = review.PRDHApprovalStatus,
+                PRDHApprovesId = review.PRDHApprovesId,
+                DHApproval = review.DHApproval.FullName,
+                PRDHApproveDate = review.PRDHApproveDate,
+                PRHRAEvalDate = DateTime.Today,
+                PRHRAEvalDecision = review.PRHRAEvalDecision,
+                HREvaluatesId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id,
+                HREvaluation = review.HREvaluation.FullName,
+            };
+
+            // use index template to show competency scores
+
+            var performance = db.PerformanceCriterions.ToList();
+            var model1 = new List<PerformanceCriterionViewModel>();
+            foreach (var item in performance)
+            {
+                model1.Add(new PerformanceCriterionViewModel
+                {
+                    Id = item.ReviewId,
+                    CompetencyId = item.CompetencyId,
+                    CompetencyName = item.Competency.CompetencyName,
+                    Score = item.Score
+                });
+            }
+
+            return View(model);
+        }
+
+        // POST: ProgressReview/Evaluate/5
+        [HttpPost]
+        //[Authorize(Roles = "Probationary Colleague")]
+        public ActionResult Evaluate(int id, FormCollection collection, ProgressReviewViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var review = db.ProgressReviews.Find(id);
+                if (review != null)
+                {
+                    review.EvalDescription = model.EvalDescription;
+                    review.TotalScore = model.TotalScore;
+                    review.PREvalDescription = model.PREvalDescription;
+                    review.SelfEvaluation = model.SelfEvaluation;
+                    review.LMId = model.LMId;
+                    review.PCId = model.PCId;
+                    review.CreationPCId = model.CreationPCId;
+                    review.AssessmentStatus = model.AssessmentStatus;
+                    review.PRCompletionStatus = model.PRCompletionStatus;
+                    review.SASubmissionDate = model.SASubmissionDate;
+                    review.PRDHApprovalStatus = model.PRDHApprovalStatus;
+                    review.PRDHApproveDate = model.PRDHApproveDate;
+                    review.PRHRAEvalDecision = model.PRHRAEvalDecision;
+                    review.PRHRAEvalDate = model.PRHRAEvalDate;
+                    review.PRDHApprovesId = model.PRDHApprovesId;
+                    review.HREvaluatesId = model.HREvaluatesId;
 
                     db.SaveChanges();
 
@@ -276,182 +458,5 @@ namespace Release2.Controllers
                 return View();
             }
         }
-
-        // GET: ProgressReview/Approve/5
-        //[Authorize(Roles = "Department Head")]
-        public ActionResult Approve(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            ProgressReview review = db.ProgressReviews.Find(id);
-            if (review == null)
-            {
-                return HttpNotFound();
-            }
-
-            ProgressReviewViewModel model = new ProgressReviewViewModel
-            {
-                Id = review.ReviewId,
-                SelfAssessmentId = review.SelfAssessmentId,
-                PRCompletionStatus = review.PRCompletionStatus,
-                LMId = review.LMId,
-                LMCreates = review.LMCreates.FullName,
-                PCId = review.PCId,
-                ProbationaryColleague = review.ProbationaryColleague.FullName,
-                 PRDHApprovalStatus = review.PRDHApprovalStatus,
-                 PRDHApprovesId= User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id,
-                 DHApproval = review.DHApproval.FullName,
-                PRDHApproveDate = review.PRDHApproveDate.Value.Date, 
-            };
-
-            SelfAssessmentViewModel model1 = new SelfAssessmentViewModel
-            {
-                Id = review.SelfAssessment.AssessmentId,
-                PREvalDescription = review.SelfAssessment.PREvalDescription,
-                SelfEvaluation = review.SelfAssessment.SelfEvaluation,
-                AssessmentStatus = review.SelfAssessment.AssessmentStatus,
-                SASubmissionDate = review.SelfAssessment.SASubmissionDate,
-                CreationPCId = review.SelfAssessment.CreationPCId,
-                CreationPC = review.SelfAssessment.CreationPC.FullName,
-            };
-
-            return View(model);
-        }
-
-        //// POST: ProgressReview/Approve/5
-        //[HttpPost]
-        ////[Authorize(Roles = "Probationary Colleague")]
-        //public ActionResult Approve(int id, FormCollection collection, ProgressReviewViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-
-        //        var review = db.ProgressReviews.Find(id);
-        //        if (review != null)
-        //        {
-        //            review.EvalDescription = model.EvalDescription;
-        //            review.TotalScore = model.TotalScore;
-        //            review.PREvalDescription = model.PREvalDescription;
-        //            review.SelfEvaluation = model.SelfEvaluation;
-        //            review.LMId = model.LMId;
-        //            review.PCId = model.PCId;
-        //            review.CreationPCId = model.CreationPCId;
-        //            review.SelfAssessmentId = model.SelfAssessmentId;
-        //            review.AssessmentStatus = model.AssessmentStatus;
-        //            review.PRCompletionStatus = model.PRCompletionStatus;
-        //            review.SASubmissionDate = model.SASubmissionDate;
-        //            review.PRDHApprovalStatus = model.PRDHApprovalStatus;
-        //            review.PRDHApproveDate = model.PRDHApproveDate;
-        //            review.PRHRAEvalDecision = model.PRHRAEvalDecision;
-        //            review.PRHRAEvalDate = model.PRHRAEvalDate;
-        //            review.PRDHApprovesId = model.PRDHApprovesId;
-
-        //            db.SaveChanges();
-
-        //            return RedirectToAction("Index");
-        //        }
-        //        else
-        //        {
-        //            return HttpNotFound();
-        //        }
-        //    }
-        //    else
-        //    {
-        //        ViewBag.CompetencyId = new SelectList(db.Competencies, "CompetencyId", "CompetencyName");
-        //        return View();
-        //    }
-        //}
-
-        //// GET: ProgressReview/Evaluate/5
-        ////[Authorize(Roles = "Probationary Colleague")]
-        //public ActionResult Evaluate(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-
-        //    ProgressReview review = db.ProgressReviews.Find(id);
-        //    //ProgressReview review = db.ProgressReviews.Find(id).PRDHApprovalStatus == ProgressReview.ApprovalStatus.Approved;
-        //    if (review == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-
-        //    ProgressReviewViewModel model = new ProgressReviewViewModel
-        //    {
-        //        Id = review.ReviewId,
-        //        SelfAssessmentId = review.SelfAssessmentId,
-        //        PRCompletionStatus = review.PRCompletionStatus,
-        //        PREvalDescription = review.PREvalDescription,
-        //        SelfEvaluation = review.SelfEvaluation,
-        //        AssessmentStatus = review.AssessmentStatus,
-        //        LMId = review.LMId,
-        //        SASubmissionDate = review.SASubmissionDate,
-        //        LMCreates = review.LMCreates.FullName,
-        //        PCId = review.PCId,
-        //        ProbationaryColleague = review.ProbationaryColleague.FullName,
-        //        CreationPCId = review.CreationPCId,
-        //        CreationPC = review.CreationPC.FullName,
-        //        PRDHApprovalStatus = review.PRDHApprovalStatus,
-        //        PRDHApprovesId = review.PRDHApprovesId,
-        //        DHApproval = review.DHApproval.FullName,
-        //        PRDHApproveDate = review.PRDHApproveDate,
-        //        PRHRAEvalDate = DateTime.Today,
-        //        PRHRAEvalDecision = review.PRHRAEvalDecision,
-        //        HREvaluatesId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id,
-        //        HREvaluation = review.HREvaluation.FullName,
-        //    };
-
-        //    return View(model);
-        //}
-
-        //// POST: ProgressReview/Evaluate/5
-        //[HttpPost]
-        ////[Authorize(Roles = "Probationary Colleague")]
-        //public ActionResult Evaluate(int id, FormCollection collection, ProgressReviewViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-
-        //        var review = db.ProgressReviews.Find(id);
-        //        if (review != null)
-        //        {
-        //            review.EvalDescription = model.EvalDescription;
-        //            review.TotalScore = model.TotalScore;
-        //            review.PREvalDescription = model.PREvalDescription;
-        //            review.SelfEvaluation = model.SelfEvaluation;
-        //            review.LMId = model.LMId;
-        //            review.PCId = model.PCId;
-        //            review.CreationPCId = model.CreationPCId;
-        //            review.SelfAssessmentId = model.SelfAssessmentId;
-        //            review.AssessmentStatus = model.AssessmentStatus;
-        //            review.PRCompletionStatus = model.PRCompletionStatus;
-        //            review.SASubmissionDate = model.SASubmissionDate;
-        //            review.PRDHApprovalStatus = model.PRDHApprovalStatus;
-        //            review.PRDHApproveDate = model.PRDHApproveDate;
-        //            review.PRHRAEvalDecision = model.PRHRAEvalDecision;
-        //            review.PRHRAEvalDate = model.PRHRAEvalDate;
-        //            review.PRDHApprovesId = model.PRDHApprovesId;
-        //            review.HREvaluatesId = model.HREvaluatesId;
-
-        //            db.SaveChanges();
-
-        //            return RedirectToAction("Index");
-        //        }
-        //        else
-        //        {
-        //            return HttpNotFound();
-        //        }
-        //    }
-        //    else
-        //    {
-        //        ViewBag.CompetencyId = new SelectList(db.Competencies, "CompetencyId", "CompetencyName");
-        //        return View();
-        //    }
-        //}
     }
 }

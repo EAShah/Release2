@@ -23,6 +23,7 @@ namespace Release2.Controllers
         /// <returns>Competency, Index view</returns>
         // GET: Competency
         // GET: Competency
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult Index()
         {
             var competency = db.Competencies.ToList();
@@ -45,6 +46,7 @@ namespace Release2.Controllers
         /// <param name="model", ></param>
         /// <returns>Competency, Details view</returns>
         // GET: Competency/Details/5
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult Details(int id)
         {
             return View();
@@ -63,6 +65,7 @@ namespace Release2.Controllers
 
         // POST: Competency/Create
         [HttpPost]
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult Create(CompetencyViewModel model)
         {
             if (ModelState.IsValid)
@@ -90,6 +93,7 @@ namespace Release2.Controllers
         ///  <param name="model", ></param>
         /// <returns>Competency, Edit view</returns>
         // GET: Competency/Edit/5
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -144,6 +148,7 @@ namespace Release2.Controllers
         /// <param name="id", ></param>
         /// <returns>Department, Delete view</returns>
         // GET: Competency/Delete/5
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

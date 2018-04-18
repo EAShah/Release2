@@ -86,6 +86,15 @@ namespace Release2.Migrations
             competencies.ForEach(c => context.Competencies.AddOrUpdate(p => p.CompetencyName, c));
             context.SaveChanges();
 
+            //var assignments = new List<Assignment>
+            //{
+            //         new Assignment { HRAssignId = 2, LMAssignId = 6, PCId = 8, AssignmentStatus = Assignment.AssignStatus.Approved, AssignmentDate = null, AssignmentInspectionDate = null},
+            //         new Assignment { HRAssignId = 2, LMAssignId = 7, PCId = 9, AssignmentStatus = Assignment.AssignStatus.Pending, AssignmentDate = null, AssignmentInspectionDate = null},
+            //};
+
+            //assignments.ForEach(c => context.Assignments.AddOrUpdate(p => p.AssignmentStatus, c));
+            //context.SaveChanges();
+
             var HRAssociates = new List<Colleague>
             {
                 new Colleague { UserName = "HRA1", Email ="HRA@gmail.com", FirstName ="HR", LastName ="Associate1", ColleagueType = ColleagueType.HRAssociate, EmploymentType = EmploymentType.FullTimer, ColleagueRegion = ColleagueRegion.Jeddah, DOB = null, City = " ", Country = " ", HomeNumber = " ", PhoneNumber = " ", Position = " ", Nationality = " ", Gender = Gender.Male, DepartmentId = 1,

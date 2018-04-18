@@ -62,6 +62,7 @@ namespace Release2.Controllers
         /// </summary>
         /// <returns>Colleague, Index view</returns>
         // GET: Colleague
+        [Authorize(Roles = "HRAssociate, DepartmentHead")]
         public ActionResult Index()
         {
             var list = db.Colleagues.ToList().Select(e => new { e.Id, e.FullName });
@@ -94,6 +95,7 @@ namespace Release2.Controllers
         /// /// <param name="int", ></param>
         /// <returns>Colleague, Delete view</returns>
         // GET: Colleague/Details/5
+        [Authorize(Roles = "HRAssociate, DepartmentHead")]
         public ActionResult Details(int? id)
         {
             if (id != null)
@@ -149,6 +151,7 @@ namespace Release2.Controllers
         /// <returns>Colleague, Create view</returns>
 
         // GET: Colleague/Create
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult Create()
         {
             //NOTE: Add department list
@@ -225,6 +228,7 @@ namespace Release2.Controllers
         /// <param name="roles[]", ></param>
         /// <returns>Colleague, Edit view</returns>
         // GET: Colleague/Edit/5
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult Edit(int? id)
         {
             if (id != null)
@@ -336,6 +340,7 @@ namespace Release2.Controllers
         /// <param name="id", ></param>
         /// <returns>Colleague, Delete view</returns>
         // GET: Colleague/Delete/5
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult Delete(int id)
         {
             var colleague = (Colleague)UserManager.FindById(id);

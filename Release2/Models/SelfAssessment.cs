@@ -14,55 +14,55 @@ namespace Project._1.Models
     using static Project._1.Models.ProgressReview;
 
     // Creation of the SelfAssessment table as a class.
-    [Table("SelfAssessment")]
-    public partial class SelfAssessment 
-    {
-        //public SelfAssessment()
-        //{
-        //    SelfAssessmentSubmissions = new HashSet<SelfAssessmentSubmission>();
-        //}
+    //[Table("SelfAssessment")]
+    //public partial class SelfAssessment 
+    //{
+    //    //public SelfAssessment()
+    //    //{
+    //    //    SelfAssessmentSubmissions = new HashSet<SelfAssessmentSubmission>();
+    //    //}
 
-        // Declaring attributes of the SelfAssessment table as properties.
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int AssessmentId { get; set; }
+    //    // Declaring attributes of the SelfAssessment table as properties.
+    //    [Key]
+    //    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    //    public int AssessmentId { get; set; }
 
-        [StringLength(250)]
-        public string PREvalDescription { get; set; }
+    //    [StringLength(250)]
+    //    public string PREvalDescription { get; set; }
 
-        [StringLength(250)]
-        public string SelfEvaluation { get; set; }
+    //    [StringLength(250)]
+    //    public string SelfEvaluation { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? SASubmissionDate { get; set; }
+    //    [Column(TypeName = "date")]
+    //    public DateTime? SASubmissionDate { get; set; }
 
-        public virtual ProbationaryColleague CreationPC { get; set; }
+    //    public virtual ProbationaryColleague CreationPC { get; set; }
 
-        public int? CreationPCId { get; set; }
+    //    public int? CreationPCId { get; set; }
 
-        public Status AssessmentStatus { get; set; }
+    //    public Status AssessmentStatus { get; set; }
 
-        //These properties have been commented because they are not required.
+    //    //These properties have been commented because they are not required.
 
-        //public ApprovalStatus SAApprovalStatus { get; set; }
-        //public CompletionStatus SACompletionStatus { get; set; }
-        //public ApprovalStatus SAHRAReviewDecision { get; set; }
-        //[Column(TypeName = "date")]
-        //public DateTime? SAHRAReviewDate { get; set; }
-        //[Column(TypeName = "date")]
-        //public DateTime? SADHApproveDate { get; set; }
-        //public int? HRReviewsId { get; set; }
-        //public int? DHApprovesId { get; set; }
-        //public virtual Colleague DHApprovals { get; set; }
-        //public virtual Colleague HRReviews { get; set; }
+    //    //public ApprovalStatus SAApprovalStatus { get; set; }
+    //    //public CompletionStatus SACompletionStatus { get; set; }
+    //    //public ApprovalStatus SAHRAReviewDecision { get; set; }
+    //    //[Column(TypeName = "date")]
+    //    //public DateTime? SAHRAReviewDate { get; set; }
+    //    //[Column(TypeName = "date")]
+    //    //public DateTime? SADHApproveDate { get; set; }
+    //    //public int? HRReviewsId { get; set; }
+    //    //public int? DHApprovesId { get; set; }
+    //    //public virtual Colleague DHApprovals { get; set; }
+    //    //public virtual Colleague HRReviews { get; set; }
 
-        //public virtual ICollection<SelfAssessmentSubmission> SelfAssessmentSubmissions { get; set; }
+    //    //public virtual ICollection<SelfAssessmentSubmission> SelfAssessmentSubmissions { get; set; }
 
-        public enum  Status
-        {
-            Pending,
+    //    public enum  Status
+    //    {
+    //        Pending,
 
-            Submitted
-        }
-    }
+    //        Submitted
+    //    }
+    //}
 }

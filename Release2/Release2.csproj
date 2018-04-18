@@ -225,7 +225,6 @@
     <Compile Include="ViewModels\PerformanceCriterionViewModel.cs" />
     <Compile Include="ViewModels\ProbationaryColleagueViewModel.cs" />
     <Compile Include="ViewModels\ProgressReviewViewModel.cs" />
-    <Compile Include="ViewModels\SelfAssessmentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -594,6 +593,8 @@
     <Content Include="Views\ProbationaryColleague\Extensions.cshtml" />
     <Content Include="Views\Assignment\GetAssignmentNotifPartial.cshtml" />
     <Content Include="Views\ProbationaryColleague\ListExtensionRequestsPartial.cshtml" />
+    <Content Include="Views\ProgressReview\Details.cshtml" />
+    <Content Include="Views\ExtensionRequest\GetExtensionByStatusPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

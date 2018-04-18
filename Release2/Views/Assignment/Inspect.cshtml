@@ -72,14 +72,14 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <button class="btn btn-warning pull-left"> <span class="glyphicon glyphicon-open" type="submit"></span> Save Changes</button>
         </div>
     </div>
 </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "LMIndex", new { @class = "btn btn-info" })
+    @Html.ActionLink("Back to all Assignements", "LMIndex",null,  new { @class = "btn btn-info" })
 </div>
 
 @section Scripts {

@@ -58,9 +58,9 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" /> |
-            @Html.ActionLink("Back to List", "AllIndex")
-        </div>
+    <div class="form-actions no-color">
+        <button class="btn btn-success pull-left"> <span class="glyphicon glyphicon-floppy-open" type="submit"></span> Create Assignment</button>
+        @Html.ActionLink("Back to all Extension Requests", "AllIndex", null, new { @class = "btn btn-info" })
+    </div>
     }
 </div>

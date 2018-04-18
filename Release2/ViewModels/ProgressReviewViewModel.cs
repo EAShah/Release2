@@ -13,7 +13,6 @@ using System.Linq;
 using System.Web;
 using static Project._1.Models.ProbationaryColleague;
 using static Project._1.Models.ProgressReview;
-using static Project._1.Models.SelfAssessment;
 
 namespace Release2.ViewModels
 {
@@ -29,12 +28,10 @@ namespace Release2.ViewModels
         }
         // no performance criterion to progress review source found; MAKE SURE PERFORMANCECRITERION IS BEING USED.
 
-
         //BADGES
         //EMAIL NOTIFS
         //JQUERY&AJAX 
-
-
+        
         public int Id { get; set; }
 
         // Fields of the Progress Review
@@ -50,6 +47,14 @@ namespace Release2.ViewModels
 
         public Levels Level { get; set; }
 
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Progress Review Evaluation")]
+        public string PREvalDescription { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Self Evaluation")]
+        public string SelfEvaluation { get; set; }
+
         public int DepartmentId { get; set; }
         public string Department { get; set; }
 
@@ -63,9 +68,11 @@ namespace Release2.ViewModels
 
         public int PCId { get; set; }
 
-        public int? SelfAssessmentId { get; set; }
+        public int? CreationPCId { get; set; }
 
-       
+
+        [Display(Name = "Probationary Colleague")]
+        public string CreationPC { get; set; }
 
         [Display(Name = "Approved by Department Head:")]
         public string DHApproval { get; set; }
@@ -75,8 +82,6 @@ namespace Release2.ViewModels
 
         [Display(Name = "Created by Line Manager:")]
         public string LMCreates { get; set; }
-
-        public string SelfAssessment { get; set; }
 
         [Display(Name = "Probationary Colleague")]
         public string ProbationaryColleague { get; set; }
@@ -94,7 +99,10 @@ namespace Release2.ViewModels
         [Display(Name = "Evaluation")]
         public EvaluationDecision PRHRAEvalDecision { get; set; }
 
-        
+
+        [Display(Name = "Assessment Status")]
+        public Status AssessmentStatus { get; set; }
+
         // Date Properties
 
         [Display(Name = "Report Submitted")]
@@ -106,6 +114,10 @@ namespace Release2.ViewModels
         [Display(Name = "Report Evaluated")]
         public DateTime? PRHRAEvalDate { get; set; }
 
+        [Display(Name = "Assessment Submission Date")]
+        [Column(TypeName = "date")]
+        public DateTime? SASubmissionDate { get; set; }
+
         // add list of grades and competecnies
 
         public virtual List<PerformanceCriterion> PerformanceReviews { get; set; }
@@ -114,6 +126,7 @@ namespace Release2.ViewModels
 
         //public virtual List<int> Scores { get; set; }
         //public virtual ICollection<PerformanceCriterion> PerformanceCriteria { get; set; }
+
 
 
     }

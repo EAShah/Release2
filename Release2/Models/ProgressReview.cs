@@ -14,7 +14,7 @@ namespace Project._1.Models
 
     // Creation of the ProgressReview table as a class.
     [Table("ProgressReview")]
-    public partial class ProgressReview : SelfAssessment
+    public partial class ProgressReview 
     {
         public ProgressReview()
         {
@@ -23,8 +23,8 @@ namespace Project._1.Models
         }
 
         // Declaring attributes of the ProgressReview table as properties.
-        //[Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ReviewId { get; set; }
 
         public int? TotalScore { get; set; }
@@ -61,13 +61,29 @@ namespace Project._1.Models
 
         public virtual Colleague LMCreates { get; set; }
 
-        public virtual SelfAssessment SelfAssessment { get; set; }
+        //public virtual SelfAssessment SelfAssessment { get; set; }
 
-        public int? SelfAssessmentId { get; set; }
+        //public int? SelfAssessmentId { get; set; }
 
         public virtual ICollection<PerformanceCriterion> PerformanceCriterions { get; set; }
 
         public virtual ProbationaryColleague ProbationaryColleague { get; set; }
+
+        // Assessment variables
+        [StringLength(250)]
+        public string PREvalDescription { get; set; }
+
+        [StringLength(250)]
+        public string SelfEvaluation { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? SASubmissionDate { get; set; }
+
+        public virtual ProbationaryColleague CreationPC { get; set; }
+
+        public int? CreationPCId { get; set; }
+
+        public Status AssessmentStatus { get; set; }
 
         //public virtual ICollection<SelfAssessment> SelfAssessments { get; set; }
 
@@ -94,6 +110,14 @@ namespace Project._1.Models
             Pending,
 
             Approved
+        }
+
+
+        public enum Status
+        {
+            Pending,
+
+            Submitted
         }
 
     }

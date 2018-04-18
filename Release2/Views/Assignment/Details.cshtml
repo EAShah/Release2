@@ -78,6 +78,8 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Inspect", "Inspect", new { id = Model.Id }, new { @class = "btn btn-primary" }) |
-    @Html.ActionLink("Back to List", "HRIndex", new { @class = "btn btn-info" })
+    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+    {
+        @Html.ActionLink("Inspect", "Inspect", new { id = Model.Id }, new { @class = "btn btn-primary" }) }
+@Html.ActionLink("Back to List", "HRIndex", null, new { @class = "btn btn-primary" })
 </p>

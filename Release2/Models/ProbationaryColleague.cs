@@ -22,7 +22,7 @@ namespace Project._1.Models
             Assignments = new HashSet<Assignment>();
             ExtensionRequests = new HashSet<ExtensionRequest>();
             ProgressReviews = new HashSet<ProgressReview>();
-            SelfAssessments = new HashSet<SelfAssessment>();
+            AssessedProgressReviews = new HashSet<ProgressReview>();
         }
 
         // Declaring attributes of the ProbationaryColleague table as properties.
@@ -55,11 +55,13 @@ namespace Project._1.Models
 
         //public virtual Colleague Colleague { get; set; }
 
-        public new ICollection<ExtensionRequest> ExtensionRequests { get; set; }
+        public virtual ICollection<ExtensionRequest> ExtensionRequests { get; set; }
 
         public virtual ICollection<ProgressReview> ProgressReviews { get; set; }
 
-        public virtual ICollection<SelfAssessment> SelfAssessments { get; set; }
+        public virtual ICollection<ProgressReview> AssessedProgressReviews { get; set; }
+
+        //public virtual ICollection<SelfAssessment> SelfAssessments { get; set; }
 
 
         public enum Levels

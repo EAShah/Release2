@@ -22,13 +22,24 @@
     </div>
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-            <li>@Html.ActionLink("Colleague", "Index", "Colleague")</li>
-            <li>@Html.ActionLink("Probation", "Index", "ProbationaryColleague")</li>
-            <li>@Html.ActionLink("Department", "Index", "Department")</li>
-            <li>@Html.ActionLink("Competency", "Index", "Competency")</li>
-            <li>@Html.ActionLink("Assignment", "HRIndex", "Assignment"@*, "GetAssignmentNotifPartial"*@)</li>
-            <li>@Html.ActionLink("Extensions", "AllIndex", "ExtensionRequest")</li>
-            <li>@Html.ActionLink("Reviews", "Index", "ProgressReview")</li>
+            @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("DepartmentHead"))
+    {
+        <li>@Html.ActionLink("Colleague", "Index", "Colleague")</li>
+        <li>@Html.ActionLink("Probation", "Index", "ProbationaryColleague")</li>
+}
+            @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+    {
+        <li>@Html.ActionLink("Department", "Index", "Department")</li>}
+            @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+    {
+        <li>@Html.ActionLink("Competency", "Index", "Competency")</li>}
+            @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("LineManager"))
+    {
+        <li>@Html.ActionLink("Assignment", "HRIndex", "Assignment"@*, "GetAssignmentNotifPartial"*@)</li>
+        <li>@Html.ActionLink("Extensions", "AllIndex", "ExtensionRequest")</li>}
+            @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("LineManager") || ViewContext.HttpContext.User.IsInRole("DepartmentHead") || ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
+            {
+        <li>@Html.ActionLink("Reviews", "Index", "ProgressReview")</li>}
 
         </ul>
         @Html.Partial("_LoginPartial")

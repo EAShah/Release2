@@ -23,7 +23,7 @@ namespace Release2.Controllers
         /// </summary>
         /// <returns>Assignment, Index view</returns>
         // GET: Assignment
-        //[Authorize(Roles ="HR Associate")]
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult HRIndex()
         {
             var assignment = db.Assignments.ToList();
@@ -47,7 +47,7 @@ namespace Release2.Controllers
         /// </summary>
         /// <returns>Assignment, Index view</returns>
         // GET: Assignment
-        //[Authorize(Roles = "Line Manager")]
+        [Authorize(Roles = "LineManager")]
         public ActionResult LMIndex()
         {
             var assignment = db.Assignments.ToList();
@@ -78,7 +78,7 @@ namespace Release2.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Assignment, Details view</returns>
-        //[Authorize(Roles ="HR Associate, Line Manager")]
+        [Authorize(Roles = "HRAssociate, LineManager")]
         // GET: Assignment/Details/5
         public ActionResult Details(int? id)
         {
@@ -126,6 +126,7 @@ namespace Release2.Controllers
 
         // POST: Assignment/Create
         [HttpPost]
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult Create(AssignmentViewModel model)
         {
             if (ModelState.IsValid)
@@ -168,6 +169,7 @@ namespace Release2.Controllers
         /// <param name="model"></param> 
         /// <returns>Assignment, Inspect view</returns>
         // GET: Assignment/Inspect/5
+        [Authorize(Roles = "LineManager")]
         public ActionResult Inspect(int? id)
         {
             if(id == null)
@@ -240,6 +242,7 @@ namespace Release2.Controllers
         /// <param name="int", ></param>
         /// <returns>Assignment, Delete view</returns>
         // GET: Assignment/Delete/5
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

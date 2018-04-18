@@ -7,116 +7,143 @@
 <h2>AllIndex</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-    <table class="table" id="extensionsTable">
-        <thead>
+    @if (ViewContext.HttpContext.User.IsInRole("LineManager"))
+    {
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+    }
+    </p>
+<table class="table" id="extensionsTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ExtendedPC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LMSubmits)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.ExtNumber)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.ExtRequestStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExtRequestSubmissionDate)
+            </th>
+
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.ExtendedPC)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LMSubmits)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.ExtNumber)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.ExtRequestStatus)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ExtRequestSubmissionDate)
-                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExtendedPC)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LMSubmits)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExtNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExtRequestStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExtRequestSubmissionDate)
+                </td>
 
 
 
-                <th></th>
+                <td>
+                    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+    {
+                @Html.ActionLink("Audit", "Audit", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" })}
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-sm btn-info" })
+                    @if (ViewContext.HttpContext.User.IsInRole("LineManager"))
+                    {
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-sm btn-danger" })}
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ExtendedPC)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LMSubmits)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ExtNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ExtRequestStatus)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ExtRequestSubmissionDate)
-                    </td>
+        }
+    </tbody>
+</table>
+@*@using (Html.BeginForm())
+{
 
-
-
-                    <td>
-                        @Html.ActionLink("Audit", "Audit", new { id = item.Id }, new { @class = "btn btn-default" })
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-    @*<div class="container">
-            <button type="button" value="PendingIndex" class="btn btn-primary">Pending Requests</button>
-        </div>
-
-        <div class="container">
-            <button type="button" value="ApprovedIndex" class="btn btn-success">Approved Requests</button>
-        </div>
-
-        <div class="container">
-            <button type="button" value="ApprovedIndex" class="btn btn-success">Approved Requests</button>
-        </div>
+    <div class="form-horizontal">
+        <h4>Search by Status</h4>
+        <hr />
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="button" value="RejectedIndex" class="btn btn-warning" />
+            @Html.Label("Extension Request Status", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.DropDownList("ExtRequestId", (IEnumerable<SelectListItem>)ViewBag.ExtensionRequests, "Select Status", new { @class = "form-control" })
             </div>
-        </div>*@
-    <p>
-        @Html.ActionLink("Pending Requests", "PendingIndex")
-    </p>
+        </div>
+    </div>
 
-    <p>
-        @Html.ActionLink("Approved Requests", "ApprovedIndex")
-    </p>
+    <div id="ExtensionList"></div>
+}*@
 
-    <p>
-        @Html.ActionLink("Rejected Requests", "RejectedIndex")
-    </p>
+<p>
+    @Html.ActionLink("Pending Requests", "PendingIndex", new { @class = "btn btn-warning" })
+</p>
 
-    @section scripts
+<p>
+    @Html.ActionLink("Approved Requests", "ApprovedIndex", new { @class = "btn btn-success" })
+</p>
+
+<p>
+    @Html.ActionLink("Rejected Requests", "RejectedIndex", new { @class = "btn  btn-warning" })
+</p>
+
+@section scripts
 {
-        <script type="text/javascript" src="@Url.Content("/Scripts/DataTables/jquery.dataTables.min.js")"></script>
-        <script type="text/javascript" src="@Url.Content("/Scripts/DataTables/dataTables.scroller.min.js")"></script>
-        <script type="text/javascript" src="@Url.Content("/Scripts/DataTables/dataTables.bootstrap.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("/Scripts/DataTables/jquery.dataTables.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("/Scripts/DataTables/dataTables.scroller.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("/Scripts/DataTables/dataTables.bootstrap.min.js")"></script>
 
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#extensionsTable').DataTable();
-            });
-            $('#extensionsTable').dataTable({
-                "columnDefs": [
-                    { "orderable": false, "targets": -1 }
-                ]
-            });
-        </script>
-    }
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#extensionsTable').DataTable();
+        });
+        $('#extensionsTable').dataTable({
+            "columnDefs": [
+                { "orderable": false, "targets": -1 }
+            ]
+        });
+    </script>
 
-    @section styles
+    @*<script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#ExtRequestStatus").on("change", function () {
+                // Empty the div before displaying the received result
+                $("#ExtensionList").empty();
+
+                // build data sent to the action
+                var data = { id: $("#ExtRequestId").val() };
+
+                // Send a get request with course id
+                $.get("/Course/GetExtensionByStatusPartial", data)
+                    .done(function (result) { $("#ExtensionList").html(result); });
+            });
+        });
+
+    </script>*@
+}
+
+@section styles
 {
-        <link href="@Url.Content("/Content/DataTables/css/jquery.dataTables.min.css")" rel="stylesheet" />
-        <link href="@Url.Content("/Content/DataTables/css/dataTables.scroller.min.css")" rel="stylesheet" />
-        <link href="@Url.Content("/Content/DataTables/css/dataTables.bootstrap.min.css")" rel="stylesheet" />
-    }
+    <link href="@Url.Content("/Content/DataTables/css/jquery.dataTables.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/DataTables/css/dataTables.scroller.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/DataTables/css/dataTables.bootstrap.min.css")" rel="stylesheet" />
+}
