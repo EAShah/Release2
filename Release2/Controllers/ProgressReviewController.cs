@@ -79,22 +79,22 @@ namespace Release2.Controllers
             ViewBag.PCId = new SelectList(db.ProbationaryColleagues, "Id", "Username");
 
             // create performance scores view model
-            var model1 = new ProgressReviewViewModel();
+            var model = new ProgressReviewViewModel();
             {
                 foreach (var item in db.Competencies.ToList())
                 {
-                    model1.Competencies.Add(
+                    model.Competencies.Add(
                         new CompetencyViewModel
                         {
                              Id = item.CompetencyId,
-                              CompetencyName = item.CompetencyName,
+                             CompetencyName = item.CompetencyName,
                         });
                 }
                 
             }
             // get dptid of lm and get all the colleagues with that deptid
             //ViewBag.PCId = new SelectList(db.ProbationaryColleagues.Where(p=>p.DepartmentId == LMId.DeparmentId), "Id", "UserName");
-            return View(model1);
+            return View(model);
         }
 
         // POST: ProgressReview/Create
@@ -142,17 +142,12 @@ namespace Release2.Controllers
 
                 db.SaveChanges();
                 //SendEmail()
-            }
-            else
-            {
-                ViewBag.PCId = new SelectList(db.ProbationaryColleagues, "Id", "Username");
-
                 return RedirectToAction("Index");
             }
 
             ViewBag.PCId = new SelectList(db.ProbationaryColleagues, "Id", "Username");
 
-            return View();
+            return View(model);
         }
 
         //// POST: ProgressReview/CreatePerformanceReview
