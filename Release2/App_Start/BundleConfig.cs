@@ -24,6 +24,7 @@ namespace Release2
                         "~/Scripts/jquery.validate.unobtrusive.js"
                         ));
 
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -36,6 +37,20 @@ namespace Release2
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            // DataTables JavaScript Bundle
+            bundles.Add(new ScriptBundle("~/bundles/jsdatatables").Include(
+                        "~/Scripts/DataTables/jquery.dataTables.js",
+                        "~/Scripts/DataTables/dataTables.scroller.js",
+                        "~/Scripts/DataTables/dataTables.bootstrap.js"
+                        ));
+
+            // DataTables CSS Styles Bundle
+            bundles.Add(new StyleBundle("~/bundles/cssdatatables").Include(
+                        "~/Content/DataTables/css/dataTables.scroller.css",
+                        "~/Content/DataTables/css/dataTables.bootstrap.css"
+                        ));
+
         }
     }
 }

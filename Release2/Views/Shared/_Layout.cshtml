@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/bundles/cssdatatables")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("styles", required: false)
@@ -17,34 +18,34 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-    </button>
-    @Html.ActionLink("PMS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-    </div>
-    <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-            @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("DepartmentHead"))
-    {
-        <li>@Html.ActionLink("Colleague", "Index", "Colleague")</li>
-        <li>@Html.ActionLink("Probation", "Index", "ProbationaryColleague")</li>
-}
-            @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
-    {
-        <li>@Html.ActionLink("Department", "Index", "Department")</li>}
-            @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
-    {
-        <li>@Html.ActionLink("Competency", "Index", "Competency")</li>}
-            @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("LineManager"))
-    {
-        <li>@Html.ActionLink("Assignment", "HRIndex", "Assignment"@*, "GetAssignmentNotifPartial"*@)</li>
-        <li>@Html.ActionLink("Extensions", "AllIndex", "ExtensionRequest")</li>}
-            @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("LineManager") || ViewContext.HttpContext.User.IsInRole("DepartmentHead") || ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
-            {
-        <li>@Html.ActionLink("Reviews", "Index", "ProgressReview")</li>}
+                </button>
+                @Html.ActionLink("PMS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("DepartmentHead"))
+                    {
+                        <li>@Html.ActionLink("Colleague", "Index", "Colleague")</li>
+                        <li>@Html.ActionLink("Probation", "Index", "ProbationaryColleague")</li>
+                    }
+                    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+                    {
+                        <li>@Html.ActionLink("Department", "Index", "Department")</li>}
+                    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+                    {
+                        <li>@Html.ActionLink("Competency", "Index", "Competency")</li>}
+                    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("LineManager"))
+                    {
+                        <li>@Html.ActionLink("Assignment", "HRIndex", "Assignment"@*, "GetAssignmentNotifPartial"*@)</li>
+                        <li>@Html.ActionLink("Extensions", "AllIndex", "ExtensionRequest")</li>}
+                    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("LineManager") || ViewContext.HttpContext.User.IsInRole("DepartmentHead") || ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
+                    {
+                        <li>@Html.ActionLink("Reviews", "Index", "ProgressReview")</li>}
 
-        </ul>
-        @Html.Partial("_LoginPartial")
-    </div>
-    </div>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
     </div>
     <div class="container body-content">
         @RenderBody()
@@ -56,6 +57,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jsdatatables")
     @RenderSection("scripts", required: false)
 </body>
 </html>
