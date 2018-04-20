@@ -94,13 +94,56 @@ namespace Release2.Migrations
 
             //assignments.ForEach(c => context.Assignments.AddOrUpdate(p => p.AssignmentId.ToString(), c));
             //context.SaveChanges();
+            var probationaryColleagues = new List<ProbationaryColleague>
+            {
+                new ProbationaryColleague { UserName = "PC", Email ="PC@gmail.com", FirstName ="Probationary", LastName ="Colleague1", ColleagueType = ColleagueType.ProbationaryColleague, EmploymentType = EmploymentType.FullTimer, ColleagueRegion = ColleagueRegion.Jeddah, ProbationType = ProbationaryColleague.ProbationTypes.Mandatory, DOB = null, City = " ", Country = " ", HomeNumber = " ", PhoneNumber = " ", Position = " ", CityOfProbation = ProbationaryColleague.Cities.Jeddah, Level = ProbationaryColleague.Levels.First, JoinDate = null, LeaveDate = null, Nationality = " ", Gender = Gender.Female,DepartmentId = 1,
+                    },
 
+                 new ProbationaryColleague { UserName = "PC1", Email ="PC1@gmail.com", FirstName ="Probationary", LastName ="Colleague2", ColleagueType = ColleagueType.ProbationaryColleague, EmploymentType = EmploymentType.FullTimer, ColleagueRegion = ColleagueRegion.Makkah, ProbationType= ProbationaryColleague.ProbationTypes.Mandatory, DOB = null, City = " ", Country = " ", HomeNumber = " ", PhoneNumber = " ", Position = " ", CityOfProbation = ProbationaryColleague.Cities.Jeddah, Level = ProbationaryColleague.Levels.Third, JoinDate = null, LeaveDate = null, Nationality = " ", Gender = Gender.Male,DepartmentId = 2,
+                    },
+            };
 
+            foreach (var ProbationaryColleague in probationaryColleagues)
+            {
+                if (userManager.FindByName(ProbationaryColleague.UserName) == null)
+                {
+                    userManager.Create(ProbationaryColleague, "qwe123");
+                }
+
+                var usertemp = userManager.FindByName(ProbationaryColleague.UserName);
+                if (!userManager.IsInRole(usertemp.Id, roles[3]))
+                {
+                    userManager.AddToRole(usertemp.Id, roles[3]);
+                }
+            }
+
+            var LineManagers = new List<Colleague>
+            {
+                new Colleague { UserName = "LM1", Email ="LM1@gmail.com", FirstName ="Line", LastName ="Manager1", ColleagueType = ColleagueType.LineManager, EmploymentType = EmploymentType.FullTimer, ColleagueRegion =ColleagueRegion.Jeddah, DOB = null, City = " ", Country = " ", HomeNumber = " ", PhoneNumber = " ", Position = " ",Nationality = " ", Gender = Gender.Male,DepartmentId = 1,
+                    },
+
+                new Colleague { UserName = "LM2", Email ="LM2@gmail.com", FirstName ="Line", LastName ="Manager2", ColleagueType = ColleagueType.LineManager, EmploymentType = EmploymentType.FullTimer, ColleagueRegion =ColleagueRegion.Makkah, DOB = null, City = " ", Country = " ", HomeNumber = " ", PhoneNumber = " ", Position = " ",Nationality = " ", Gender = Gender.Female,DepartmentId = 2,
+                    },
+            };
+
+            foreach (var Colleague in LineManagers)
+            {
+                if (userManager.FindByName(Colleague.UserName) == null)
+                {
+                    userManager.Create(Colleague, "qwe123");
+                }
+
+                var usertemp = userManager.FindByName(Colleague.UserName);
+                if (!userManager.IsInRole(usertemp.Id, roles[2]))
+                {
+                    userManager.AddToRole(usertemp.Id, roles[2]);
+                }
+            }
 
             var extensions = new List<ExtensionRequest>
             {
-                     new ExtensionRequest { ExtReason = "Colleague performance is unsatisfactory in this month.", ExtNumber = ExtensionRequest.ExtNumbers.Four, ExtRequestStatus= ExtensionRequest.RequestStatus.Pending, ExtendedPCId = 8, LMSubmitId = 6, ExtRequestAuditDate = null, ExtRequestSubmissionDate = null },
-                     new ExtensionRequest { ExtReason = "Colleague performance is unsatisfactory in this month.", ExtNumber = ExtensionRequest.ExtNumbers.Three, ExtRequestStatus= ExtensionRequest.RequestStatus.Approved, ExtendedPCId = 8, LMSubmitId = 6, ExtRequestAuditDate = null, ExtRequestSubmissionDate = null },
+                     new ExtensionRequest { ExtReason = "Colleague performance is unsatisfactory in this month.", ExtNumber = ExtensionRequest.ExtNumbers.Four, ExtRequestStatus= ExtensionRequest.RequestStatus.Pending, ExtendedPCId = 2, LMSubmitId = 2, ExtRequestAuditDate = null, ExtRequestSubmissionDate = null},
+                     new ExtensionRequest { ExtReason = "Colleague performance is unsatisfactory in this month.", ExtNumber = ExtensionRequest.ExtNumbers.Three, ExtRequestStatus= ExtensionRequest.RequestStatus.Approved, ExtendedPCId = 2, LMSubmitId = 2, ExtRequestAuditDate = null, ExtRequestSubmissionDate = null},
             };
 
             extensions.ForEach(c => context.ExtensionRequests.AddOrUpdate(p => p.ExtReason, c));
@@ -152,51 +195,9 @@ namespace Release2.Migrations
                 }
             }
 
-            var LineManagers = new List<Colleague>
-            {
-                new Colleague { UserName = "LM1", Email ="LM1@gmail.com", FirstName ="Line", LastName ="Manager1", ColleagueType = ColleagueType.LineManager, EmploymentType = EmploymentType.FullTimer, ColleagueRegion =ColleagueRegion.Jeddah, DOB = null, City = " ", Country = " ", HomeNumber = " ", PhoneNumber = " ", Position = " ",Nationality = " ", Gender = Gender.Male,DepartmentId = 1,
-                    },
+            
 
-                new Colleague { UserName = "LM2", Email ="LM2@gmail.com", FirstName ="Line", LastName ="Manager2", ColleagueType = ColleagueType.LineManager, EmploymentType = EmploymentType.FullTimer, ColleagueRegion =ColleagueRegion.Makkah, DOB = null, City = " ", Country = " ", HomeNumber = " ", PhoneNumber = " ", Position = " ",Nationality = " ", Gender = Gender.Female,DepartmentId = 2,
-                    },
-            };
-
-            foreach (var Colleague in LineManagers)
-            {
-                if (userManager.FindByName(Colleague.UserName) == null)
-                {
-                    userManager.Create(Colleague, "qwe123");
-                }
-
-                var usertemp = userManager.FindByName(Colleague.UserName);
-                if (!userManager.IsInRole(usertemp.Id, roles[2]))
-                {
-                    userManager.AddToRole(usertemp.Id, roles[2]);
-                }
-            }
-
-            var probationaryColleagues = new List<ProbationaryColleague>
-            {
-                new ProbationaryColleague { UserName = "PC", Email ="PC@gmail.com", FirstName ="Probationary", LastName ="Colleague1", ColleagueType = ColleagueType.ProbationaryColleague, EmploymentType = EmploymentType.FullTimer, ColleagueRegion = ColleagueRegion.Jeddah, ProbationType = ProbationaryColleague.ProbationTypes.Mandatory, DOB = null, City = " ", Country = " ", HomeNumber = " ", PhoneNumber = " ", Position = " ", CityOfProbation = ProbationaryColleague.Cities.Jeddah, Level = ProbationaryColleague.Levels.First, JoinDate = null, LeaveDate = null, Nationality = " ", Gender = Gender.Female,DepartmentId = 1,
-                    },
-
-                 new ProbationaryColleague { UserName = "PC1", Email ="PC1@gmail.com", FirstName ="Probationary", LastName ="Colleague2", ColleagueType = ColleagueType.ProbationaryColleague, EmploymentType = EmploymentType.FullTimer, ColleagueRegion = ColleagueRegion.Makkah, ProbationType= ProbationaryColleague.ProbationTypes.Mandatory, DOB = null, City = " ", Country = " ", HomeNumber = " ", PhoneNumber = " ", Position = " ", CityOfProbation = ProbationaryColleague.Cities.Jeddah, Level = ProbationaryColleague.Levels.Third, JoinDate = null, LeaveDate = null, Nationality = " ", Gender = Gender.Male,DepartmentId = 2,
-                    },
-            };
-
-            foreach (var ProbationaryColleague in probationaryColleagues)
-            {
-                if (userManager.FindByName(ProbationaryColleague.UserName) == null)
-                {
-                    userManager.Create(ProbationaryColleague, "qwe123");
-                }
-
-                var usertemp = userManager.FindByName(ProbationaryColleague.UserName);
-                if (!userManager.IsInRole(usertemp.Id, roles[3]))
-                {
-                    userManager.AddToRole(usertemp.Id, roles[3]);
-                }
-            }
+            
         }
     }
 }

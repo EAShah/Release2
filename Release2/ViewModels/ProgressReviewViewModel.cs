@@ -58,8 +58,6 @@ namespace Release2.ViewModels
         public int DepartmentId { get; set; }
         public string Department { get; set; }
 
-
-       
         public int? HREvaluatesId { get; set; }
 
         public int? PRDHApprovesId { get; set; }
@@ -85,8 +83,6 @@ namespace Release2.ViewModels
 
         [Display(Name = "Probationary Colleague")]
         public string ProbationaryColleague { get; set; }
-
-        
 
         //Status Properties
 
@@ -126,8 +122,5 @@ namespace Release2.ViewModels
 
         //public virtual List<int> Scores { get; set; }
         //public virtual ICollection<PerformanceCriterion> PerformanceCriteria { get; set; }
-
-
-
     }
 }
