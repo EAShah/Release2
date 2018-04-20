@@ -175,6 +175,7 @@ namespace Release2.Controllers
 
                 //HACK changed below
                 HRAudits = (extension.HRAudits == null)?string.Empty: extension.HRAudits.FullName,
+                //HRAudits = extension.HRAudits.FullName,
                 ExtRequestAuditDate = extension.ExtRequestAuditDate,
                 ExtNumber = extension.ExtNumber,
                 ExtReason = extension.ExtReason,
@@ -329,7 +330,10 @@ namespace Release2.Controllers
                 LMSubmitId = extension.LMSubmitId,
                 LMSubmits = extension.LMSubmits.FullName,
                 ExtRequestSubmissionDate = extension.ExtRequestSubmissionDate,
-                HRAudits = extension.HRAudits.FullName,
+
+                //HACK changed below
+                HRAudits = (extension.HRAudits == null) ? string.Empty : extension.HRAudits.FullName,
+                //HRAudits = extension.HRAudits.FullName,
                 ExtRequestAuditDate = extension.ExtRequestAuditDate,
                 ExtNumber = extension.ExtNumber,
                 ExtReason = extension.ExtReason,
