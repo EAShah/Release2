@@ -103,8 +103,8 @@ namespace Release2.Controllers
             }
             // Gives error that 'Id' does not exist in this viewbag.
 
-            var colleagueDep = db.Colleagues.Where(c => c.Id == model.LMId).Select(s => s.DepartmentId).SingleOrDefault();
-            ViewBag.PCId = new SelectList(db.ProbationaryColleagues.Select(s => s.DepartmentId == colleagueDep), "Id", "Username");
+            var LMDep = db.Colleagues.Where(c => c.Id == model.LMId).Select(s => s.DepartmentId).SingleOrDefault();
+            ViewBag.PCId = new SelectList(db.ProbationaryColleagues.Where(s => s.DepartmentId == LMDep), "Id", "Username");
             return View(model);
         }
 
@@ -155,8 +155,8 @@ namespace Release2.Controllers
                // Utilities.SendEmail("elaf");
                 return RedirectToAction("Index");
             }
-            var colleagueDep = db.Colleagues.Where( c => c.Id == model.LMId).Select( s => s.DepartmentId).Single();
-            ViewBag.PCId = new SelectList(db.ProbationaryColleagues.Select(s => s.DepartmentId == colleagueDep), "Id", "Username");
+            var colleagueDep = db.Colleagues.Where( c => c.Id == model.LMId).Select( s => s.DepartmentId).SingleOrDefault();
+            ViewBag.PCId = new SelectList(db.ProbationaryColleagues.Where(s => s.DepartmentId == colleagueDep), "Id", "Username");
 
             return View(model);
         }
