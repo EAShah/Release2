@@ -59,9 +59,8 @@
         @Html.AntiForgeryToken()
 
     <div class="form-actions no-color">
-        <button class="btn btn-success pull-left"> <span class="glyphicon glyphicon-floppy-open" type="submit"></span> Create Assignment</button>
+        <button class="btn btn-danger pull-left"> <span class="glyphicon glyphicon-trash" type="submit"></span> Delete </button>
         &nbsp;
-        @*Where is delete button?*@
 
         @Html.ActionLink("Back to all Extension Requests", "AllIndex", null, new { @class = "btn btn-info" })
     </div>

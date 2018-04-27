@@ -58,17 +58,25 @@
 
 
             <td>
-                @if (ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
-                {
-            @Html.ActionLink("Assess", "Assess", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })}
                 @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" })
-                @*@if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
-                {
-            @Html.ActionLink("Evaluate", "Evaluate", new { id = item.Id })}
+
+                @*check*@
+                @if (ViewContext.HttpContext.User.IsInRole("LineManager") && item.PRDHApprovalStatus == Project._1.Models.ProgressReview.ApprovalStatus.Pending)
+                 {
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })
+                }
+                @if (ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
+    {
+            @Html.ActionLink("Assess", "Assess", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })
+}
+                @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+    {
+            @Html.ActionLink("Evaluate", "Evaluate", new { id = item.Id })
+    }
                 @if (ViewContext.HttpContext.User.IsInRole("DepartmentHead"))
-                {
-            @Html.ActionLink("Approve", "Approve", new { id = item.Id })}
-                }*@
+    {
+            @Html.ActionLink("Approve", "Approve", new { id = item.Id })
+                }
 
             </td>
         </tr>

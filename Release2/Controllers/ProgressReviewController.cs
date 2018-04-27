@@ -76,7 +76,8 @@ namespace Release2.Controllers
         [Authorize(Roles = "LineManager")]
         public ActionResult Create()
         {
-            ViewBag.PCId = new SelectList(db.ProbationaryColleagues, "Id", "Username");
+            //var colleagueDep = db.Colleagues.Where(c => c.Id == model.LMId).Select(s => s.DepartmentId).Single();
+            //ViewBag.PCId = new SelectList(db.ProbationaryColleagues.Select(s => s.DepartmentId == colleagueDep), "Id", "Username");
 
             // create performance scores view model
             var model = new ProgressReviewViewModel();
@@ -90,10 +91,20 @@ namespace Release2.Controllers
                              CompetencyName = item.CompetencyName,
                         });
                 }
-                
+
+                var review = new ProgressReview
+                {
+                    ReviewId = model.Id,
+                    PCId = model.PCId,
+                    LMId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id,
+
+                };
+
             }
-            // get dptid of lm and get all the colleagues with that deptid
-            //ViewBag.PCId = new SelectList(db.ProbationaryColleagues.Where(p=>p.DepartmentId == LMId.DeparmentId), "Id", "UserName");
+            // Gives error that 'Id' does not exist in this viewbag.
+
+            var colleagueDep = db.Colleagues.Where(c => c.Id == model.LMId).Select(s => s.DepartmentId).SingleOrDefault();
+            ViewBag.PCId = new SelectList(db.ProbationaryColleagues.Select(s => s.DepartmentId == colleagueDep), "Id", "Username");
             return View(model);
         }
 
@@ -141,11 +152,11 @@ namespace Release2.Controllers
                 }
 
                 db.SaveChanges();
-                //SendEmail()
+               // Utilities.SendEmail("elaf");
                 return RedirectToAction("Index");
             }
-
-            ViewBag.PCId = new SelectList(db.ProbationaryColleagues, "Id", "Username");
+            var colleagueDep = db.Colleagues.Where( c => c.Id == model.LMId).Select( s => s.DepartmentId).Single();
+            ViewBag.PCId = new SelectList(db.ProbationaryColleagues.Select(s => s.DepartmentId == colleagueDep), "Id", "Username");
 
             return View(model);
         }
@@ -199,14 +210,29 @@ namespace Release2.Controllers
                 PRDHApprovalStatus = ProgressReview.ApprovalStatus.Pending,
                 PRHRAEvalDecision = ProgressReview.EvaluationDecision.Pending,
                 TotalScore = review.TotalScore,
+                EvalDescription = review.EvalDescription
             };
 
-           
+
+            // add performance to all
+            foreach (var item in db.PerformanceCriterions.ToList())
+            {
+                model.Competencies.Add(
+                    new CompetencyViewModel
+                    {
+                        Id = item.CompetencyId,
+                        CompetencyName = item.Competency.CompetencyName,
+                        Score = item.Score,
+                        
+                    });
+            }
+
             // use index template to show competency scores
 
             var performance = db.PerformanceCriterions.ToList();
+
             var model1 = new List<PerformanceCriterionViewModel>();
-            foreach (var item in db.PerformanceCriterions.ToList())
+            foreach (var item in performance)
             {
                 model1.Add(new PerformanceCriterionViewModel
                 {
@@ -222,7 +248,6 @@ namespace Release2.Controllers
 
         // POST: ProgressReview/Assess/5
         [HttpPost]
-        //[Authorize(Roles = "ProbationaryColleague")]
         public ActionResult Assess(int id, FormCollection collection, ProgressReviewViewModel model )
         {
             if (ModelState.IsValid)
@@ -254,6 +279,116 @@ namespace Release2.Controllers
             }
             else
             {
+                return View();
+            }
+        }
+
+        // GET: ProgressReview/Edit/5
+        [Authorize(Roles = "LineManager")]
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            ProgressReview review = db.ProgressReviews.Find(id);
+            //ProgressReview review = db.ProgressReviews.Find(id).PRDHApprovalStatus== ProgressReview.ApprovalStatus.Approved;
+            if (review == null)
+            {
+                return HttpNotFound();
+            }
+
+            ProgressReviewViewModel model = new ProgressReviewViewModel
+            {
+                Id = review.ReviewId,
+                PRCompletionStatus = review.PRCompletionStatus,
+                AssessmentStatus = review.AssessmentStatus,
+                LMId = review.LMId,
+                LMCreates = review.LMCreates.FullName,
+                PCId = review.PCId,
+                ProbationaryColleague = review.ProbationaryColleague.FullName,
+                EvalDescription = review.EvalDescription
+            };
+
+            foreach (var item in db.Competencies.ToList())
+            {
+                model.Competencies.Add(
+                    new CompetencyViewModel
+                    {
+                        Id = item.CompetencyId,
+                        CompetencyName = item.CompetencyName,
+                    });
+            }
+
+            // use index template to show competency scores
+
+            var performance = db.PerformanceCriterions.ToList();
+            var model1 = new List<PerformanceCriterionViewModel>();
+            foreach (var item in performance)
+            {
+                model1.Add(new PerformanceCriterionViewModel
+                {
+                    Id = item.ReviewId,
+                    CompetencyId = item.CompetencyId,
+                    CompetencyName = item.Competency.CompetencyName,
+                    Score = item.Score
+                });
+            }
+            ViewBag.PCId = new SelectList(db.ProbationaryColleagues, "Id", "Username");
+
+            return View(model);
+        }
+
+        // POST: ProgressReview/Edit/5
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection, ProgressReviewViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var review = db.ProgressReviews.Find(id);
+                if (review != null)
+                {
+                    review.EvalDescription = model.EvalDescription;
+                    review.TotalScore = model.TotalScore;
+                    review.PREvalDescription = model.PREvalDescription;
+                    review.SelfEvaluation = model.SelfEvaluation;
+                    review.LMId = model.LMId;
+                    review.PCId = model.PCId;
+                    review.CreationPCId = model.CreationPCId;
+                    review.AssessmentStatus = model.AssessmentStatus;
+                    review.PRCompletionStatus = model.PRCompletionStatus;
+                    review.SASubmissionDate = model.SASubmissionDate;
+                    review.PRDHApprovalStatus = model.PRDHApprovalStatus;
+                    review.PRDHApproveDate = model.PRDHApproveDate;
+                    review.PRHRAEvalDecision = model.PRHRAEvalDecision;
+                    review.PRHRAEvalDate = model.PRHRAEvalDate;
+                    review.PRDHApprovesId = model.PRDHApprovesId;
+                    review.HREvaluatesId = model.HREvaluatesId;
+
+                    //foreach (var performance in model.PerformanceReviews)
+                    //{
+                    //    //model.p.Add(
+                    //    //    new CompetencyViewModel
+                    //    //    {
+                    //    performance.CompetencyId;
+                    //    performance.Score;
+                    //        //});
+                    //}
+
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
+            }
+            else
+            {
+                ViewBag.PCId = new SelectList(db.ProbationaryColleagues, "Id", "Username");
                 return View();
             }
         }

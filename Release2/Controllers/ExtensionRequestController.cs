@@ -73,7 +73,7 @@ namespace Release2.Controllers
         /// </summary>
         /// <returns>ExtensionRequest, ApprovedIndex view</returns>
         // GET: ApprovedExtensionRequest
-        [Authorize(Roles = "HRAssociate")]
+        [Authorize(Roles = "HRAssociate, LineManager")]
         public ActionResult ApprovedIndex()
         {
             var extension = db.ExtensionRequests.ToList().Where(e => e.ExtRequestStatus == ExtensionRequest.RequestStatus.Approved);
@@ -98,7 +98,7 @@ namespace Release2.Controllers
         /// </summary>
         /// <returns>ExtensionRequest, RejectedIndex view</returns>
         // GET: RejectedExtensionRequest
-        [Authorize(Roles = "HRAssociate")]
+        [Authorize(Roles = "HRAssociate, LineManager")]
         public ActionResult RejectedIndex()
         {
             var extension = db.ExtensionRequests.ToList().Where(e => e.ExtRequestStatus == ExtensionRequest.RequestStatus.Rejected);
@@ -125,7 +125,7 @@ namespace Release2.Controllers
         /// </summary>
         /// <returns>ExtensionRequest, RejectedIndex view</returns>
         // GET: PendingExtensionRequest
-        [Authorize(Roles = "HRAssociate")]
+        [Authorize(Roles = "HRAssociate, LineManager")]
         public ActionResult PendingIndex()
         {
             var extension = db.ExtensionRequests.ToList().Where(e => e.ExtRequestStatus == ExtensionRequest.RequestStatus.Pending);

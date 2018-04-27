@@ -4,11 +4,13 @@
     ViewBag.Title = "Asignments";
 }
 
-<h2>HRIndex</h2>
+<h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
-</p>
+    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+    {
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })}
+    </p>
 <table class="table table-hover" id="assignmentsTable">
     <thead>
         <tr>

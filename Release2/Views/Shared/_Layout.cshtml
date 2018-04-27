@@ -36,8 +36,10 @@
                         <li>@Html.ActionLink("Competency", "Index", "Competency")</li>}
                     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("LineManager"))
                     {
-                        <li>@Html.ActionLink("Assignment", "HRIndex", "Assignment"@*, "GetAssignmentNotifPartial"*@)</li>
+                        <li>@Html.ActionLink("Assignment", "Index", "Assignment"@*, "GetAssignmentNotifPartial"*@)</li>
                         <li>@Html.ActionLink("Extensions", "AllIndex", "ExtensionRequest")</li>}
+
+                       @* <li>@Html.Action("GetAssignmentNotifPartial", "ExtensionRequest", new object({ id = item.Id (get user id })</li>} hide this colleague id in the vie*@
                     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("LineManager") || ViewContext.HttpContext.User.IsInRole("DepartmentHead") || ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
                     {
                         <li>@Html.ActionLink("Reviews", "Index", "ProgressReview")</li>}

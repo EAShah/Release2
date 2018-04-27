@@ -33,6 +33,34 @@
         </div>
     </div>
 
+    <table class="table">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Competencies)
+            </th>
+            <th>
+                Score
+            </th>
+
+            <th></th>
+        </tr>
+        @for (int i = 0; i < Model.Competencies.Count(); i++)
+        {
+            <tr>
+                <td>
+                    @Html.HiddenFor(m => m.Competencies[i].Id)
+                    @Html.DisplayFor(m => m.Competencies[i].CompetencyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.Competencies[i].Score, new { htmlAttributes = new { @class = "form-control", placeholder = "Score" } })
+                </td>
+                @Html.ValidationMessageFor(m => m.Competencies[i].Score)
+            </tr>
+        }
+
+    </table>
+
     <div class="form-group">
         @Html.LabelFor(model => model.SelfEvaluation, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">

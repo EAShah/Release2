@@ -93,15 +93,15 @@
 }*@
 
 <p>
-    @Html.ActionLink("Pending Requests", "PendingIndex", new { @class = "btn btn-warning" })
+    @Html.ActionLink("Pending Requests", "PendingIndex", null, new { @class = "btn btn-primary" })
 </p>
 
 <p>
-    @Html.ActionLink("Approved Requests", "ApprovedIndex", new { @class = "btn btn-success" })
+    @Html.ActionLink("Approved Requests", "ApprovedIndex", null, new { @class = "btn btn-success" })
 </p>
 
 <p>
-    @Html.ActionLink("Rejected Requests", "RejectedIndex", new { @class = "btn  btn-warning" })
+    @Html.ActionLink("Rejected Requests", "RejectedIndex",null, new { @class = "btn  btn-warning" })
 </p>
 
 @section scripts

@@ -39,9 +39,9 @@
             </th>
 
             <th></th>
-        </tr>@*remove count?*@
+        </tr>
         @for (int i = 0; i < Model.Competencies.Count(); i++)
-        {
+         {
             <tr>
                 <td>
                     @Html.HiddenFor(m => m.Competencies[i].Id)
@@ -50,8 +50,9 @@
                 <td>
                     @Html.DisplayFor(m => m.Competencies[i].Score, new { htmlAttributes = new { @class = "form-control", placeholder = "Score" } })
                 </td>
+                @Html.ValidationMessageFor(m => m.Competencies[i].Score)
             </tr>
-        }
+         }
 
     </table>
 

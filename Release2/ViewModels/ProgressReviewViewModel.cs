@@ -24,20 +24,30 @@ namespace Release2.ViewModels
         public ProgressReviewViewModel()
         {
             Competencies = new List<CompetencyViewModel>();
+            PerformanceReviews = new List<PerformanceCriterion>();
+
             //Scores = new List<int>();
         }
-        // no performance criterion to progress review source found; MAKE SURE PERFORMANCECRITERION IS BEING USED.
 
-        //BADGES
-        //EMAIL NOTIFS
-        //JQUERY&AJAX 
+        // add scores to eval, app, assess
+
+        // total score!!!!
+
+        // how to keep original information in the editorfor when editing info
+        // how to allow a user to assess/evaluate only once
+        // only get employees in the same department, or assigned to the same employees
         
+        // CHARTS
+        //BADGES - count by status. if status pending show badge.
+        //EMAIL NOTIFS
+
         public int Id { get; set; }
 
         // Fields of the Progress Review
 
         [DataType(DataType.MultilineText)]
         [Display(Name = "Report")]
+        [Required]
         public string EvalDescription { get; set; }
 
         [Display(Name = "Scores")]

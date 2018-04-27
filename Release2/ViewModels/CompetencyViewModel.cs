@@ -22,6 +22,8 @@ namespace Release2.ViewModels
         [Display(Name = "Competency Name")]
         [StringLength(30)]
         public string CompetencyName { get; set; }
+
+        [Required]
         public int? Score { get; set; }
 
     }

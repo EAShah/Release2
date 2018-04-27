@@ -19,12 +19,12 @@ namespace Release2.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         /// <summary>
-        /// This action lists assignments for Line managers to HR Associates
+        /// This action lists assignments for Line managers to HR Associates and Line managers
         /// </summary>
         /// <returns>Assignment, Index view</returns>
         // GET: Assignment
-        [Authorize(Roles = "HRAssociate")]
-        public ActionResult HRIndex()
+        [Authorize(Roles = "HRAssociate, LineManager")]
+        public ActionResult Index()
         {
             var assignment = db.Assignments.ToList();
             var model = new List<AssignmentViewModel>();
@@ -42,36 +42,36 @@ namespace Release2.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// This action lists assignments for Line managers to Line managers
-        /// </summary>
-        /// <returns>Assignment, Index view</returns>
-        // GET: Assignment
-        [Authorize(Roles = "LineManager")]
-        public ActionResult LMIndex()
-        {
-            var assignment = db.Assignments.ToList();
-            var model = new List<AssignmentViewModel>();
-            foreach (var item in assignment)
-            {
-                if (item.LMAssignId == User.Identity.GetUserId<int>())
-                {
-                    model.Add(new AssignmentViewModel
-                    {
-                        Id = item.AssignmentId,
-                        ProbationaryColleague = item.ProbationaryColleague.FullName,
-                        LMAssigned = item.LMAssigned.FullName,
-                        AssignmentDate = item.AssignmentDate,
-                        AssignmentStatus = item.AssignmentStatus,
-                        ProbationType = item.ProbationaryColleague.ProbationType,
-                        Department = item.ProbationaryColleague.Department.DepartmentName,
-                        HRAssigns = item.HRAssigns.FullName
-                    });
-                }
+        ///// <summary>
+        ///// This action lists assignments for Line managers to Line managers
+        ///// </summary>
+        ///// <returns>Assignment, Index view</returns>
+        //// GET: Assignment
+        //[Authorize(Roles = "LineManager")]
+        //public ActionResult LMIndex()
+        //{
+        //    var assignment = db.Assignments.ToList();
+        //    var model = new List<AssignmentViewModel>();
+        //    foreach (var item in assignment)
+        //    {
+        //        if (item.LMAssignId == User.Identity.GetUserId<int>())
+        //        {
+        //            model.Add(new AssignmentViewModel
+        //            {
+        //                Id = item.AssignmentId,
+        //                ProbationaryColleague = item.ProbationaryColleague.FullName,
+        //                LMAssigned = item.LMAssigned.FullName,
+        //                AssignmentDate = item.AssignmentDate,
+        //                AssignmentStatus = item.AssignmentStatus,
+        //                ProbationType = item.ProbationaryColleague.ProbationType,
+        //                Department = item.ProbationaryColleague.Department.DepartmentName,
+        //                HRAssigns = item.HRAssigns.FullName
+        //            });
+        //        }
                 
-            }
-            return View(model);
-        }
+        //    }
+        //    return View(model);
+        //}
 
         /// <summary>
         /// This action lists assignment details for Line managers
@@ -114,6 +114,7 @@ namespace Release2.Controllers
         /// <param name="model", ></param>
         /// <returns>Assignment, Create view</returns>
         // GET: Assignment/Create
+        [Authorize(Roles = "HRAssociate")]
         public ActionResult Create()
         {
             //var list = db.Colleagues.Where(t => t.Department == ProbationaryColleague.Department ).Select(c => new { c.Id, FullName = c.FirstName + " " + c.LastName });
@@ -126,7 +127,6 @@ namespace Release2.Controllers
 
         // POST: Assignment/Create
         [HttpPost]
-        [Authorize(Roles = "HRAssociate")]
         public ActionResult Create(AssignmentViewModel model)
         {
             if (ModelState.IsValid)

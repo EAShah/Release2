@@ -30,6 +30,7 @@ namespace Project._1.Models
         public int? TotalScore { get; set; }
 
         [StringLength(500)]
+        [Required]
         public string EvalDescription { get; set; }
 
         public CompletionStatus PRCompletionStatus { get; set; }
