@@ -24,25 +24,51 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("DepartmentHead"))
-                    {
+                     {
                         <li>@Html.ActionLink("Colleague", "Index", "Colleague")</li>
                         <li>@Html.ActionLink("Probation", "Index", "ProbationaryColleague")</li>
-                    }
+                     }
                     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
-                    {
-                        <li>@Html.ActionLink("Department", "Index", "Department")</li>}
+                     {
+                         <li>@Html.ActionLink("Department", "Index", "Department")</li>}
                     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
-                    {
-                        <li>@Html.ActionLink("Competency", "Index", "Competency")</li>}
+                     {
+                         <li>@Html.ActionLink("Competency", "Index", "Competency")</li>
+                     }
                     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("LineManager"))
                     {
-                        <li>@Html.ActionLink("Assignment", "Index", "Assignment"@*, "GetAssignmentNotifPartial"*@)</li>
-                        <li>@Html.ActionLink("Extensions", "AllIndex", "ExtensionRequest")</li>}
-
-                       @* <li>@Html.Action("GetAssignmentNotifPartial", "ExtensionRequest", new object({ id = item.Id (get user id })</li>} hide this colleague id in the vie*@
+                         <li>@Html.ActionLink("Assignment", "Index", "Assignment")</li>
+                    }
+                                    @if (ViewContext.HttpContext.User.IsInRole("LineManager"))
+                                     {
+                                        <li>@Html.Action("GetCountAssignmentsPartial", "Assignment", null)</li> 
+                                     }
+                    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("LineManager"))
+                     {
+                         <li>@Html.ActionLink("Extensions", "AllIndex", "ExtensionRequest")</li>
+                     }
+                                     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+                                      {
+                                        <li>@Html.Action("GetCountExtensionsPartial", "ExtensionRequest", null)</li> 
+                                      }
                     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("LineManager") || ViewContext.HttpContext.User.IsInRole("DepartmentHead") || ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
-                    {
-                        <li>@Html.ActionLink("Reviews", "Index", "ProgressReview")</li>}
+                     {
+                         <li>@Html.ActionLink("Reviews", "Index", "ProgressReview")</li>
+                     }
+                                     @if (ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
+                                      {
+                                        <li>@Html.Action("GetCountReviewsToAssessPartial", "ProgressReview", null)</li> 
+                                      }
+                                     @if (ViewContext.HttpContext.User.IsInRole("DepartmentHead"))
+                                      {
+                                        <li>@Html.Action("GetCountReviewsToApprovePartial", "ProgressReview", null)</li> 
+                                      }
+                                     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+                                      {
+                                        <li>@Html.Action("GetCountReviewsToEvaluatePartial", "ProgressReview", null)</li> 
+                                      }
+                                    @*<li>@Html.Action("GetCountAssignmentsPartial", "ExtensionRequest", new object({ id = item.Id (get user id })</li>} hide this colleague id in the view*@
+                    
 
                 </ul>
                 @Html.Partial("_LoginPartial")

@@ -199,6 +199,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProbationaryColleagueController.cs" />
     <Compile Include="Controllers\ProgressReviewController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -394,6 +395,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
@@ -598,14 +601,19 @@
     <Content Include="Views\ProgressReview\Approve.cshtml" />
     <Content Include="Views\ProgressReview\Evaluate.cshtml" />
     <Content Include="Views\ProbationaryColleague\Extensions.cshtml" />
-    <Content Include="Views\Assignment\GetAssignmentNotifPartial.cshtml" />
+    <Content Include="Views\Assignment\GetCountAssignmentsPartial.cshtml" />
     <Content Include="Views\ProbationaryColleague\ListExtensionRequestsPartial.cshtml" />
     <Content Include="Views\ProgressReview\Details.cshtml" />
     <Content Include="Views\ExtensionRequest\GetExtensionByStatusPartial.cshtml" />
     <Content Include="Views\ProgressReview\Edit.cshtml" />
+    <Content Include="Views\ExtensionRequest\GetCountExtensionsPartial.cshtml" />
+    <Content Include="Views\ProgressReview\GetCountReviewsToEvaluatePartial.cshtml" />
+    <Content Include="Views\ProgressReview\GetCountReviewsToApprovePartial.cshtml" />
+    <Content Include="Views\ProgressReview\GetCountReviewsToAssessPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Reports\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

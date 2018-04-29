@@ -5,7 +5,6 @@
 }
 
 <h2>Index</h2>
-
 <p>
     @if (ViewContext.HttpContext.User.IsInRole("LineManager"))
     {
@@ -28,7 +27,7 @@
                 @Html.DisplayNameFor(model => model.HREvaluation)
             </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.AssessmentStatus)
+                @Html.DisplayNameFor(model => model.PRCompletionStatus)
             </th>
 
 
@@ -53,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.HREvaluation)
             </td>*@
             <td>
-                @Html.DisplayFor(modelItem => item.AssessmentStatus)
+                @Html.DisplayFor(modelItem => item.PRCompletionStatus)
             </td>
 
 
@@ -61,21 +60,21 @@
                 @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" })
 
                 @*check*@
-                @if (ViewContext.HttpContext.User.IsInRole("LineManager") && item.PRDHApprovalStatus == Project._1.Models.ProgressReview.ApprovalStatus.Pending)
+                @if (ViewContext.HttpContext.User.IsInRole("LineManager") && item.PRCompletionStatus == Project._1.Models.ProgressReview.CompletionStatus.Incomplete)
                  {
             @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })
                 }
-                @if (ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
-    {
+                @if (ViewContext.HttpContext.User.IsInRole("ProbationaryColleague") && item.PRDHApprovalStatus == Project._1.Models.ProgressReview.ApprovalStatus.Pending)
+                {
             @Html.ActionLink("Assess", "Assess", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })
 }
                 @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
-    {
-            @Html.ActionLink("Evaluate", "Evaluate", new { id = item.Id })
+                {
+            @Html.ActionLink("Evaluate", "Evaluate", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })
     }
-                @if (ViewContext.HttpContext.User.IsInRole("DepartmentHead"))
-    {
-            @Html.ActionLink("Approve", "Approve", new { id = item.Id })
+                @if (ViewContext.HttpContext.User.IsInRole("DepartmentHead") && item.PRHRAEvalDecision == Project._1.Models.ProgressReview.EvaluationDecision.Pending)
+                {
+            @Html.ActionLink("Approve", "Approve", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })
                 }
 
             </td>

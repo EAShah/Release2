@@ -42,37 +42,6 @@ namespace Release2.Controllers
             return View(model);
         }
 
-        ///// <summary>
-        ///// This action lists assignments for Line managers to Line managers
-        ///// </summary>
-        ///// <returns>Assignment, Index view</returns>
-        //// GET: Assignment
-        //[Authorize(Roles = "LineManager")]
-        //public ActionResult LMIndex()
-        //{
-        //    var assignment = db.Assignments.ToList();
-        //    var model = new List<AssignmentViewModel>();
-        //    foreach (var item in assignment)
-        //    {
-        //        if (item.LMAssignId == User.Identity.GetUserId<int>())
-        //        {
-        //            model.Add(new AssignmentViewModel
-        //            {
-        //                Id = item.AssignmentId,
-        //                ProbationaryColleague = item.ProbationaryColleague.FullName,
-        //                LMAssigned = item.LMAssigned.FullName,
-        //                AssignmentDate = item.AssignmentDate,
-        //                AssignmentStatus = item.AssignmentStatus,
-        //                ProbationType = item.ProbationaryColleague.ProbationType,
-        //                Department = item.ProbationaryColleague.Department.DepartmentName,
-        //                HRAssigns = item.HRAssigns.FullName
-        //            });
-        //        }
-                
-        //    }
-        //    return View(model);
-        //}
-
         /// <summary>
         /// This action lists assignment details for Line managers
         /// </summary>
@@ -101,7 +70,7 @@ namespace Release2.Controllers
                 Department = assignment.Department.DepartmentName,
                 AssignmentDate = assignment.AssignmentDate,
                 HRAssigns = assignment.HRAssigns.FullName,
-                //AssignmentInspectionDate = assignment.AssignmentInspectionDa te,
+                //AssignmentInspectionDate = assignment.AssignmentInspectionDate,
                 AssignmentStatus = assignment.AssignmentStatus,
 
             };
@@ -140,18 +109,19 @@ namespace Release2.Controllers
                     LMAssignId = model.LMAssignId,
                     HRAssignId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id,
                     //HRAssignId = model.HRAssignId,
-                    AssignmentDate = DateTime.Now,
+                    AssignmentDate = DateTime.Today,
                     AssignmentStatus= Assignment.AssignStatus.Pending,
                 };
 
                 db.Assignments.Add(assignment);
                 db.SaveChanges();
+                //Utilities.SendEmail("eishah@dah.edu.sa", "pmscareem@gmail.com", "New Assignment - Probationary Colleague", "A probationary colleague has been assigned to you. Kindly visit the Probation Management site in order to review this assignment.");
 
                 ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "DepartmentName");
                 ViewBag.PCId = new SelectList(db.ProbationaryColleagues.ToList(), "Id", "FullName");
                 ViewBag.LMAssignId = new SelectList(db.Colleagues.ToList(), "Id", "FullName");
 
-                return RedirectToAction("HRIndex");
+                return RedirectToAction("Index");
             }
             else
             {
@@ -198,7 +168,7 @@ namespace Release2.Controllers
                 AssignmentStatus = assignment.AssignmentStatus,
                 HRAssignId = assignment.HRAssignId,
                 HRAssigns = assignment.HRAssigns.FullName,
-                AssignmentInspectionDate = DateTime.Now,
+                AssignmentInspectionDate = DateTime.Today,
                 DepartmentId = assignment.DepartmentId,
                 Department = assignment.Department.DepartmentName,
             };
@@ -228,7 +198,7 @@ namespace Release2.Controllers
                 db.Entry(assignment).State = EntityState.Modified;
                 db.SaveChanges();
 
-                return RedirectToAction("HRIndex");
+                return RedirectToAction("Index");
             }
             else
             {
@@ -257,7 +227,7 @@ namespace Release2.Controllers
             AssignmentViewModel model = new AssignmentViewModel
             {
                 Id = assignment.AssignmentId,
-                LMInspectId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id,
+                LMInspectId = assignment.LMInspectId,
                 PCId = assignment.PCId,
                 ProbationaryColleague = assignment.ProbationaryColleague.FullName,
                 LMAssignId = assignment.LMAssignId, // Include Ids in get as well as the properties. include hidden id in view
@@ -266,7 +236,7 @@ namespace Release2.Controllers
                 AssignmentStatus = assignment.AssignmentStatus,
                 HRAssignId = assignment.HRAssignId,
                 HRAssigns = assignment.HRAssigns.FullName,
-                AssignmentInspectionDate = DateTime.Now,
+                AssignmentInspectionDate = assignment.AssignmentInspectionDate,
                 DepartmentId = assignment.DepartmentId,
                 Department = assignment.Department.DepartmentName,
             };
@@ -282,13 +252,13 @@ namespace Release2.Controllers
             Assignment assignment = db.Assignments.Find(id);
             db.Assignments.Remove(assignment);
             db.SaveChanges();
-            return RedirectToAction("HRIndex");
+            return RedirectToAction("Index");
         }
 
-        public ActionResult GetCountFacultiesPartial(int id)
+        public ActionResult GetCountAssignmentsPartial()
         {
             // Modify the condition inside the Count() to suite your needs
-            int count = db.ProgressReviews.Count(p => p.PRDHApprovalStatus == ProgressReview.ApprovalStatus.Pending);
+            int count = db.Assignments/*.Where(l=>l.LMAssignId ==  User.Identity.GetUserId<int>())*/.Count(p => p.AssignmentStatus == Assignment.AssignStatus.Pending);
             return PartialView(count);
         }
     }

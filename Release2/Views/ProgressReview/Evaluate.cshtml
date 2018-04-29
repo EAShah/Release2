@@ -18,12 +18,15 @@
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.PCId)
     @Html.HiddenFor(model => model.LMId)
+    @Html.HiddenFor(model => model.CreationPCId)
+    @Html.HiddenFor(model => model.PRDHApprovesId)
+
 
 
     <div class="form-group">
         @Html.LabelFor(model => model.EvalDescription, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.EvalDescription, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.EvalDescription, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
             @Html.ValidationMessageFor(model => model.EvalDescription, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -40,27 +43,25 @@
 
             <th></th>
         </tr>
-        @for (int i = 0; i < Model.Competencies.Count(); i++)
+        @foreach (var i in Model.Competencies)
          {
-            <tr>
-                <td>
-                    @Html.HiddenFor(m => m.Competencies[i].Id)
-                    @Html.DisplayFor(m => m.Competencies[i].CompetencyName)
-                </td>
-                <td>
-                    @Html.DisplayFor(m => m.Competencies[i].Score, new { htmlAttributes = new { @class = "form-control", placeholder = "Score" } })
-                </td>
-                @Html.ValidationMessageFor(m => m.Competencies[i].Score)
-            </tr>
+        <tr>
+            <td>
+                @Html.HiddenFor(modelItem => i.Id)
+                @Html.DisplayFor(modelItem => i.CompetencyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => i.Score)
+            </td>
+        </tr>
          }
-
     </table>
 
 
     <div class="form-group">
         @Html.LabelFor(model => model.PREvalDescription, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.PREvalDescription, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.PREvalDescription, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
             @Html.ValidationMessageFor(model => model.PREvalDescription, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -68,16 +69,16 @@
     <div class="form-group">
         @Html.LabelFor(model => model.SelfEvaluation, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.SelfEvaluation, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.SelfEvaluation, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
             @Html.ValidationMessageFor(model => model.SelfEvaluation, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.PRDHApprovalStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.PRHRAEvalDecision, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EnumDropDownListFor(model => model.PRDHApprovalStatus, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PRDHApprovalStatus, "", new { @class = "text-danger" })
+            @Html.EnumDropDownListFor(model => model.PRHRAEvalDecision, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PRHRAEvalDecision, "", new { @class = "text-danger" })
         </div>
     </div>
 

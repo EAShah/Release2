@@ -194,10 +194,21 @@ namespace Release2.Controllers
         [Authorize(Roles = "LineManager")]
         public ActionResult Create()
         {
-            var list = db.ProbationaryColleagues.Select(p => new { p.Id, FullName = p.FirstName + " " + p.LastName });
-            ViewBag.ExtendedPCId = new SelectList(db.ProbationaryColleagues, "Id", "FullName");
-            //ViewBag.LMSubmitId = new SelectList(db.Colleagues, "Id", "FullName");
-            return View();
+            var model = new ExtensionRequestViewModel();
+            {
+
+                var extension = new ExtensionRequest
+                {
+                    ExtRequestId = model.Id,
+                    ExtendedPCId = model.ExtendedPCId,
+                    LMSubmitId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id,
+                };
+
+                //var list = db.ProbationaryColleagues.Select(p => new { p.Id, FullName = p.FirstName + " " + p.LastName });
+                ViewBag.ExtendedPCId = new SelectList(db.Assignments.Where(l => l.LMAssignId == extension.LMSubmitId).Select(p => p.ProbationaryColleague), "Id", "Fullname");
+                //ViewBag.ExtendedPCId = new SelectList(db.ProbationaryColleagues, "Id", "FullName");
+            }
+            return View(model);
         }
 
         // POST: ExtensionRequest/Create
@@ -286,6 +297,13 @@ namespace Release2.Controllers
                     extension.ExtRequestStatus = model.ExtRequestStatus;
                     extension.ExtendedPCId = model.ExtendedPCId;
                     extension.LMSubmitId = model.LMSubmitId;
+                    extension.ExtRequestAuditDate = model.ExtRequestAuditDate;
+
+                    if (model.ExtRequestStatus == ExtensionRequest.RequestStatus.Approved)
+                    {
+                        extension.ExtendedPC.Level = model.ExtNumber;
+                        extension.ExtendedPC.ProbationType = ProbationaryColleague.ProbationTypes.Extended;
+                    }
 
                     db.Entry(extension).State = EntityState.Modified;
                     db.SaveChanges();
@@ -353,6 +371,13 @@ namespace Release2.Controllers
             db.ExtensionRequests.Remove(extension);
             db.SaveChanges();
             return RedirectToAction("AllIndex");
+        }
+
+        public ActionResult GetCountExtensionsPartial()
+        {
+            // Modify the condition inside the Count() to suite your needs
+            int count = db.ExtensionRequests.Count(p => p.ExtRequestStatus == ExtensionRequest.RequestStatus.Pending);
+            return PartialView(count);
         }
     }
 }

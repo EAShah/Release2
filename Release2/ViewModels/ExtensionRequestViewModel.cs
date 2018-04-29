@@ -10,8 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static Project._1.Models.ExtensionRequest;
-
-
+using static Project._1.Models.ProbationaryColleague;
 
 namespace Release2.ViewModels
 {
@@ -23,7 +22,7 @@ namespace Release2.ViewModels
         public int Id { get; set; }
 
         [Display(Name = "Extended To")]
-        public ExtNumbers ExtNumber { get; set; }
+        public Levels ExtNumber { get; set; }
 
         [Display(Name = "Reason")]
         [StringLength(500, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 20)]
@@ -39,6 +38,11 @@ namespace Release2.ViewModels
 
         [Display(Name = "Audit date")]
         [Column(TypeName = "date")]
+
+        public Levels Level { get; set; }
+
+        public ProbationTypes ProbationType { get; set; }
+
         public DateTime? ExtRequestAuditDate { get; set; }
 
         public int? HRAuditId { get; set; }

@@ -103,7 +103,7 @@ namespace Project._1.Models
 
             Approved,
 
-            Disapproved
+            Rejected
         }
 
         public enum ApprovalStatus

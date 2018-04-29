@@ -11,6 +11,7 @@ namespace Project._1.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using static Project._1.Models.ProbationaryColleague;
 
     // Creation of the ExtensionRequest table as a class.
     [Table("ExtensionRequest")]
@@ -26,7 +27,7 @@ namespace Project._1.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ExtRequestId { get; set; }
 
-        public ExtNumbers ExtNumber { get; set; }
+        public Levels ExtNumber { get; set; }
 
         [Required]
         [DataType(DataType.MultilineText)]
@@ -63,25 +64,25 @@ namespace Project._1.Models
             Rejected
         }
 
-        public enum ExtNumbers
-        {
-            [Display(Name = "Level 1")]
-            One,
+        //public enum ExtNumbers
+        //{
+        //    [Display(Name = "Level 1")]
+        //    One,
 
-            [Display(Name = "Level 2")]
-            Two,
+        //    [Display(Name = "Level 2")]
+        //    Two,
 
-            [Display(Name = "Level 3")]
-            Three,
+        //    [Display(Name = "Level 3")]
+        //    Three,
 
-            [Display(Name = "Level 4")]
-            Four,
+        //    [Display(Name = "Level 4")]
+        //    Four,
 
-            [Display(Name = "Level 5")]
-            Five,
+        //    [Display(Name = "Level 5")]
+        //    Five,
 
-            [Display(Name = "Level 6")]
-            Six
-        }
+        //    [Display(Name = "Level 6")]
+        //    Six
+        //}
     }
 }

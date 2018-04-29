@@ -40,17 +40,16 @@
 
             <th></th>
         </tr>
-        @for (int i = 0; i < Model.Competencies.Count(); i++)
+        @foreach (var i in Model.Competencies)
         {
             <tr>
                 <td>
-                    @Html.HiddenFor(m => m.Competencies[i].Id)
-                    @Html.DisplayFor(m => m.Competencies[i].CompetencyName)
+                    @Html.HiddenFor(modelItem => i.Id)
+                    @Html.DisplayFor(modelItem => i.CompetencyName)
                 </td>
                 <td>
-                    @Html.DisplayFor(m => m.Competencies[i].Score, new { htmlAttributes = new { @class = "form-control", placeholder = "Score" } })
+                    @Html.DisplayFor(modelItem => i.Score)
                 </td>
-                @Html.ValidationMessageFor(m => m.Competencies[i].Score)
             </tr>
         }
 

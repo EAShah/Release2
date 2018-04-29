@@ -18,6 +18,7 @@ namespace Release2.Controllers
         public ActionResult Index()
         {
             var review = db.ProgressReviews.ToList();
+                //.Where(p => p.LMId == User.Identity.GetUserId<int>() || p.PCId == User.Identity.GetUserId<int>() || p.HREvaluatesId == null /*|| p.HREvaluatesId == User.Identity.GetUserId<int>()*/ || p.PRDHApprovesId == null /*|| p.PRDHApprovesId == User.Identity.GetUserId<int>()*/);
 
             var model = new List<ProgressReviewViewModel>();
             foreach (var item in review)
@@ -87,8 +88,8 @@ namespace Release2.Controllers
                     model.Competencies.Add(
                         new CompetencyViewModel
                         {
-                             Id = item.CompetencyId,
-                             CompetencyName = item.CompetencyName,
+                            Id = item.CompetencyId,
+                            CompetencyName = item.CompetencyName,
                         });
                 }
 
@@ -97,15 +98,13 @@ namespace Release2.Controllers
                     ReviewId = model.Id,
                     PCId = model.PCId,
                     LMId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id,
-
                 };
 
+                //var LMDep = db.Colleagues.Where(c => c.Id == model.LMId).Select(s => s.DepartmentId).SingleOrDefault();
+                //ViewBag.PCId = new SelectList(db.ProbationaryColleagues.Where(s => s.DepartmentId == LMDep), "Id", "Username");
+                ViewBag.PCId = new SelectList(db.Assignments.Where(l => l.LMAssignId == review.LMId).Select(p => p.ProbationaryColleague), "Id", "Fullname");
             }
-            // Gives error that 'Id' does not exist in this viewbag.
-
-            var LMDep = db.Colleagues.Where(c => c.Id == model.LMId).Select(s => s.DepartmentId).SingleOrDefault();
-            ViewBag.PCId = new SelectList(db.ProbationaryColleagues.Where(s => s.DepartmentId == LMDep), "Id", "Username");
-            return View(model);
+                return View(model);
         }
 
         // POST: ProgressReview/Create
@@ -121,11 +120,9 @@ namespace Release2.Controllers
                     PCId = model.PCId,
                     LMId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id,
                     EvalDescription = model.EvalDescription,
-                    TotalScore = db.PerformanceCriterions.Where(r => r.ReviewId == model.Id).Sum(g => g.Score),
+                    //TotalScore = db.PerformanceCriterions.Where(r => r.ReviewId == model.Id).Select(s => s.Score).Sum(),
                     PRCompletionStatus = ProgressReview.CompletionStatus.Incomplete,
                     AssessmentStatus = ProgressReview.Status.Pending,
-                    PRHRAEvalDecision = ProgressReview.EvaluationDecision.Pending,
-                    PRDHApprovalStatus = ProgressReview.ApprovalStatus.Pending,
                     PRSubmissionDate = DateTime.Today
                 };
 
@@ -133,9 +130,6 @@ namespace Release2.Controllers
                 db.ProgressReviews.Add(review);
                 db.SaveChanges();
 
-                //var totalScore = db.PerformanceCriterions.Where(r => r.ReviewId == review.ReviewId).Sum(g => g.Score); // where to display
-                //    var performances = db.PerformanceCriterions.Where(p => p.ReviewId == id).ToList();
-                //int counter = 0;
                 foreach (var item in model.Competencies)
                 {
                     var criteria = new PerformanceCriterion
@@ -143,46 +137,27 @@ namespace Release2.Controllers
                         ReviewId = review.ReviewId,
                         CompetencyId = item.Id,
                         Score = item.Score,
-                        //Score = model.Scores[counter]
                     };
 
-                    //counter++;
                     db.PerformanceCriterions.Add(criteria);
                     //db.SaveChanges();
                 }
 
                 db.SaveChanges();
+                db.Entry(review).State = System.Data.Entity.EntityState.Modified;       
                // Utilities.SendEmail("elaf");
                 return RedirectToAction("Index");
             }
-            var colleagueDep = db.Colleagues.Where( c => c.Id == model.LMId).Select( s => s.DepartmentId).SingleOrDefault();
-            ViewBag.PCId = new SelectList(db.ProbationaryColleagues.Where(s => s.DepartmentId == colleagueDep), "Id", "Username");
 
             return View(model);
         }
 
-        //// POST: ProgressReview/CreatePerformanceReview
-        //[HttpPost]
-        ////[Authorize(Roles = "Line Manager")]
-        //public PartialViewResult CreatePerformanceReview(int? id) //(PerformanceCriterionViewModel model )
-        //{
-        //    var totalScore = db.PerformanceCriterions.Where(r => r.ReviewId == id).Sum(g => g.Score);
-        //    var performances = db.PerformanceCriterions.Where(p => p.ReviewId == id).ToList();
-        //    var model = new List<PerformanceCriterionViewModel>();
-        //    foreach (var performance in performances)
-        //    {
-        //        model.Add(new PerformanceCriterionViewModel
-        //        {
-        //            Id = performance.ReviewId,
-        //            CompetencyId = performance.CompetencyId,
-        //            CompetencyName = performance.Competency.CompetencyName,
-        //            Score = performance.Score,
-        //            TotalScore = totalScore
-        //        });
-        //    }
-
-        //    return PartialView(model);
-        //}
+        public ActionResult GetCountReviewsToAssessPartial()
+        {
+            // Modify the condition inside the Count() to suite your needs
+            int count = db.ProgressReviews/*.Where(p=>p.PCId == User.Identity.GetUserId<int>())*/.Count(p => p.AssessmentStatus == ProgressReview.Status.Pending);
+            return PartialView(count);
+        }
 
         // GET: ProgressReview/Assess/5
         [Authorize(Roles = "ProbationaryColleague")]
@@ -208,14 +183,12 @@ namespace Release2.Controllers
                 PCId = review.PCId,
                 ProbationaryColleague = review.ProbationaryColleague.FullName,
                 PRDHApprovalStatus = ProgressReview.ApprovalStatus.Pending,
-                PRHRAEvalDecision = ProgressReview.EvaluationDecision.Pending,
                 TotalScore = review.TotalScore,
                 EvalDescription = review.EvalDescription
             };
 
-
-            // add performance to all
-            foreach (var item in db.PerformanceCriterions.ToList())
+            // use index template to show competency scores
+            foreach (var item in db.PerformanceCriterions.Where(r => r.ReviewId == review.ReviewId).ToList())
             {
                 model.Competencies.Add(
                     new CompetencyViewModel
@@ -223,24 +196,7 @@ namespace Release2.Controllers
                         Id = item.CompetencyId,
                         CompetencyName = item.Competency.CompetencyName,
                         Score = item.Score,
-                        
                     });
-            }
-
-            // use index template to show competency scores
-
-            var performance = db.PerformanceCriterions.ToList();
-
-            var model1 = new List<PerformanceCriterionViewModel>();
-            foreach (var item in performance)
-            {
-                model1.Add(new PerformanceCriterionViewModel
-                {
-                    Id = item.ReviewId,
-                    CompetencyId = item.CompetencyId,
-                    CompetencyName = item.Competency.CompetencyName,
-                    Score = item.Score
-                });
             }
 
             return View(model);
@@ -256,7 +212,7 @@ namespace Release2.Controllers
                 if (review != null)
                 {
                     review.EvalDescription = model.EvalDescription;
-                    review.TotalScore = model.TotalScore;
+                    review.TotalScore = db.PerformanceCriterions.Where(r => r.ReviewId == review.ReviewId).Select(s => s.Score).Sum();
                     review.LMId = model.LMId;
                     review.PCId = model.PCId;
                     review.PRCompletionStatus = model.PRCompletionStatus;
@@ -308,32 +264,21 @@ namespace Release2.Controllers
                 LMCreates = review.LMCreates.FullName,
                 PCId = review.PCId,
                 ProbationaryColleague = review.ProbationaryColleague.FullName,
-                EvalDescription = review.EvalDescription
+                EvalDescription = review.EvalDescription,
+                PREvalDescription = review.PREvalDescription,
+                SelfEvaluation = review.SelfEvaluation
             };
 
-            foreach (var item in db.Competencies.ToList())
+            // use index template to show competency scores
+            foreach (var item in db.PerformanceCriterions.Where(r=>r.ReviewId== review.ReviewId).ToList())
             {
                 model.Competencies.Add(
                     new CompetencyViewModel
                     {
                         Id = item.CompetencyId,
-                        CompetencyName = item.CompetencyName,
+                        CompetencyName = item.Competency.CompetencyName,
+                        Score = item.Score,
                     });
-            }
-
-            // use index template to show competency scores
-
-            var performance = db.PerformanceCriterions.ToList();
-            var model1 = new List<PerformanceCriterionViewModel>();
-            foreach (var item in performance)
-            {
-                model1.Add(new PerformanceCriterionViewModel
-                {
-                    Id = item.ReviewId,
-                    CompetencyId = item.CompetencyId,
-                    CompetencyName = item.Competency.CompetencyName,
-                    Score = item.Score
-                });
             }
             ViewBag.PCId = new SelectList(db.ProbationaryColleagues, "Id", "Username");
 
@@ -354,7 +299,7 @@ namespace Release2.Controllers
                     review.TotalScore = model.TotalScore;
                     review.PREvalDescription = model.PREvalDescription;
                     review.SelfEvaluation = model.SelfEvaluation;
-                    review.LMId = model.LMId;
+                    //review.LMId = model.LMId;
                     review.PCId = model.PCId;
                     review.CreationPCId = model.CreationPCId;
                     review.AssessmentStatus = model.AssessmentStatus;
@@ -367,16 +312,19 @@ namespace Release2.Controllers
                     review.PRDHApprovesId = model.PRDHApprovesId;
                     review.HREvaluatesId = model.HREvaluatesId;
 
-                    //foreach (var performance in model.PerformanceReviews)
-                    //{
-                    //    //model.p.Add(
-                    //    //    new CompetencyViewModel
-                    //    //    {
-                    //    performance.CompetencyId;
-                    //    performance.Score;
-                    //        //});
-                    //}
 
+                    foreach (var item in model.Competencies)
+                    {
+                        var criteria = new PerformanceCriterion
+                        {
+                            ReviewId = review.ReviewId,
+                            CompetencyId = item.Id,
+                            Score = item.Score,
+                        };
+
+                        db.Entry(criteria).State = System.Data.Entity.EntityState.Modified;
+                        //db.PerformanceCriterions.Add(criteria);
+                    }
                     db.SaveChanges();
 
                     return RedirectToAction("Index");
@@ -391,6 +339,13 @@ namespace Release2.Controllers
                 ViewBag.PCId = new SelectList(db.ProbationaryColleagues, "Id", "Username");
                 return View();
             }
+        }
+
+        public ActionResult GetCountReviewsToApprovePartial()
+        {
+            // Modify the condition inside the Count() to suite your needs
+            int count = db.ProgressReviews.Count(p => p.PRDHApprovalStatus == ProgressReview.ApprovalStatus.Pending);
+            return PartialView(count);
         }
 
         // GET: ProgressReview/Approve/5
@@ -417,32 +372,31 @@ namespace Release2.Controllers
                 PCId = review.PCId,
                 ProbationaryColleague = review.ProbationaryColleague.FullName,
                 PRDHApprovalStatus = review.PRDHApprovalStatus,
-                PRDHApprovesId= User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id,
-                DHApproval = review.DHApproval.FullName,
-                PRDHApproveDate = review.PRDHApproveDate.Value.Date,
+                PRDHApprovesId= review.PRDHApprovesId ,
+                //DHApproval = review.DHApproval,
+                PRDHApproveDate = review.PRDHApproveDate,
                 PREvalDescription = review.PREvalDescription,
                 SelfEvaluation = review.SelfEvaluation,
                 AssessmentStatus = review.AssessmentStatus,
                 SASubmissionDate = review.SASubmissionDate,
+                EvalDescription = review.EvalDescription,
+                TotalScore = review.TotalScore,
                 CreationPCId = review.CreationPCId,
                 CreationPC = review.CreationPC.FullName,
+                PRHRAEvalDecision = review.PRHRAEvalDecision,
             };
 
             // use index template to show competency scores
-
-            var performance = db.PerformanceCriterions.ToList();
-            var model1 = new List<PerformanceCriterionViewModel>();
-            foreach (var item in performance)
+            foreach (var item in db.PerformanceCriterions.Where(r => r.ReviewId == review.ReviewId).ToList())
             {
-                model1.Add(new PerformanceCriterionViewModel
-                {
-                    Id = item.ReviewId,
-                    CompetencyId = item.CompetencyId,
-                    CompetencyName = item.Competency.CompetencyName,
-                    Score = item.Score
-                });
+                model.Competencies.Add(
+                    new CompetencyViewModel
+                    {
+                        Id = item.CompetencyId,
+                        CompetencyName = item.Competency.CompetencyName,
+                        Score = item.Score,
+                    });
             }
-
             return View(model);
         }
 
@@ -462,15 +416,15 @@ namespace Release2.Controllers
                     review.SelfEvaluation = model.SelfEvaluation;
                     review.LMId = model.LMId;
                     review.PCId = model.PCId;
-                    review.CreationPCId = model.CreationPCId;
+                    //review.CreationPCId = model.CreationPCId;
                     review.AssessmentStatus = model.AssessmentStatus;
                     review.PRCompletionStatus = model.PRCompletionStatus;
                     review.SASubmissionDate = model.SASubmissionDate;
                     review.PRDHApprovalStatus = model.PRDHApprovalStatus;
-                    review.PRDHApproveDate = model.PRDHApproveDate;
-                    review.PRHRAEvalDecision = model.PRHRAEvalDecision;
-                    review.PRHRAEvalDate = model.PRHRAEvalDate;
-                    review.PRDHApprovesId = model.PRDHApprovesId;
+                    review.PRDHApproveDate = DateTime.Today;
+                    //review.PRHRAEvalDecision = model.PRHRAEvalDecision;
+                    review.PRDHApprovesId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id;
+                    review.PRHRAEvalDecision = ProgressReview.EvaluationDecision.Pending;
 
                     db.SaveChanges();
 
@@ -485,6 +439,13 @@ namespace Release2.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult GetCountReviewsToEvaluatePartial()
+        {
+            // Modify the condition inside the Count() to suite your needs
+            int count = db.ProgressReviews.Count(p => p.PRHRAEvalDecision == ProgressReview.EvaluationDecision.Pending);
+            return PartialView(count);
         }
 
         // GET: ProgressReview/Evaluate/5
@@ -506,7 +467,7 @@ namespace Release2.Controllers
             ProgressReviewViewModel model = new ProgressReviewViewModel
             {
                 Id = review.ReviewId,
-                PRCompletionStatus = review.PRCompletionStatus,
+                PRCompletionStatus = review.PRCompletionStatus, 
                 PREvalDescription = review.PREvalDescription,
                 SelfEvaluation = review.SelfEvaluation,
                 AssessmentStatus = review.AssessmentStatus,
@@ -514,6 +475,7 @@ namespace Release2.Controllers
                 SASubmissionDate = review.SASubmissionDate,
                 LMCreates = review.LMCreates.FullName,
                 PCId = review.PCId,
+                EvalDescription = review.EvalDescription,
                 ProbationaryColleague = review.ProbationaryColleague.FullName,
                 CreationPCId = review.CreationPCId,
                 CreationPC = review.CreationPC.FullName,
@@ -521,27 +483,24 @@ namespace Release2.Controllers
                 PRDHApprovesId = review.PRDHApprovesId,
                 DHApproval = review.DHApproval.FullName,
                 PRDHApproveDate = review.PRDHApproveDate,
-                PRHRAEvalDate = DateTime.Today,
+                PRHRAEvalDate = review.PRHRAEvalDate,
                 PRHRAEvalDecision = review.PRHRAEvalDecision,
-                HREvaluatesId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id,
-                HREvaluation = review.HREvaluation.FullName,
+                HREvaluatesId =review.HREvaluatesId,
+                //HREvaluation = review.HREvaluation.FullName,
+                
             };
 
             // use index template to show competency scores
-
-            var performance = db.PerformanceCriterions.ToList();
-            var model1 = new List<PerformanceCriterionViewModel>();
-            foreach (var item in performance)
+            foreach (var item in db.PerformanceCriterions.Where(r => r.ReviewId == review.ReviewId).ToList())
             {
-                model1.Add(new PerformanceCriterionViewModel
-                {
-                    Id = item.ReviewId,
-                    CompetencyId = item.CompetencyId,
-                    CompetencyName = item.Competency.CompetencyName,
-                    Score = item.Score
-                });
+                model.Competencies.Add(
+                    new CompetencyViewModel
+                    {
+                        Id = item.CompetencyId,
+                        CompetencyName = item.Competency.CompetencyName,
+                        Score = item.Score,
+                    });
             }
-
             return View(model);
         }
 
@@ -564,14 +523,14 @@ namespace Release2.Controllers
                     review.PCId = model.PCId;
                     review.CreationPCId = model.CreationPCId;
                     review.AssessmentStatus = model.AssessmentStatus;
-                    review.PRCompletionStatus = model.PRCompletionStatus;
+                    review.PRCompletionStatus = ProgressReview.CompletionStatus.Complete;
                     review.SASubmissionDate = model.SASubmissionDate;
                     review.PRDHApprovalStatus = model.PRDHApprovalStatus;
                     review.PRDHApproveDate = model.PRDHApproveDate;
                     review.PRHRAEvalDecision = model.PRHRAEvalDecision;
-                    review.PRHRAEvalDate = model.PRHRAEvalDate;
+                    review.PRHRAEvalDate = DateTime.Today;
                     review.PRDHApprovesId = model.PRDHApprovesId;
-                    review.HREvaluatesId = model.HREvaluatesId;
+                    review.HREvaluatesId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id;
 
                     db.SaveChanges();
 

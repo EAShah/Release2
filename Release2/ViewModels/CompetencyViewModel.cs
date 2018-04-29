@@ -24,7 +24,11 @@ namespace Release2.ViewModels
         public string CompetencyName { get; set; }
 
         [Required]
+        //[]
         public int? Score { get; set; }
+
+        //public int ReviewId { get; set; }
+
 
     }
 }

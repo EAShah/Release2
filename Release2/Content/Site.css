@@ -44,6 +44,7 @@ legend.fieldset-border {
     padding: 15px 15px;
     font-size: 25px;
     line-height: 20px;
+    font-weight: bolder;
 }
 
 .navbar-inverse {
@@ -53,6 +54,7 @@ legend.fieldset-border {
 
  .navbar-inverse .navbar-nav > li > a {
         color: #000000;
+        font-weight: bold;
 }
 
 jumbotron {
@@ -100,4 +102,36 @@ body {
     cursor: default;
     background-color: #28BB4E;
     border-color: #28BB4E;
+}
+
+.badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 5px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 3;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #201f1f;
+    border-radius: 10px;
+}
+
+dt, dd {
+    line-height: 2;
+}
+
+.dl-horizontal dt {
+    float: left;
+    width: 200px;
+    overflow: hidden;
+    clear: left;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dl-horizontal dd {
+    margin-left: 220px;
 }

@@ -142,8 +142,8 @@ namespace Release2.Migrations
 
             var extensions = new List<ExtensionRequest>
             {
-                     new ExtensionRequest { ExtReason = "Colleague performance is unsatisfactory in this month.", ExtNumber = ExtensionRequest.ExtNumbers.Four, ExtRequestStatus= ExtensionRequest.RequestStatus.Pending, ExtendedPCId = 2, LMSubmitId = 2, ExtRequestAuditDate = null, ExtRequestSubmissionDate = null},
-                     new ExtensionRequest { ExtReason = "Colleague performance is unsatisfactory in this month.", ExtNumber = ExtensionRequest.ExtNumbers.Three, ExtRequestStatus= ExtensionRequest.RequestStatus.Approved, ExtendedPCId = 2, LMSubmitId = 2, ExtRequestAuditDate = null, ExtRequestSubmissionDate = null},
+                     new ExtensionRequest { ExtReason = "Colleague performance is unsatisfactory in this month.", ExtNumber = ProbationaryColleague.Levels.Five, ExtRequestStatus= ExtensionRequest.RequestStatus.Pending, ExtendedPCId = 2, LMSubmitId = 2, ExtRequestAuditDate = null, ExtRequestSubmissionDate = null},
+                     new ExtensionRequest { ExtReason = "Colleague performance is unsatisfactory in this month.", ExtNumber = ProbationaryColleague.Levels.Third, ExtRequestStatus= ExtensionRequest.RequestStatus.Approved, ExtendedPCId = 2, LMSubmitId = 2, ExtRequestAuditDate = null, ExtRequestSubmissionDate = null},
             };
 
             extensions.ForEach(c => context.ExtensionRequests.AddOrUpdate(p => p.ExtReason, c));

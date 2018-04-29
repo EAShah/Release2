@@ -8,7 +8,7 @@ namespace Release2.ViewModels
 {
     public class PerformanceCriterionViewModel
     {
-        public int Id { get; set; }
+        public int ReviewId { get; set; }
 
         public int? Score { get; set; }
 

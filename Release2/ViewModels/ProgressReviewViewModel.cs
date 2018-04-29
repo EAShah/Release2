@@ -24,22 +24,21 @@ namespace Release2.ViewModels
         public ProgressReviewViewModel()
         {
             Competencies = new List<CompetencyViewModel>();
-            PerformanceReviews = new List<PerformanceCriterion>();
-
+            PerformanceReviews = new List<PerformanceCriterionViewModel>();
             //Scores = new List<int>();
         }
 
-        // add scores to eval, app, assess
-
-        // total score!!!!
-
-        // how to keep original information in the editorfor when editing info
-        // how to allow a user to assess/evaluate only once
-        // only get employees in the same department, or assigned to the same employees
-        
         // CHARTS
-        //BADGES - count by status. if status pending show badge.
-        //EMAIL NOTIFS
+        // faq and about page
+        // comment Progress review controllers and all badges
+        // fix detail order on detail pages
+        // max and min on scores
+
+        // PCs can only see and assess reviews about them. LMs can only see PRs created by them. ASK!!
+
+        // log in using user id
+        // EMAIL NOTIFS - async await error
+        // jquery drop down list for extensions
 
         public int Id { get; set; }
 
@@ -82,13 +81,13 @@ namespace Release2.ViewModels
         [Display(Name = "Probationary Colleague")]
         public string CreationPC { get; set; }
 
-        [Display(Name = "Approved by Department Head:")]
+        [Display(Name = "Approved by Department Head")]
         public string DHApproval { get; set; }
 
-        [Display(Name = "Evaluated by HR Associate:")]
+        [Display(Name = "Evaluated by HR Associate")]
         public string HREvaluation { get; set; }
 
-        [Display(Name = "Created by Line Manager:")]
+        [Display(Name = "Created by Line Manager")]
         public string LMCreates { get; set; }
 
         [Display(Name = "Probationary Colleague")]
@@ -126,7 +125,7 @@ namespace Release2.ViewModels
 
         // add list of grades and competecnies
 
-        public virtual List<PerformanceCriterion> PerformanceReviews { get; set; }
+        public virtual List<PerformanceCriterionViewModel> PerformanceReviews { get; set; }
 
         public virtual List<CompetencyViewModel> Competencies { get; set; }
 
