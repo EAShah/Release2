@@ -24,7 +24,7 @@ namespace Release2.ViewModels
         public string CompetencyName { get; set; }
 
         [Required]
-        //[]
+        [Range(0,20,"Score must be between 0 and 20")]
         public int? Score { get; set; }
 
         //public int ReviewId { get; set; }

@@ -13,7 +13,10 @@ namespace Release2.Controllers
     public class ProgressReviewController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        /// <summary>
+        /// This action returns a list of Progress Reviews based appropriate to the user in role
+        /// </summary>
+        /// <returns>Progress Review, Index view</returns>
         // GET: ProgressReview
         public ActionResult Index()
         {
@@ -38,6 +41,11 @@ namespace Release2.Controllers
 
             return View(model);
         }
+
+        /// <summary>
+        /// This action returns details of Progress Reviews 
+        /// </summary>
+        /// <returns>Progress Review, Details view</returns>
 
         // GET: ProgressReview/Details/5
         //[Authorize(Roles = "HR Associate, Department Head, Line Manager, Probationary Colleague")]
@@ -73,6 +81,10 @@ namespace Release2.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// This action allows Line Managers to create Progress Reviews 
+        /// </summary>
+        /// <returns>Progress Review, Create view</returns>
         // GET: ProgressReview/Create
         [Authorize(Roles = "LineManager")]
         public ActionResult Create()
@@ -144,7 +156,7 @@ namespace Release2.Controllers
                 }
 
                 db.SaveChanges();
-                db.Entry(review).State = System.Data.Entity.EntityState.Modified;       
+                //db.Entry(review).State = System.Data.Entity.EntityState.Modified;       
                // Utilities.SendEmail("elaf");
                 return RedirectToAction("Index");
             }
@@ -152,6 +164,10 @@ namespace Release2.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// This action counts Progress Reviews for Probationary Colleagues 
+        /// </summary>
+        /// <returns>Progress Review badge</returns>
         public ActionResult GetCountReviewsToAssessPartial()
         {
             // Modify the condition inside the Count() to suite your needs
@@ -159,6 +175,11 @@ namespace Release2.Controllers
             return PartialView(count);
         }
 
+        /// <summary>
+        /// This action allows Probationary Colleagues to assess Progress Reviews 
+        /// </summary>
+        /// <param name="int", ></param>
+        /// <returns>Progress Review, Assess view</returns>
         // GET: ProgressReview/Assess/5
         [Authorize(Roles = "ProbationaryColleague")]
         public ActionResult Assess(int? id)
@@ -183,8 +204,10 @@ namespace Release2.Controllers
                 PCId = review.PCId,
                 ProbationaryColleague = review.ProbationaryColleague.FullName,
                 PRDHApprovalStatus = ProgressReview.ApprovalStatus.Pending,
-                TotalScore = review.TotalScore,
-                EvalDescription = review.EvalDescription
+                TotalScore = db.PerformanceCriterions.Where(r => r.ReviewId == review.ReviewId).Select(s => s.Score).Sum(),
+                EvalDescription = review.EvalDescription,
+                PREvalDescription = review.PREvalDescription,
+                SelfEvaluation = review.SelfEvaluation
             };
 
             // use index template to show competency scores
@@ -212,7 +235,7 @@ namespace Release2.Controllers
                 if (review != null)
                 {
                     review.EvalDescription = model.EvalDescription;
-                    review.TotalScore = db.PerformanceCriterions.Where(r => r.ReviewId == review.ReviewId).Select(s => s.Score).Sum();
+                    review.TotalScore = model.TotalScore;
                     review.LMId = model.LMId;
                     review.PCId = model.PCId;
                     review.PRCompletionStatus = model.PRCompletionStatus;
@@ -239,6 +262,11 @@ namespace Release2.Controllers
             }
         }
 
+        /// <summary>
+        /// This action allows Line Managers to edit Progress Reviews 
+        /// </summary>
+        /// <param name="int", ></param>
+        /// <returns>Progress Review, Edit view</returns>
         // GET: ProgressReview/Edit/5
         [Authorize(Roles = "LineManager")]
         public ActionResult Edit(int? id)
@@ -266,7 +294,8 @@ namespace Release2.Controllers
                 ProbationaryColleague = review.ProbationaryColleague.FullName,
                 EvalDescription = review.EvalDescription,
                 PREvalDescription = review.PREvalDescription,
-                SelfEvaluation = review.SelfEvaluation
+                SelfEvaluation = review.SelfEvaluation,
+                TotalScore = review.TotalScore
             };
 
             // use index template to show competency scores
@@ -341,6 +370,10 @@ namespace Release2.Controllers
             }
         }
 
+        /// <summary>
+        /// This action counts Progress Reviews for Department Heads 
+        /// </summary>
+        /// <returns>Progress Review badge</returns>
         public ActionResult GetCountReviewsToApprovePartial()
         {
             // Modify the condition inside the Count() to suite your needs
@@ -348,6 +381,11 @@ namespace Release2.Controllers
             return PartialView(count);
         }
 
+        /// <summary>
+        /// This action allows Department Heads to approve Progress Reviews 
+        /// </summary>
+        /// <param name="int", ></param>
+        /// <returns>Progress Review, Approve view</returns>
         // GET: ProgressReview/Approve/5
         [Authorize(Roles = "DepartmentHead")]
         public ActionResult Approve(int? id)
@@ -441,6 +479,10 @@ namespace Release2.Controllers
             }
         }
 
+        /// <summary>
+        /// This action counts Progress Reviews for HR Associates 
+        /// </summary>
+        /// <returns>Progress Review badge</returns>
         public ActionResult GetCountReviewsToEvaluatePartial()
         {
             // Modify the condition inside the Count() to suite your needs
@@ -448,6 +490,11 @@ namespace Release2.Controllers
             return PartialView(count);
         }
 
+        /// <summary>
+        /// This action allows HR Associates to evaluate Progress Reviews 
+        /// </summary>
+        /// <param name="int", ></param>
+        /// <returns>Progress Review, Approve view</returns>
         // GET: ProgressReview/Evaluate/5
         [Authorize(Roles = "HRAssociate")]
         public ActionResult Evaluate(int? id)
@@ -486,6 +533,7 @@ namespace Release2.Controllers
                 PRHRAEvalDate = review.PRHRAEvalDate,
                 PRHRAEvalDecision = review.PRHRAEvalDecision,
                 HREvaluatesId =review.HREvaluatesId,
+                TotalScore = review.TotalScore,
                 //HREvaluation = review.HREvaluation.FullName,
                 
             };

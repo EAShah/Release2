@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Probation Management System</title>
     @Styles.Render("~/bundles/cssdatatables")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -43,7 +43,7 @@
                                      {
                                         <li>@Html.Action("GetCountAssignmentsPartial", "Assignment", null)</li> 
                                      }
-                    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("LineManager"))
+                    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("LineManager") || ViewContext.HttpContext.User.IsInRole("DepartmentHead") || ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
                      {
                          <li>@Html.ActionLink("Extensions", "AllIndex", "ExtensionRequest")</li>
                      }
@@ -67,6 +67,12 @@
                                       {
                                         <li>@Html.Action("GetCountReviewsToEvaluatePartial", "ProgressReview", null)</li> 
                                       }
+                     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("LineManager") || ViewContext.HttpContext.User.IsInRole("DepartmentHead") || ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
+                     {
+                                                  <li>@Html.ActionLink("Reports", "Index", "Reports")</li>
+                     }
+
+
                                     @*<li>@Html.Action("GetCountAssignmentsPartial", "ExtensionRequest", new object({ id = item.Id (get user id })</li>} hide this colleague id in the view*@
                     
 

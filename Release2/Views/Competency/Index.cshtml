@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Release2.ViewModels.CompetencyViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Competencies";
 }
 
 <h2>Index</h2>
@@ -23,8 +23,8 @@
             @Html.DisplayFor(modelItem => item.CompetencyName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }, new { @class = "btn btn-xs btn-info" }) 
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-xs btn-danger" })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-info" })&nbsp;
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-xs btn-danger" })
         </td>
     </tr>
 }

@@ -373,6 +373,10 @@ namespace Release2.Controllers
             return RedirectToAction("AllIndex");
         }
 
+        /// <summary>
+        /// This action counts pending Extension Requests for HR Associates
+        /// </summary>
+        /// <returns>Progress Review badge</returns>
         public ActionResult GetCountExtensionsPartial()
         {
             // Modify the condition inside the Count() to suite your needs

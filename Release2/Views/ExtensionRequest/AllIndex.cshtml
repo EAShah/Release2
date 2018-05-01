@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Release2.ViewModels.ExtensionRequestViewModel>
 
 @{
-    ViewBag.Title = "AllIndex";
+    ViewBag.Title = "All Extensions";
 }
 
 <h2>AllIndex</h2>
@@ -93,15 +93,7 @@
 }*@
 
 <p>
-    @Html.ActionLink("Pending Requests", "PendingIndex", null, new { @class = "btn btn-primary" })
-</p>
-
-<p>
-    @Html.ActionLink("Approved Requests", "ApprovedIndex", null, new { @class = "btn btn-success" })
-</p>
-
-<p>
-    @Html.ActionLink("Rejected Requests", "RejectedIndex",null, new { @class = "btn  btn-warning" })
+    @Html.ActionLink("Pending Requests", "PendingIndex", null, new { @class = "btn btn-primary" })    @Html.ActionLink("Approved Requests", "ApprovedIndex", null, new { @class = "btn btn-success" })   @Html.ActionLink("Rejected Requests", "RejectedIndex",null, new { @class = "btn  btn-warning" })
 </p>
 
 @section scripts

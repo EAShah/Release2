@@ -28,15 +28,14 @@ namespace Release2.ViewModels
             //Scores = new List<int>();
         }
 
-        // CHARTS
-        // faq and about page
-        // comment Progress review controllers and all badges
-        // fix detail order on detail pages
+        // faq and contact page -- LOOKUP WELCOME PAGES AND ABOUT AND FAQ PAGES
         // max and min on scores
+        // CHARTS
 
-        // PCs can only see and assess reviews about them. LMs can only see PRs created by them. ASK!!
+        // PCs can only see and assess reviews about them. LMs can only see PRs created by them(badges too). tried but ask!!
 
-        // log in using user id
+        // confirmation pages are partial views? JQUERY or bootstrap models
+        // Progress reviews - total score doesnt save, the hr and dh dates and ids dont save
         // EMAIL NOTIFS - async await error
         // jquery drop down list for extensions
 

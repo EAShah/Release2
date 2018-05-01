@@ -80,6 +80,6 @@
 <p>
     @if (ViewContext.HttpContext.User.IsInRole("LineManager"))
     {
-        @Html.ActionLink("Inspect", "Inspect", new { id = Model.Id }, new { @class = "btn btn-primary" }) }
-@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Inspect", "Inspect", new { id = Model.Id }, new { @class = "btn btn-primary" })} &nbsp;
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
 </p>

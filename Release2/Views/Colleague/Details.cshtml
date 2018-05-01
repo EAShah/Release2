@@ -10,51 +10,58 @@
     <h4>Colleague Details</h4>
     <hr />
     <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Email)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Email)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.FullName)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.EmploymentType)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.FullName)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.EmploymentType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.ColleagueType)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.ColleagueType)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ColleagueType)
+        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.ColleagueRegion)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ColleagueType)
+        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.ColleagueRegion)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ColleagueRegion)
+        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Department)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ColleagueRegion)
+        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Department)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Department)
+        </dt>
 
-</dl>
+        <dd>
+            @Html.DisplayFor(model => model.Department)
+        </dd>
+
+    </dl>
 </div>
 <p>
     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
     {
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" }) }
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })}&nbsp;
     @Html.ActionLink("Back to Colleagues List", "Index", null, new { @class = "btn btn-info" })
 </p>

@@ -19,6 +19,15 @@
         <dd>
             @Html.DisplayFor(model => model.ExtendedPC)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LMSubmits)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMSubmits)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.ExtNumber)
         </dt>
@@ -41,14 +50,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.ExtRequestStatus)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LMSubmits)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LMSubmits)
         </dd>
 
         <dt>
@@ -82,5 +83,6 @@
     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
     {
         @Html.ActionLink("Audit", "Audit", new { id = Model.Id }, new { @class = "btn btn-info" })}
-        @Html.ActionLink("Back to all Extensions", "AllIndex", null, new { @class = "btn btn-primary" })
-    </p>
+    &nbsp;
+    @Html.ActionLink("Back to all Extensions", "AllIndex", null, new { @class = "btn btn-primary" })
+</p>

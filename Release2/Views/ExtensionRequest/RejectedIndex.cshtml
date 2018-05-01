@@ -46,8 +46,11 @@
                 @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
     {
             @Html.ActionLink("Audit", "Audit", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" })
+}&nbsp;
+                @if (ViewContext.HttpContext.User.IsInRole("LineManager"))
+    {
             @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-sm btn-danger" })
-}
+}&nbsp;
                 @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" })
             </td>
         </tr>

@@ -47,8 +47,8 @@
                     @Html.DisplayFor(modelItem => item.AssignmentStatus)
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-sm  btn-primary" })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-sm btn-danger" })
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-sm  btn-primary" })&nbsp;
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-sm btn-danger" })&nbsp;
                     @if (ViewContext.HttpContext.User.IsInRole("LineManager"))
     {
                 @Html.ActionLink("Inspect", "Inspect", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })

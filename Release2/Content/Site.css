@@ -135,3 +135,8 @@ dt, dd {
 .dl-horizontal dd {
     margin-left: 220px;
 }
+
+.btn-right-space {
+    margin-right: 5px;
+}
+

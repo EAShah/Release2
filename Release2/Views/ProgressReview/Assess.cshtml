@@ -81,16 +81,7 @@
 
 <div>
     @Html.ActionLink("Back to all Progress Reviews", "Index", null, new { @class = "btn btn-primary" })
-    @if (ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
-    {
-        @Html.ActionLink("Assess", "Assess", new { id = Model.Id }, new { @class = "btn btn-sm btn-warning" })}
-    @*@if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
-            {
-        @Html.ActionLink("Evaluate", "Evaluate", new { id = item.Id })}
-            @if (ViewContext.HttpContext.User.IsInRole("DepartmentHead"))
-            {
-        @Html.ActionLink("Approve", "Approve", new { id = item.Id })}
-            }*@
+    
 </div>
 
 @section Scripts {

@@ -255,10 +255,14 @@ namespace Release2.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// This action counts pending assignments for Line Managers
+        /// </summary>
+        /// <returns>Pending Assignment badge</returns>
         public ActionResult GetCountAssignmentsPartial()
         {
             // Modify the condition inside the Count() to suite your needs
-            int count = db.Assignments/*.Where(l=>l.LMAssignId ==  User.Identity.GetUserId<int>())*/.Count(p => p.AssignmentStatus == Assignment.AssignStatus.Pending);
+            int count = db.Assignments/*.Where(l => l.LMAssignId == User.Identity.GetUserId<int>())*/.Count(p => p.AssignmentStatus == Assignment.AssignStatus.Pending);
             return PartialView(count);
         }
     }

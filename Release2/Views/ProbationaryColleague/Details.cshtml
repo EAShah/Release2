@@ -87,6 +87,6 @@
 <p>
     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
     {
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })}
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })}&nbsp;
     @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
 </p>
