@@ -29,7 +29,6 @@ namespace Release2.ViewModels
         }
 
         // faq and contact page -- LOOKUP WELCOME PAGES AND ABOUT AND FAQ PAGES
-        // max and min on scores
         // CHARTS
 
         // PCs can only see and assess reviews about them. LMs can only see PRs created by them(badges too). tried but ask!!

@@ -207,7 +207,8 @@ namespace Release2.Controllers
                 TotalScore = db.PerformanceCriterions.Where(r => r.ReviewId == review.ReviewId).Select(s => s.Score).Sum(),
                 EvalDescription = review.EvalDescription,
                 PREvalDescription = review.PREvalDescription,
-                SelfEvaluation = review.SelfEvaluation
+                SelfEvaluation = review.SelfEvaluation, 
+                SASubmissionDate = review.SASubmissionDate
             };
 
             // use index template to show competency scores
