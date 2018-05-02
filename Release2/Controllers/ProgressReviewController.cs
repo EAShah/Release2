@@ -20,8 +20,8 @@ namespace Release2.Controllers
         // GET: ProgressReview
         public ActionResult Index()
         {
-            var review = db.ProgressReviews.ToList();
-                //.Where(p => p.LMId == User.Identity.GetUserId<int>() || p.PCId == User.Identity.GetUserId<int>() || p.HREvaluatesId == null /*|| p.HREvaluatesId == User.Identity.GetUserId<int>()*/ || p.PRDHApprovesId == null /*|| p.PRDHApprovesId == User.Identity.GetUserId<int>()*/);
+            var userid = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id;
+            var review = db.ProgressReviews.Where(p => p.LMId == userid || p.PCId == userid).ToList();
 
             var model = new List<ProgressReviewViewModel>();
             foreach (var item in review)
@@ -112,8 +112,6 @@ namespace Release2.Controllers
                     LMId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id,
                 };
 
-                //var LMDep = db.Colleagues.Where(c => c.Id == model.LMId).Select(s => s.DepartmentId).SingleOrDefault();
-                //ViewBag.PCId = new SelectList(db.ProbationaryColleagues.Where(s => s.DepartmentId == LMDep), "Id", "Username");
                 ViewBag.PCId = new SelectList(db.Assignments.Where(l => l.LMAssignId == review.LMId).Select(p => p.ProbationaryColleague), "Id", "Fullname");
             }
                 return View(model);
@@ -132,7 +130,7 @@ namespace Release2.Controllers
                     PCId = model.PCId,
                     LMId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id,
                     EvalDescription = model.EvalDescription,
-                    //TotalScore = db.PerformanceCriterions.Where(r => r.ReviewId == model.Id).Select(s => s.Score).Sum(),
+                    TotalScore = model.TotalScore,
                     PRCompletionStatus = ProgressReview.CompletionStatus.Incomplete,
                     AssessmentStatus = ProgressReview.Status.Pending,
                     PRSubmissionDate = DateTime.Today
@@ -156,9 +154,10 @@ namespace Release2.Controllers
                 }
 
                 db.SaveChanges();
-                //db.Entry(review).State = System.Data.Entity.EntityState.Modified;       
-               // Utilities.SendEmail("elaf");
-                return RedirectToAction("Index");
+                var tscore = db.PerformanceCriterions.Where(r => r.ReviewId == review.ReviewId).Select(s => s.Score).Sum();
+                review.TotalScore = tscore;
+                db.SaveChanges();
+                 return RedirectToAction("Index");
             }
 
             return View(model);
@@ -204,7 +203,7 @@ namespace Release2.Controllers
                 PCId = review.PCId,
                 ProbationaryColleague = review.ProbationaryColleague.FullName,
                 PRDHApprovalStatus = ProgressReview.ApprovalStatus.Pending,
-                TotalScore = db.PerformanceCriterions.Where(r => r.ReviewId == review.ReviewId).Select(s => s.Score).Sum(),
+                TotalScore = review.TotalScore,//db.PerformanceCriterions.Where(r => r.ReviewId == review.ReviewId).Select(s => s.Score).Sum(),
                 EvalDescription = review.EvalDescription,
                 PREvalDescription = review.PREvalDescription,
                 SelfEvaluation = review.SelfEvaluation, 
@@ -236,7 +235,6 @@ namespace Release2.Controllers
                 if (review != null)
                 {
                     review.EvalDescription = model.EvalDescription;
-                    review.TotalScore = model.TotalScore;
                     review.LMId = model.LMId;
                     review.PCId = model.PCId;
                     review.PRCompletionStatus = model.PRCompletionStatus;
@@ -356,6 +354,9 @@ namespace Release2.Controllers
                         //db.PerformanceCriterions.Add(criteria);
                     }
                     db.SaveChanges();
+                    var tscore = db.PerformanceCriterions.Where(r => r.ReviewId == review.ReviewId).Select(s => s.Score).Sum();
+                    review.TotalScore = tscore;
+                    db.SaveChanges();
 
                     return RedirectToAction("Index");
                 }
@@ -450,7 +451,6 @@ namespace Release2.Controllers
                 if (review != null)
                 {
                     review.EvalDescription = model.EvalDescription;
-                    review.TotalScore = model.TotalScore;
                     review.PREvalDescription = model.PREvalDescription;
                     review.SelfEvaluation = model.SelfEvaluation;
                     review.LMId = model.LMId;
@@ -565,7 +565,6 @@ namespace Release2.Controllers
                 if (review != null)
                 {
                     review.EvalDescription = model.EvalDescription;
-                    review.TotalScore = model.TotalScore;
                     review.PREvalDescription = model.PREvalDescription;
                     review.SelfEvaluation = model.SelfEvaluation;
                     review.LMId = model.LMId;

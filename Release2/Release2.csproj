@@ -232,6 +232,17 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Careem\48427551933613.596dfaaf4e9be.gif" />
+    <Content Include="Content\Careem\CAREEM_LOGO_GREEN_AR.png" />
+    <Content Include="Content\Careem\CAREEM_LOGO_GREEN_EN.png" />
+    <Content Include="Content\Careem\CAREEM_LOGO_GREEN_ENAR.png" />
+    <Content Include="Content\Careem\CAREEM_LOGO_GREEN_WINK.png" />
+    <Content Include="Content\Careem\DisfiguredHarmfulHerald-size_restricted.gif" />
+    <Content Include="Content\Careem\enterprise_grid_logo.png" />
+    <Content Include="Content\Careem\hellomind_logo_loop_01.gif" />
+    <Content Include="Content\Careem\jNU0AWUA_400x400.jpg" />
+    <Content Include="Content\Careem\OldfashionedTidyErin-size_restricted.gif" />
+    <Content Include="Content\Careem\unnamed.png" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.min.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap4.css" />
@@ -491,6 +502,14 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\Careem\Careem-Bold-2.otf" />
+    <Content Include="Content\Careem\Careem-Light-2.otf" />
+    <Content Include="Content\Careem\Careem-Regular-4.otf" />
+    <Content Include="index.md" />
+    <Content Include="docfx.json" />
+    <Content Include="articles\toc.md" />
+    <Content Include="articles\intro.md" />
+    <Content Include="api\index.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <None Include="Scripts\jquery-3.3.1-vsdoc.js" />
@@ -611,6 +630,7 @@
     <Content Include="Views\ProgressReview\GetCountReviewsToApprovePartial.cshtml" />
     <Content Include="Views\ProgressReview\GetCountReviewsToAssessPartial.cshtml" />
     <Content Include="Views\Reports\Index.cshtml" />
+    <Content Include="toc.yml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -659,7 +679,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.7.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.7.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\docfx.console.2.33.2\build\docfx.console.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\docfx.console.2.33.2\build\docfx.console.targets'))" />
   </Target>
+  <Import Project="..\packages\docfx.console.2.33.2\build\docfx.console.targets" Condition="Exists('..\packages\docfx.console.2.33.2\build\docfx.console.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

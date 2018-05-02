@@ -28,15 +28,25 @@ namespace Release2.ViewModels
             //Scores = new List<int>();
         }
 
+        // edits - "you are editing user HRA1"
+        // allign buttons
+        //nav bar - try white (done) and black when hovered (how to specify hover in site)
+        //add careem links to home page done
+        // add careem wink on - navbar instead of pms or pms logo
+        //careem gifs - done but need to add in confirmation pages
+        // datatable entry modification --NOT DONE
+        // login page
+        // navebar height increase
+        // font integration
+
         // faq and contact page -- LOOKUP WELCOME PAGES AND ABOUT AND FAQ PAGES
         // CHARTS
 
-        // PCs can only see and assess reviews about them. LMs can only see PRs created by them(badges too). tried but ask!!
+        // PCs can only see and assess reviews about them. LMs can only see PRs created by them. tried but ask!!
+        // make two indexes, one for lms + pcs and one for dh + hr
 
-        // confirmation pages are partial views? JQUERY or bootstrap models
-        // Progress reviews - total score doesnt save, the hr and dh dates and ids dont save
-        // EMAIL NOTIFS - async await error
-        // jquery drop down list for extensions
+         // confirmation pages are partial views? JQUERY or bootstrap models -- theyre popups
+         //assignment jquery -- probably not doing either  -- try to do atleast
 
         public int Id { get; set; }
 

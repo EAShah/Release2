@@ -26,7 +26,8 @@ namespace Release2.Controllers
         [Authorize(Roles = "HRAssociate, LineManager")]
         public ActionResult Index()
         {
-            var assignment = db.Assignments.ToList();
+            var userid = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id;
+            var assignment = db.Assignments.Where(p => p.LMAssignId == userid || p.PCId == userid).ToList();
             var model = new List<AssignmentViewModel>();
             foreach (var item in assignment)
             {

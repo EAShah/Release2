@@ -21,10 +21,11 @@ namespace Release2.Controllers
         /// </summary>
         /// <returns>ExtensionRequest, AllIndex view</returns>
         // GET: ExtensionRequest
-        [Authorize(Roles = "HRAssociate, LineManager")]
+        [Authorize(Roles = "ProbationaryColleague, LineManager")]
         public ActionResult AllIndex()
         {
-            var extensions = db.ExtensionRequests.ToList();
+            var userid = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id;
+            var extensions = db.ExtensionRequests.Where(p => p.LMSubmitId == userid || p.ExtendedPCId == userid ).ToList();
             var model = new List<ExtensionRequestViewModel>();
             foreach (var item in extensions)
             {
@@ -73,77 +74,80 @@ namespace Release2.Controllers
         /// </summary>
         /// <returns>ExtensionRequest, ApprovedIndex view</returns>
         // GET: ApprovedExtensionRequest
-        [Authorize(Roles = "HRAssociate, LineManager")]
-        public ActionResult ApprovedIndex()
+        [Authorize(Roles = "HRAssociate, DeparmentHead")]
+        public ActionResult TopIndex()
         {
-            var extension = db.ExtensionRequests.ToList().Where(e => e.ExtRequestStatus == ExtensionRequest.RequestStatus.Approved);
+            var userid = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id;
+            var extension = db.ExtensionRequests.Where(p => p.HRAuditId == null || p.HRAuditId == userid).ToList();
+            
             var model = new List<ExtensionRequestViewModel>();
             foreach (var item in extension)
             {
                 model.Add(new ExtensionRequestViewModel
                 {
                     Id = item.ExtRequestId,
-                    ExtNumber = item.ExtNumber,
-                    ExtRequestStatus = item.ExtRequestStatus,
-                    LMSubmits = item.LMSubmits.FullName,
                     ExtendedPC = item.ExtendedPC.FullName,
+                    LMSubmits = item.LMSubmits.FullName,
                     ExtRequestSubmissionDate = item.ExtRequestSubmissionDate,
+                    ExtRequestStatus = item.ExtRequestStatus,
+                    ExtNumber = item.ExtNumber,
+                    ExtReason = item.ExtReason
                 });
             }
             return View(model);
         }
 
-        /// <summary>
-        /// This action lists rejected extension requests 
-        /// </summary>
-        /// <returns>ExtensionRequest, RejectedIndex view</returns>
-        // GET: RejectedExtensionRequest
-        [Authorize(Roles = "HRAssociate, LineManager")]
-        public ActionResult RejectedIndex()
-        {
-            var extension = db.ExtensionRequests.ToList().Where(e => e.ExtRequestStatus == ExtensionRequest.RequestStatus.Rejected);
-            var model = new List<ExtensionRequestViewModel>();
-            foreach (var item in extension)
-            {
-                model.Add(new ExtensionRequestViewModel
-                {
-                    Id = item.ExtRequestId,
-                    ExtNumber = item.ExtNumber,
-                    ExtRequestStatus = item.ExtRequestStatus,
-                    LMSubmitId = item.LMSubmitId,
-                    ExtendedPCId = item.ExtendedPCId,
-                    LMSubmits = item.LMSubmits.FullName,
-                    ExtendedPC = item.ExtendedPC.FullName,
-                    ExtRequestSubmissionDate = item.ExtRequestSubmissionDate
-                });
-            }
-            return View(model);
-        }
+        ///// <summary>
+        ///// This action lists rejected extension requests 
+        ///// </summary>
+        ///// <returns>ExtensionRequest, RejectedIndex view</returns>
+        //// GET: RejectedExtensionRequest
+        //[Authorize(Roles = "HRAssociate, LineManager")]
+        //public ActionResult RejectedIndex()
+        //{
+        //    var extension = db.ExtensionRequests.ToList().Where(e => e.ExtRequestStatus == ExtensionRequest.RequestStatus.Rejected);
+        //    var model = new List<ExtensionRequestViewModel>();
+        //    foreach (var item in extension)
+        //    {
+        //        model.Add(new ExtensionRequestViewModel
+        //        {
+        //            Id = item.ExtRequestId,
+        //            ExtNumber = item.ExtNumber,
+        //            ExtRequestStatus = item.ExtRequestStatus,
+        //            LMSubmitId = item.LMSubmitId,
+        //            ExtendedPCId = item.ExtendedPCId,
+        //            LMSubmits = item.LMSubmits.FullName,
+        //            ExtendedPC = item.ExtendedPC.FullName,
+        //            ExtRequestSubmissionDate = item.ExtRequestSubmissionDate
+        //        });
+        //    }
+        //    return View(model);
+        //}
 
-        /// <summary>
-        /// This action lists pending extension requests 
-        /// </summary>
-        /// <returns>ExtensionRequest, RejectedIndex view</returns>
-        // GET: PendingExtensionRequest
-        [Authorize(Roles = "HRAssociate, LineManager")]
-        public ActionResult PendingIndex()
-        {
-            var extension = db.ExtensionRequests.ToList().Where(e => e.ExtRequestStatus == ExtensionRequest.RequestStatus.Pending);
-            var model = new List<ExtensionRequestViewModel>();
-            foreach (var item in extension)
-            {
-                model.Add(new ExtensionRequestViewModel
-                {
-                    Id = item.ExtRequestId,
-                    ExtNumber = item.ExtNumber,
-                    ExtRequestStatus = item.ExtRequestStatus,
-                    LMSubmits = item.LMSubmits.FullName,
-                    ExtendedPC = item.ExtendedPC.FullName,
-                    ExtRequestSubmissionDate = item.ExtRequestSubmissionDate
-                });
-            }
-            return View(model);
-        }
+        ///// <summary>
+        ///// This action lists pending extension requests 
+        ///// </summary>
+        ///// <returns>ExtensionRequest, RejectedIndex view</returns>
+        //// GET: PendingExtensionRequest
+        //[Authorize(Roles = "HRAssociate, LineManager")]
+        //public ActionResult PendingIndex()
+        //{
+        //    var extension = db.ExtensionRequests.ToList().Where(e => e.ExtRequestStatus == ExtensionRequest.RequestStatus.Pending);
+        //    var model = new List<ExtensionRequestViewModel>();
+        //    foreach (var item in extension)
+        //    {
+        //        model.Add(new ExtensionRequestViewModel
+        //        {
+        //            Id = item.ExtRequestId,
+        //            ExtNumber = item.ExtNumber,
+        //            ExtRequestStatus = item.ExtRequestStatus,
+        //            LMSubmits = item.LMSubmits.FullName,
+        //            ExtendedPC = item.ExtendedPC.FullName,
+        //            ExtRequestSubmissionDate = item.ExtRequestSubmissionDate
+        //        });
+        //    }
+        //    return View(model);
+        //}
 
         /// <summary>
         /// This action allows to view details of extension requests

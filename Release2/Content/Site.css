@@ -53,8 +53,9 @@ legend.fieldset-border {
 }
 
  .navbar-inverse .navbar-nav > li > a {
-        color: #000000;
+        color: #ffffff;
         font-weight: bold;
+        
 }
 
 jumbotron {
@@ -64,7 +65,7 @@ jumbotron {
     font-weight: 200;
     line-height: 2.1428571435;
     color: inherit;
-    /*background-color: #32b4481f;*/
+    background-color: #ffffff;
 }
 
 body {
@@ -140,3 +141,18 @@ dt, dd {
     margin-right: 5px;
 }
 
+/*body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: Lato,"Helvetica Neue", Arial, sans-serif;
+}*/
