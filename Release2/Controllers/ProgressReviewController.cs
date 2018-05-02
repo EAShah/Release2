@@ -21,7 +21,7 @@ namespace Release2.Controllers
         public ActionResult Index()
         {
             var userid = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id;
-            var review = db.ProgressReviews.Where(p => p.LMId == userid || p.PCId == userid).ToList();
+            var review = db.ProgressReviews./*Where(p => p.LMId == userid || p.PCId == userid).*/ToList();
 
             var model = new List<ProgressReviewViewModel>();
             foreach (var item in review)
@@ -244,7 +244,7 @@ namespace Release2.Controllers
                     review.SelfEvaluation = model.SelfEvaluation;
                     review.AssessmentStatus = ProgressReview.Status.Submitted;
                     review.SASubmissionDate = DateTime.Today; // add jquery datetime type
-                    review.CreationPCId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id;
+                    review.CreationPCId =  User.Identity.GetUserId<int>();
                    
                     db.SaveChanges();
 
@@ -308,7 +308,6 @@ namespace Release2.Controllers
                         Score = item.Score,
                     });
             }
-            ViewBag.PCId = new SelectList(db.ProbationaryColleagues, "Id", "Username");
 
             return View(model);
         }
@@ -412,7 +411,7 @@ namespace Release2.Controllers
                 PCId = review.PCId,
                 ProbationaryColleague = review.ProbationaryColleague.FullName,
                 PRDHApprovalStatus = review.PRDHApprovalStatus,
-                PRDHApprovesId= review.PRDHApprovesId ,
+                PRDHApprovesId= review.PRDHApprovesId,
                 //DHApproval = review.DHApproval,
                 PRDHApproveDate = review.PRDHApproveDate,
                 PREvalDescription = review.PREvalDescription,
@@ -422,7 +421,7 @@ namespace Release2.Controllers
                 EvalDescription = review.EvalDescription,
                 TotalScore = review.TotalScore,
                 CreationPCId = review.CreationPCId,
-                CreationPC = review.CreationPC.FullName,
+                //CreationPC = review.CreationPC.FullName,
                 PRHRAEvalDecision = review.PRHRAEvalDecision,
             };
 
@@ -432,11 +431,13 @@ namespace Release2.Controllers
                 model.Competencies.Add(
                     new CompetencyViewModel
                     {
+                        ReviewId = review.ReviewId,
                         Id = item.CompetencyId,
                         CompetencyName = item.Competency.CompetencyName,
                         Score = item.Score,
                     });
             }
+
             return View(model);
         }
 
@@ -450,20 +451,22 @@ namespace Release2.Controllers
                 var review = db.ProgressReviews.Find(id);
                 if (review != null)
                 {
+                    review.TotalScore = model.TotalScore;
                     review.EvalDescription = model.EvalDescription;
                     review.PREvalDescription = model.PREvalDescription;
                     review.SelfEvaluation = model.SelfEvaluation;
                     review.LMId = model.LMId;
                     review.PCId = model.PCId;
-                    //review.CreationPCId = model.CreationPCId;
+                    review.CreationPCId = model.CreationPCId;
                     review.AssessmentStatus = model.AssessmentStatus;
                     review.PRCompletionStatus = model.PRCompletionStatus;
                     review.SASubmissionDate = model.SASubmissionDate;
                     review.PRDHApprovalStatus = model.PRDHApprovalStatus;
-                    review.PRDHApproveDate = DateTime.Today;
-                    //review.PRHRAEvalDecision = model.PRHRAEvalDecision;
-                    review.PRDHApprovesId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id;
+                    review.PRDHApproveDate = DateTime.Today ;
+                    review.PRDHApprovesId = User.Identity.GetUserId<int>();
                     review.PRHRAEvalDecision = ProgressReview.EvaluationDecision.Pending;
+
+                    db.Entry(review).State = System.Data.Entity.EntityState.Modified;
 
                     db.SaveChanges();
 
@@ -528,15 +531,15 @@ namespace Release2.Controllers
                 CreationPCId = review.CreationPCId,
                 CreationPC = review.CreationPC.FullName,
                 PRDHApprovalStatus = review.PRDHApprovalStatus,
-                PRDHApprovesId = review.PRDHApprovesId,
-                DHApproval = review.DHApproval.FullName,
-                PRDHApproveDate = review.PRDHApproveDate,
+                //PRDHApprovesId = review.PRDHApprovesId,
+                //DHApproval = review.DHApproval.FullName,
+                //PRDHApproveDate = review.PRDHApproveDate,
                 PRHRAEvalDate = review.PRHRAEvalDate,
                 PRHRAEvalDecision = review.PRHRAEvalDecision,
                 HREvaluatesId =review.HREvaluatesId,
                 TotalScore = review.TotalScore,
                 //HREvaluation = review.HREvaluation.FullName,
-                
+
             };
 
             // use index template to show competency scores
@@ -578,7 +581,7 @@ namespace Release2.Controllers
                     review.PRHRAEvalDecision = model.PRHRAEvalDecision;
                     review.PRHRAEvalDate = DateTime.Today;
                     review.PRDHApprovesId = model.PRDHApprovesId;
-                    review.HREvaluatesId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id;
+                    review.HREvaluatesId = User.Identity.GetUserId<int>() ;
 
                     db.SaveChanges();
 

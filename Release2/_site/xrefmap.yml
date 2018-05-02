@@ -4970,6 +4970,19 @@ references:
   isSpec: "True"
   fullName: Release2.ViewModels.CompetencyViewModel.Id
   nameWithType: CompetencyViewModel.Id
+- uid: Release2.ViewModels.CompetencyViewModel.ReviewId
+  name: ReviewId
+  href: api/Release2.ViewModels.CompetencyViewModel.html#Release2_ViewModels_CompetencyViewModel_ReviewId
+  commentId: P:Release2.ViewModels.CompetencyViewModel.ReviewId
+  fullName: Release2.ViewModels.CompetencyViewModel.ReviewId
+  nameWithType: CompetencyViewModel.ReviewId
+- uid: Release2.ViewModels.CompetencyViewModel.ReviewId*
+  name: ReviewId
+  href: api/Release2.ViewModels.CompetencyViewModel.html#Release2_ViewModels_CompetencyViewModel_ReviewId_
+  commentId: Overload:Release2.ViewModels.CompetencyViewModel.ReviewId
+  isSpec: "True"
+  fullName: Release2.ViewModels.CompetencyViewModel.ReviewId
+  nameWithType: CompetencyViewModel.ReviewId
 - uid: Release2.ViewModels.CompetencyViewModel.Score
   name: Score
   href: api/Release2.ViewModels.CompetencyViewModel.html#Release2_ViewModels_CompetencyViewModel_Score

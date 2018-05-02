@@ -24,7 +24,7 @@ namespace Release2.ViewModels
         public ProgressReviewViewModel()
         {
             Competencies = new List<CompetencyViewModel>();
-            PerformanceReviews = new List<PerformanceCriterionViewModel>();
+            PerformanceReviews = new List<PerformanceCriterion>();
             //Scores = new List<int>();
         }
 
@@ -133,7 +133,7 @@ namespace Release2.ViewModels
 
         // add list of grades and competecnies
 
-        public virtual List<PerformanceCriterionViewModel> PerformanceReviews { get; set; }
+        public virtual List<PerformanceCriterion> PerformanceReviews { get; set; }
 
         public virtual List<CompetencyViewModel> Competencies { get; set; }
 

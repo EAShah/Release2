@@ -21,11 +21,11 @@ namespace Release2.Controllers
         /// </summary>
         /// <returns>ExtensionRequest, AllIndex view</returns>
         // GET: ExtensionRequest
-        [Authorize(Roles = "ProbationaryColleague, LineManager")]
+        [Authorize(Roles = "ProbationaryColleague, HRAssociate, DepartmentHead, LineManager")]
         public ActionResult AllIndex()
         {
             var userid = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id;
-            var extensions = db.ExtensionRequests.Where(p => p.LMSubmitId == userid || p.ExtendedPCId == userid ).ToList();
+            var extensions = db.ExtensionRequests./*Where(p => p.LMSubmitId == userid || p.ExtendedPCId == userid).*/ToList();
             var model = new List<ExtensionRequestViewModel>();
             foreach (var item in extensions)
             {
@@ -155,7 +155,7 @@ namespace Release2.Controllers
         /// <param name="id", ></param>
         /// <returns>ExtensionRequest, Details view</returns>
         // GET: ExtensionRequest/Details/5
-        [Authorize(Roles = "HRAssociate, LineManager")]
+        [Authorize(Roles = "ProbationaryColleague, HRAssociate, DepartmentHead, LineManager")]
         public ActionResult Details(int? id)
         {
             if (id == null)

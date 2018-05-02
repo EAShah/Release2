@@ -60,7 +60,7 @@
                 @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" })
 
                 @*check*@
-                @if (ViewContext.HttpContext.User.IsInRole("LineManager") && item.PRCompletionStatus == Project._1.Models.ProgressReview.CompletionStatus.Incomplete)
+                @if (ViewContext.HttpContext.User.IsInRole("LineManager") && item.AssessmentStatus == Project._1.Models.ProgressReview.Status.Pending)
                  {
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })
                  }&nbsp;
@@ -68,11 +68,11 @@
                  {
                     @Html.ActionLink("Assess", "Assess", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })
                  }&nbsp;
-                @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+                @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") && item.PRDHApprovalStatus == Project._1.Models.ProgressReview.ApprovalStatus.Approved)
                  {
                     @Html.ActionLink("Evaluate", "Evaluate", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })
                  }&nbsp;
-                @if (ViewContext.HttpContext.User.IsInRole("DepartmentHead") && item.PRHRAEvalDecision == Project._1.Models.ProgressReview.EvaluationDecision.Pending)
+                @if (ViewContext.HttpContext.User.IsInRole("DepartmentHead") && item.AssessmentStatus == Project._1.Models.ProgressReview.Status.Submitted)
                  {
                     @Html.ActionLink("Approve", "Approve", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })
                  }

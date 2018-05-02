@@ -531,7 +531,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[Authorize(Roles = &quot;ProbationaryColleague, LineManager&quot;)]
+    <pre><code class="lang-csharp hljs">[Authorize(Roles = &quot;ProbationaryColleague, HRAssociate, DepartmentHead, LineManager&quot;)]
 public ActionResult AllIndex()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -806,7 +806,7 @@ public ActionResult DeleteConfirmed(int id)</code></pre>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[Authorize(Roles = &quot;HRAssociate, LineManager&quot;)]
+    <pre><code class="lang-csharp hljs">[Authorize(Roles = &quot;ProbationaryColleague, HRAssociate, DepartmentHead, LineManager&quot;)]
 public ActionResult Details(int? id)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>

@@ -27,7 +27,7 @@ namespace Release2.Controllers
         public ActionResult Index()
         {
             var userid = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id;
-            var assignment = db.Assignments.Where(p => p.LMAssignId == userid || p.PCId == userid).ToList();
+            var assignment = db.Assignments/*.Where(p => p.LMAssignId == userid || p.PCId == userid).*/.ToList();
             var model = new List<AssignmentViewModel>();
             foreach (var item in assignment)
             {
