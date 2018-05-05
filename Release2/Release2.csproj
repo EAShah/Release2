@@ -233,6 +233,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Careem\48427551933613.596dfaaf4e9be.gif" />
+    <Content Include="Content\Careem\better 1.png" />
     <Content Include="Content\Careem\CAREEM_LOGO_GREEN_AR.png" />
     <Content Include="Content\Careem\CAREEM_LOGO_GREEN_EN.png" />
     <Content Include="Content\Careem\CAREEM_LOGO_GREEN_ENAR.png" />
@@ -241,6 +242,7 @@
     <Content Include="Content\Careem\enterprise_grid_logo.png" />
     <Content Include="Content\Careem\hellomind_logo_loop_01.gif" />
     <Content Include="Content\Careem\jNU0AWUA_400x400.jpg" />
+    <Content Include="Content\Careem\logo1.png" />
     <Content Include="Content\Careem\OldfashionedTidyErin-size_restricted.gif" />
     <Content Include="Content\Careem\unnamed.png" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
@@ -552,7 +554,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\FAQ.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />

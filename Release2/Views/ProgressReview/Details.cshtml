@@ -4,77 +4,84 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Progress Review Details</h2>
 
-<div>
-    <h4>Progress Review Details</h4>
+<div class="form-horizontal">
+    <h4>You are Approving a Progress Review. </h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.LMCreates)
-        </dt>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.PCId)
+    @Html.HiddenFor(model => model.LMId)
 
-        <dd>
-            @Html.DisplayFor(model => model.LMCreates)
-        </dd>
+    <fieldset class="fieldset-border">
+        <legend class="legend-border">Progress Report and Scores</legend>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProbationaryColleague)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.EvalDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.EvalDescription, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.EvalDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProbationaryColleague)
-        </dd>
+        <table class="table table-bordered">
+            <tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EvalDescription)
-        </dt>
+                <th>
+                    @Html.DisplayNameFor(model => model.Competencies)
+                </th>
+                <th>
+                    Score
+                </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.EvalDescription)
-        </dd>
+                <th></th>
+            </tr>
+            @foreach (var i in Model.Competencies)
+            {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(modelItem => i.Id)
+                        @Html.DisplayFor(modelItem => i.CompetencyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => i.Score)
+                    </td>
+                </tr>
+            }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TotalScore)
-        </dt>
+        </table>
 
-        <dd>
-            @Html.DisplayFor(model => model.TotalScore)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TotalScore, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.TotalScore, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.TotalScore, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PREvalDescription)
-        </dt>
+    </fieldset>
+    <fieldset class="fieldset-border">
+        <legend class="legend-border">Self Assessments</legend>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PREvalDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.PREvalDescription, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.PREvalDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.PREvalDescription)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelfEvaluation, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.SelfEvaluation, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.SelfEvaluation, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SelfEvaluation)
-        </dt>
+    </fieldset>
 
-        <dd>
-            @Html.DisplayFor(model => model.SelfEvaluation)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PRSubmissionDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PRSubmissionDate)
-        </dd>
-
-        @*<dt>
-            @Html.DisplayNameFor(model => model.SASubmissionDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SASubmissionDate)
-        </dd>*@
-
-</div>
-<p>
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
-</p>
+        
+        <p>
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+        </p>

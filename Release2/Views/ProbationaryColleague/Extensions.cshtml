@@ -7,7 +7,7 @@
 <h2>Extensions</h2>
 
 <div>
-    <h4>Extensions Requested for Probationary Colleague</h4>
+    <h4>Probationary Colleague Details</h4>
     <hr />
     @Html.HiddenFor(m => m.Id)
 
@@ -78,12 +78,14 @@
 
     </dl>
 </div>
-@Ajax.ActionLink("Extension Requests", "ListExtensionRequestsPartial", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "ExtensionList", HttpMethod = "GET", InsertionMode = InsertionMode.Replace })
-...
-<div id="ExtensionList"></div>
 <p>
     @Html.ActionLink("Back to List", "Index", new { @class = "btn btn-primary" })
 </p>
+
+
+@Ajax.ActionLink("Extension Requests", "ListExtensionRequestsPartial", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "ExtensionList", HttpMethod = "GET", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-info" })
+
+<div id="ExtensionList"></div>
 
 @*@section Scripts {
     <script type="text/javascript">

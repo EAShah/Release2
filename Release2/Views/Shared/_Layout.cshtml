@@ -3,14 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Probation Management System</title>
+    <title>@ViewBag.Title - Probation Managment System</title>
     @Styles.Render("~/bundles/cssdatatables")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("styles", required: false)
 
+    
 </head>
 <body>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -19,77 +21,80 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("PMS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand" style="margin-top:-5.5px" href="@Url.Action("Index", "Home")">
+                    <image src="~/Content/Careem/logo1.png" , height="71" width="71"></image>
+                </a>
+                @* @Html.ActionLink("PMS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                     @if (ViewContext.HttpContext.User.IsInRole("DepartmentHead"))
+                    @if (ViewContext.HttpContext.User.IsInRole("DepartmentHead"))
                     {
                         <li>@Html.ActionLink("Colleague", "Index", "Colleague")</li>
                     }
-                     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("DepartmentHead"))
-                     {
+                    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("DepartmentHead"))
+                    {
 
                         <li>@Html.ActionLink("Probation", "Index", "ProbationaryColleague")</li>
-                     }
+                    }
                     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
                     {
-                         <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Colleagues</a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Colleague", "Index", "Colleague")</li>
-                            <li>@Html.ActionLink("Department", "Index", "Department")</li>
-                        </ul>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Colleagues</a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Colleague", "Index", "Colleague")</li>
+                                <li>@Html.ActionLink("Department", "Index", "Department")</li>
+                            </ul>
                         </li>
 
-                          <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Reviews</a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink(" Progress Review", "Index", "ProgressReview")</li>
-                            <li>@Html.ActionLink("Competency", "Index", "Competency")</li>
-                        </ul>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Reviews</a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink(" Progress Review", "Index", "ProgressReview")</li>
+                                <li>@Html.ActionLink("Competency", "Index", "Competency")</li>
+                            </ul>
                         </li>
-                       
-                          <li>@Html.Action("GetCountReviewsToEvaluatePartial", "ProgressReview", null)</li> 
 
-                     }                    
+                        <li>@Html.Action("GetCountReviewsToEvaluatePartial", "ProgressReview", null)</li>
+
+                    }
                     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("LineManager"))
                     {
-                         <li>@Html.ActionLink("Assignment", "Index", "Assignment")</li>
+                        <li>@Html.ActionLink("Assignment", "Index", "Assignment")</li>
                     }
-                                    @if (ViewContext.HttpContext.User.IsInRole("LineManager"))
-                                     {
-                                        <li>@Html.Action("GetCountAssignmentsPartial", "Assignment", null)</li> 
-                                     }
+                    @if (ViewContext.HttpContext.User.IsInRole("LineManager"))
+                    {
+                        <li>@Html.Action("GetCountAssignmentsPartial", "Assignment", null)</li>
+                    }
                     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("LineManager") || ViewContext.HttpContext.User.IsInRole("DepartmentHead") || ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
-                     {
-                         <li>@Html.ActionLink("Extensions", "AllIndex", "ExtensionRequest")</li>
-                     }
-                                     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
-                                      {
-                                        <li>@Html.Action("GetCountExtensionsPartial", "ExtensionRequest", null)</li> 
-                                      }
+                    {
+                        <li>@Html.ActionLink("Extensions", "AllIndex", "ExtensionRequest")</li>
+                    }
+                    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
+                    {
+                        <li>@Html.Action("GetCountExtensionsPartial", "ExtensionRequest", null)</li>
+                    }
                     @if (ViewContext.HttpContext.User.IsInRole("LineManager") || ViewContext.HttpContext.User.IsInRole("DepartmentHead") || ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
-                     {
-                         <li>@Html.ActionLink("Reviews", "Index", "ProgressReview")</li>
-                     }
-                                     @if (ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
-                                      {
-                                        <li>@Html.Action("GetCountReviewsToAssessPartial", "ProgressReview", null)</li> 
-                                      }
-                                     @if (ViewContext.HttpContext.User.IsInRole("DepartmentHead"))
-                                      {
-                                        <li>@Html.Action("GetCountReviewsToApprovePartial", "ProgressReview", null)</li> 
-                                      }
-                                     
-                     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("LineManager") || ViewContext.HttpContext.User.IsInRole("DepartmentHead") || ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
-                     {
-                                                  <li>@Html.ActionLink("Reports", "Index", "Reports")</li>
-                     }
+                    {
+                        <li>@Html.ActionLink("Reviews", "Index", "ProgressReview")</li>
+                    }
+                    @if (ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
+                    {
+                        <li>@Html.Action("GetCountReviewsToAssessPartial", "ProgressReview", null)</li>
+                    }
+                    @if (ViewContext.HttpContext.User.IsInRole("DepartmentHead"))
+                    {
+                        <li>@Html.Action("GetCountReviewsToApprovePartial", "ProgressReview", null)</li>
+                    }
+
+                    @if (ViewContext.HttpContext.User.IsInRole("HRAssociate") || ViewContext.HttpContext.User.IsInRole("LineManager") || ViewContext.HttpContext.User.IsInRole("DepartmentHead") || ViewContext.HttpContext.User.IsInRole("ProbationaryColleague"))
+                    {
+                        <li>@Html.ActionLink("Reports", "Index", "Reports")</li>
+                    }
 
 
-                                    @*<li>@Html.Action("GetCountAssignmentsPartial", "ExtensionRequest", new object({ id = item.Id (get user id })</li>} hide this colleague id in the view*@
-                    
+                    @*<li>@Html.Action("GetCountAssignmentsPartial", "ExtensionRequest", new object({ id = item.Id (get user id })</li>} hide this colleague id in the view*@
+
 
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -101,7 +106,9 @@
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Probation Management System</p>
-        </footer>
+            <a> @Html.ActionLink("FAQS", "FAQ", "Home")</a>
+    
+    </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

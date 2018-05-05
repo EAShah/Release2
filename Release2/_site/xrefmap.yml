@@ -2787,19 +2787,19 @@ references:
   isSpec: "True"
   fullName: Release2.Controllers.HomeController.About
   nameWithType: HomeController.About
-- uid: Release2.Controllers.HomeController.Contact
-  name: Contact()
-  href: api/Release2.Controllers.HomeController.html#Release2_Controllers_HomeController_Contact
-  commentId: M:Release2.Controllers.HomeController.Contact
-  fullName: Release2.Controllers.HomeController.Contact()
-  nameWithType: HomeController.Contact()
-- uid: Release2.Controllers.HomeController.Contact*
-  name: Contact
-  href: api/Release2.Controllers.HomeController.html#Release2_Controllers_HomeController_Contact_
-  commentId: Overload:Release2.Controllers.HomeController.Contact
+- uid: Release2.Controllers.HomeController.FAQ
+  name: FAQ()
+  href: api/Release2.Controllers.HomeController.html#Release2_Controllers_HomeController_FAQ
+  commentId: M:Release2.Controllers.HomeController.FAQ
+  fullName: Release2.Controllers.HomeController.FAQ()
+  nameWithType: HomeController.FAQ()
+- uid: Release2.Controllers.HomeController.FAQ*
+  name: FAQ
+  href: api/Release2.Controllers.HomeController.html#Release2_Controllers_HomeController_FAQ_
+  commentId: Overload:Release2.Controllers.HomeController.FAQ
   isSpec: "True"
-  fullName: Release2.Controllers.HomeController.Contact
-  nameWithType: HomeController.Contact
+  fullName: Release2.Controllers.HomeController.FAQ
+  nameWithType: HomeController.FAQ
 - uid: Release2.Controllers.HomeController.Index
   name: Index()
   href: api/Release2.Controllers.HomeController.html#Release2_Controllers_HomeController_Index

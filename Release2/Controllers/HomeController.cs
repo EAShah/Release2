@@ -21,9 +21,9 @@ namespace Release2.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult FAQ()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "FAQs page.";
 
             return View();
         }

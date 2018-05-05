@@ -4,85 +4,70 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Extension Details</h2>
 
-<div>
-    <h4>ExtensionRequestViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        @Html.HiddenFor(model => model.ExtendedPCId)
-        @Html.HiddenFor(model => model.LMSubmitId)
-        <dt>
-            @Html.DisplayNameFor(model => model.ExtendedPC)
-        </dt>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-        <dd>
-            @Html.DisplayFor(model => model.ExtendedPC)
-        </dd>
+<div class="form-horizontal">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LMSubmits)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LMSubmits)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ExtNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ExtNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ExtReason)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ExtReason)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ExtRequestStatus)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ExtRequestStatus)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ExtRequestSubmissionDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ExtRequestSubmissionDate)
-        </dd>
-
-        @*<dt>
-            @Html.DisplayNameFor(model => model.HRAudits)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HRAudits)
-        </dd>*@
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ExtRequestAuditDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ExtRequestAuditDate)
-        </dd>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.ExtendedPCId)
+    @Html.HiddenFor(model => model.LMSubmitId)
 
 
-    </dl>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ExtendedPC, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.ExtendedPC, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.ExtendedPC, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.LMSubmits, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.LMSubmits, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.LMSubmits, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ExtReason, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.ExtReason, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.ExtReason, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ExtNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.ExtNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.ExtNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ExtRequestStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.ExtRequestStatus, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ExtRequestStatus, "", new { @class = "text-danger" })
+        </div>
+    </div>
 </div>
+  }
+
+
 <p>
     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
     {
-        @Html.ActionLink("Audit", "Audit", new { id = Model.Id }, new { @class = "btn btn-info" })}
-    &nbsp;
+        @Html.ActionLink("Audit", "Audit", new { id = Model.Id }, new { @class = "btn btn-info" })
+    }
+    &nbsp; &nbsp;
     @Html.ActionLink("Back to all Extensions", "AllIndex", null, new { @class = "btn btn-primary" })
 </p>

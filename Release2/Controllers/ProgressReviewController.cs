@@ -77,6 +77,17 @@ namespace Release2.Controllers
                 LMCreates = review.LMCreates.FullName,
 
             };
+            // use index template to show competency scores
+            foreach (var item in db.PerformanceCriterions.Where(r => r.ReviewId == review.ReviewId).ToList())
+            {
+                model.Competencies.Add(
+                    new CompetencyViewModel
+                    {
+                        Id = item.CompetencyId,
+                        CompetencyName = item.Competency.CompetencyName,
+                        Score = item.Score,
+                    });
+            }
 
             return View(model);
         }
@@ -131,6 +142,8 @@ namespace Release2.Controllers
                     LMId = User.Identity.IsAuthenticated ? User.Identity.GetUserId<int>() : db.Users.First().Id,
                     EvalDescription = model.EvalDescription,
                     TotalScore = model.TotalScore,
+                    SelfEvaluation = model.SelfEvaluation,
+                    PREvalDescription = model.PREvalDescription,
                     PRCompletionStatus = ProgressReview.CompletionStatus.Incomplete,
                     AssessmentStatus = ProgressReview.Status.Pending,
                     PRSubmissionDate = DateTime.Today
@@ -366,7 +379,6 @@ namespace Release2.Controllers
             }
             else
             {
-                ViewBag.PCId = new SelectList(db.ProbationaryColleagues, "Id", "Username");
                 return View();
             }
         }
@@ -451,7 +463,7 @@ namespace Release2.Controllers
                 var review = db.ProgressReviews.Find(id);
                 if (review != null)
                 {
-                    review.TotalScore = model.TotalScore;
+                    //review.TotalScore = model.TotalScore;
                     review.EvalDescription = model.EvalDescription;
                     review.PREvalDescription = model.PREvalDescription;
                     review.SelfEvaluation = model.SelfEvaluation;
@@ -462,11 +474,11 @@ namespace Release2.Controllers
                     review.PRCompletionStatus = model.PRCompletionStatus;
                     review.SASubmissionDate = model.SASubmissionDate;
                     review.PRDHApprovalStatus = model.PRDHApprovalStatus;
-                    review.PRDHApproveDate = DateTime.Today ;
+                    review.PRDHApproveDate = DateTime.Today;
                     review.PRDHApprovesId = User.Identity.GetUserId<int>();
                     review.PRHRAEvalDecision = ProgressReview.EvaluationDecision.Pending;
 
-                    db.Entry(review).State = System.Data.Entity.EntityState.Modified;
+                    //db.Entry(review).State = System.Data.Entity.EntityState.Modified;
 
                     db.SaveChanges();
 
@@ -483,11 +495,11 @@ namespace Release2.Controllers
             }
         }
 
-        /// <summary>
-        /// This action counts Progress Reviews for HR Associates 
-        /// </summary>
-        /// <returns>Progress Review badge</returns>
-        public ActionResult GetCountReviewsToEvaluatePartial()
+            /// <summary>
+            /// This action counts Progress Reviews for HR Associates 
+            /// </summary>
+            /// <returns>Progress Review badge</returns>
+            public ActionResult GetCountReviewsToEvaluatePartial()
         {
             // Modify the condition inside the Count() to suite your needs
             int count = db.ProgressReviews.Count(p => p.PRHRAEvalDecision == ProgressReview.EvaluationDecision.Pending);
@@ -517,28 +529,27 @@ namespace Release2.Controllers
 
             ProgressReviewViewModel model = new ProgressReviewViewModel
             {
+
                 Id = review.ReviewId,
-                PRCompletionStatus = review.PRCompletionStatus, 
+                PRCompletionStatus = review.PRCompletionStatus,
+                LMId = review.LMId,
+                LMCreates = review.LMCreates.FullName,
+                PCId = review.PCId,
+                ProbationaryColleague = review.ProbationaryColleague.FullName,
+                HREvaluatesId = review.HREvaluatesId,
+                PRDHApprovalStatus = review.PRDHApprovalStatus,
+                PRDHApprovesId = review.PRDHApprovesId,
+                //DHApproval = review.DHApproval,
+                PRDHApproveDate = review.PRDHApproveDate,
                 PREvalDescription = review.PREvalDescription,
                 SelfEvaluation = review.SelfEvaluation,
                 AssessmentStatus = review.AssessmentStatus,
-                LMId = review.LMId,
                 SASubmissionDate = review.SASubmissionDate,
-                LMCreates = review.LMCreates.FullName,
-                PCId = review.PCId,
                 EvalDescription = review.EvalDescription,
-                ProbationaryColleague = review.ProbationaryColleague.FullName,
-                CreationPCId = review.CreationPCId,
-                CreationPC = review.CreationPC.FullName,
-                PRDHApprovalStatus = review.PRDHApprovalStatus,
-                //PRDHApprovesId = review.PRDHApprovesId,
-                //DHApproval = review.DHApproval.FullName,
-                //PRDHApproveDate = review.PRDHApproveDate,
-                PRHRAEvalDate = review.PRHRAEvalDate,
-                PRHRAEvalDecision = review.PRHRAEvalDecision,
-                HREvaluatesId =review.HREvaluatesId,
                 TotalScore = review.TotalScore,
-                //HREvaluation = review.HREvaluation.FullName,
+                CreationPCId = review.CreationPCId,
+                //CreationPC = review.CreationPC.FullName,
+                PRHRAEvalDecision = review.PRHRAEvalDecision,
 
             };
 

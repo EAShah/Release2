@@ -52,25 +52,18 @@ legend.fieldset-border {
     border-color: #28BB4E;
 }
 
- .navbar-inverse .navbar-nav > li > a {
-        color: #ffffff;
-        font-weight: bold;
-        
-}
-
 jumbotron {
     padding: 30px;
     margin-bottom: 30px;
     font-size: 21px;
     font-weight: 200;
     line-height: 2.1428571435;
-    color: inherit;
+    color:  white;
     background-color: #ffffff;
 }
 
 body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
+    font-size: 18px;
     line-height: 1.428571429;
     color: #000000;
     background-color: #ffffff;
@@ -82,9 +75,7 @@ body {
     vertical-align: top;
     border-top: 1px solid #28BB4E;
 }
-.navbar-inverse .navbar-nav > li > a {
-    color: #000000;
-}
+
 
 .pagination > li > a, .pagination > li > span {
     position: relative;
@@ -107,11 +98,11 @@ body {
 
 .badge {
     display: inline-block;
-    min-width: 10px;
+    min-width: 27px;
     padding: 5px 8px;
     font-size: 12px;
     font-weight: bold;
-    line-height: 3;
+    line-height: 4;
     color: #fff;
     text-align: center;
     vertical-align: middle;
@@ -141,7 +132,16 @@ dt, dd {
     margin-right: 5px;
 }
 
-/*body,
+@font-face {
+    font-family: 'Careem';
+    src: url(Careem/Careem-Regular-4.otf) ;
+}
+
+.classname {
+    font-family: Careem;
+}
+
+body,
 h1,
 h2,
 h3,
@@ -154,5 +154,108 @@ h6,
 .h4,
 .h5,
 .h6 {
-    font-family: Lato,"Helvetica Neue", Arial, sans-serif;
+    font-family: Careem;
+}
+
+
+.jumbotron {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    color: inherit;
+    background-color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #ffffff;
+    font-weight: bold;
+}
+/*.navbar-inverse .navbar-nav > li > a {
+    color: #ffffff;
 }*/
+
+.badge {
+    font-size: 14px;
+    color: #28bb4e;
+    background-color: #ffffff;
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background-color: #28bb4e;
+    border-color: #ffffff;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    color: #28bb4e;
+    background-color: #ffffff;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    color: forestgreen;
+}
+
+.dropdown-menu {
+    background-color: #28bb4e;
+}
+
+.dropdown-menu > li > a {
+        color: #fff;
+}
+
+.h1{
+    font-size : large
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #fffdfd;
+}
+
+/*.imgBackground {
+    background-size:  cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background: url('Careem/CAREEM_LOGO_GREEN_WINK.png') no-repeat scroll;
+    /*margin: -8px;
+    background-size: 100% 100%;
+}*/
+
+body {
+    background-image: url('Careem/better 1.png');
+    margin: 0;
+    background-position: bottom center ;
+    background-repeat: no-repeat;
+}
+
+.navbar {
+    min-height: 65px;
+}
+
+.navbar-brand {
+    padding: 0 15px;
+    height: 65px;
+    line-height: 65px;
+}
+
+.navbar-toggle {
+    /* (80px - button height 34px) / 2 = 23px */
+    margin-top: 15.5px;
+    padding: 9px 10px !important;
+}
+
+@media (min-width: 768px) {
+    .navbar-nav > li > a {
+        /* (80px - line-height of 27px) / 2 = 26.5px */
+        padding-top: 19px;
+        padding-bottom: 19px;
+        line-height: 19px;
+    }
+}
+
+    .btn-sm, .btn-group-sm > .btn {
+        font-size: 15px;
+    }
+
+btn {
+    font-size: 18px;
+}

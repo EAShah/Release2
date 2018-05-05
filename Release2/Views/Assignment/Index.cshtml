@@ -11,7 +11,7 @@
     {
         @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })}
     </p>
-<table class="table table-hover" id="assignmentsTable">
+<table class="table table-hover table-striped table-bordered" id="assignmentsTable">
     <thead>
         <tr>
             <th>
@@ -51,7 +51,7 @@
                     @if (ViewContext.HttpContext.User.IsInRole("HRAssociate"))
                     {
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-sm btn-danger" })}&nbsp;
-                    @if (ViewContext.HttpContext.User.IsInRole("LineManager"))
+                    @if (ViewContext.HttpContext.User.IsInRole("LineManager") && item.AssignmentStatus == Project._1.Models.Assignment.AssignStatus.Pending)
     {
                 @Html.ActionLink("Inspect", "Inspect", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })
 }

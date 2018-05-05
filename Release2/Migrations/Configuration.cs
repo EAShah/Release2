@@ -80,7 +80,10 @@ namespace Release2.Migrations
             {
                      new Competency { CompetencyName = "Social Responsibility" },
                      new Competency { CompetencyName = "Knowledge" },
-                     new Competency { CompetencyName = "Management" }
+                     new Competency { CompetencyName = "Time Management" },
+                      new Competency { CompetencyName = "Taking Initiative" },
+                     new Competency { CompetencyName = "Empathy" },
+                     new Competency { CompetencyName = "Dedication" }
             };
 
             competencies.ForEach(c => context.Competencies.AddOrUpdate(p => p.CompetencyName, c));
