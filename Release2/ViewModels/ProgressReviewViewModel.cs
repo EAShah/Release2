@@ -25,11 +25,8 @@ namespace Release2.ViewModels
         {
             Competencies = new List<CompetencyViewModel>();
             PerformanceReviews = new List<PerformanceCriterion>();
-            //Scores = new List<int>();
         }
     
-        // faq and contact page -- LOOKUP WELCOME PAGES AND ABOUT AND FAQ PAGES
-
         public int Id { get; set; }
 
         // Fields of the Progress Review
@@ -119,7 +116,5 @@ namespace Release2.ViewModels
 
         public virtual List<CompetencyViewModel> Competencies { get; set; }
 
-        //public virtual List<int> Scores { get; set; }
-        //public virtual ICollection<PerformanceCriterion> PerformanceCriteria { get; set; }
     }
 }

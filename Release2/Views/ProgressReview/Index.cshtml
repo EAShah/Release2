@@ -63,7 +63,7 @@
                  {
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })
                  }&nbsp;
-                @if (ViewContext.HttpContext.User.IsInRole("ProbationaryColleague") && item.PRDHApprovalStatus == Project._1.Models.ProgressReview.ApprovalStatus.Pending)
+                @if (ViewContext.HttpContext.User.IsInRole("ProbationaryColleague") && item.AssessmentStatus == Project._1.Models.ProgressReview.Status.Pending)
                  {
                     @Html.ActionLink("Assess", "Assess", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })
                  }&nbsp;
@@ -71,7 +71,7 @@
                  {
                     @Html.ActionLink("Evaluate", "Evaluate", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })
                  }&nbsp;
-                @if (ViewContext.HttpContext.User.IsInRole("DepartmentHead") && item.AssessmentStatus == Project._1.Models.ProgressReview.Status.Submitted)
+                @if (ViewContext.HttpContext.User.IsInRole("DepartmentHead") && item.PRDHApprovalStatus == Project._1.Models.ProgressReview.ApprovalStatus.Pending)
                  {
                     @Html.ActionLink("Approve", "Approve", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })
                  }
